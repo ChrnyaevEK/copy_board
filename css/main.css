@@ -3,7 +3,7 @@
     max-height: 100%;
 }
 
-.scroll-section::-webkit-scrollbar {
+.hide-slider::-webkit-scrollbar {
     display: none;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .board-collection {
-    border: none;    
+    border: none;
 }
 
 .board-collection .board-name {
@@ -29,4 +29,9 @@
     display: flex;
 }
 
-
+#collection-add-tool .collection-color-mark {
+    width: 100%;
+    border: none;
+    border-width: 0;
+    height: 4em;
+}

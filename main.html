@@ -90,37 +90,69 @@
 
 
                 <!-- Collection add tool -->
-                <div id="collection-add-tool" class="modal">
+                <div id="collection-add-tool" class="modal hide-slider">
+                    <!-- <div class="modal-content center-align">
+                        <div class="preloader-wrapper small active">
+                            <div class="spinner-layer spinner-green-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+                    </div> -->
                     <div class="modal-content">
                         <h4>Collection</h4>
-                        <p>Create new collection to store copy cards</p>
+                        <p>Create new collection to store copy cards. Required fields are marked with *</p>
                         <div class="row">
-                            <div class="input-field col s12">
-                                <h5> Collection name*</h5>
+                            <div class="input-field col s5">
+                                <h6> Collection name*</h6>
                                 <input placeholder="New nice collection" type="text">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <h5> Collection description </h5>
+                            <div class="input-field col s5">
+                                <h6> Collection description </h6>
                                 <input placeholder="This is my personal collection" type="text">
                             </div>
+                            <div class="col s2">
+                                <h6> Color mark </h6>
+                                <input type="color" class="collection-color-mark" value="#ffffff">
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col s3">
-                                <h5> Public</h5>
-                                <div class="switch">
+                            <div class="col s4">
+                                <h6 class="valign-wrapper">Access control</h6>
+                                <p>
                                     <label>
-                                        Off
-                                        <input type="checkbox">
-                                        <span class="lever"></span>
-                                        On
+                                        <input name="group1" type="radio" checked />
+                                        <span class="tooltipped" data-position="bottom"
+                                            data-tooltip="When board becomes public, every one, may use public copy cards">
+                                            Public (default)
+                                            <i class="material-icons right">info_outline</i>
+                                        </span>
                                     </label>
-                                </div>
-                            </div>
-                            <div class="col s3">
-                                <h5>Expire date</h5>
-                                <input type="text" class="datepicker">
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" />
+                                        <span class="tooltipped" data-position="bottom"
+                                        data-tooltip="When board becomes private, no one is allowed to access copy cards, but owner">
+                                        Private
+                                        <i class="material-icons right">info_outline</i>
+                                    </span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" />
+                                        <span class="tooltipped" data-position="bottom"
+                                        data-tooltip="Access copy cards with password">
+                                        Protected
+                                        <i class="material-icons right">info_outline</i>
+                                    </label>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -146,7 +178,7 @@
 
 
 
-<!-- 
+        <!-- 
                      <div class="row">
                     <div class="col s6 l3">
                         <div class="card ccard">
