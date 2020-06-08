@@ -1,0 +1,32 @@
+.scroll-section {
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.scroll-section::-webkit-scrollbar {
+    display: none;
+}
+
+.card {
+    margin: 1em;
+}
+
+.board-collection {
+    border: none;    
+}
+
+.board-collection .board-name {
+    width: 100%;
+}
+
+.ccard .ccard-color-mark {
+    height: 20px;
+}
+
+.full-size {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+
