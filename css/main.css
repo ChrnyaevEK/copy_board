@@ -7,31 +7,45 @@
     display: none;
 }
 
-.card {
-    margin: 1em;
+/* Regular button */
+
+.create-button-tool.regular-button .create-button-content, .create-button-title, .create-button-description {
+    font-size: 1.4em !important;
+    font-weight: 400;
 }
 
-.board-collection {
-    border: none;
+.create-button-tool.regular-button .create-button-content {
+    resize: vertical;
+    margin: .5em 0 0 0;
+    border-style: dotted;
+    border-radius: 0.2em;
 }
 
-.board-collection .board-name {
+.create-button-tool.regular-button .create-button-color {
     width: 100%;
-}
-
-.ccard .ccard-color-mark {
-    height: 20px;
-}
-
-.full-size {
-    height: 100%;
-    width: 100%;
-    display: flex;
-}
-
-#collection-add-tool .collection-color-mark {
-    width: 100%;
+    margin: .5em 0 0 0;
     border: none;
     border-width: 0;
-    height: 4em;
+    height: 2em;
+}
+
+/* Collection creation */
+
+.create-collection-tool .create-collection-color {
+    width: 100%;
+    margin: .5em 0 0 0;
+    border: none;
+    border-width: 0;
+    height: 2em;
+}
+
+/* List of collections */
+
+.list-collection {
+    min-height: 15vh;
+    max-height: 30vh;
+}
+
+.list-collection .list-collection-title {
+    width: 100%;
 }
