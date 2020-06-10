@@ -5,4 +5,6 @@ $(document).ready(function () {
     $('.tooltipped').tooltip();
     $('select').formSelect();
     $('.collapsible').collapsible();
+    $('.fixed-action-btn').floatingActionButton();
+    $('.dropdown-trigger').dropdown();
 });

@@ -36,130 +36,103 @@
         <li><a href="#">Sign up</a></li>
         <li class="green lighten-1"><a href="#!">Log in</a></li>
     </ul>
-
-
-
     <div class="row">
         <div class="col s12 l3">
-            <p>
-            <h5>My collections ...</h5>
-            </p>
-            <ul class="list-collection collection scroll-section">
-                <li class="collection-item lime lighten-4">
-                    <span class="valign-wrapper">
-                        <span class="list-collection-color-mark red"></span>
+            <div class="list-collection">
+                <div class="card lime lighten-4">
+                    <div class="card-content">
                         <span class="list-collection-title">Main</span>
-                        <span class="new badge">1</span>
+                        <a href="#" class="dropdown-trigger right" data-target='dropdown-1'>
+                            <i class="material-icons">more_vert</i>
+                        </a>
                         <span class="badge">11</span>
-                        <i class="material-icons right-align red-text">more_vert</i>
-                    </span>
-                </li>
-                <li class="collection-item">
-                    <span class="valign-wrapper">
-                        <span class="list-collection-title">Test</span>
-                        <span class="badge">11</span>
-                        <i class="material-icons right-align red-text">more_vert</i>
-                    </span>
-                </li>
-                <li class="collection-item">
-                    <span class="valign-wrapper">
-                        <span class="list-collection-title">Test</span>
-                        <span class="badge">14</span>
-                        <i class="material-icons right-align red-text">more_vert</i>
-                    </span>
-                </li>
-                <li class="collection-item">
-                    <span class="valign-wrapper">
-                        <span class="list-collection-title">Test</span>
                         <span class="new badge">1</span>
-                        <span class="badge">12</span>
-                        <i class="material-icons right-align red-text">more_vert</i>
-                    </span>
-                </li>
-            </ul>
+                    </div>
+                    <ul id="dropdown-1" class="list-collection-dropdown dropdown-content">
+                        <li><a href="#!">Share</a></li>
+                        <li><a href="#!">Delete</a></li>
+                    </ul>
+                </div>
+            </div>
 
-            <p>
-                <h5>Collection</h5>
-                </p>
-                <ul class="collapsible">
-                    <li class="create-collection-tool">
-                        <!-- Creation tool for collections -->
-                        <div class="collapsible-header"><i class="material-icons">terrain</i>Collection</div>
-                        <div class="collapsible-body">
-                            <div class="row">
-                                <div class="col s12">
+            <ul class="collapsible">
+                <li class="create-collection-tool">
+                    <!-- Creation tool for collections -->
+                    <div class="collapsible-header valign-wrapper">
+                        <i class="material-icons">control_point_duplicate</i>
+                        <span class="create-collection-header">Collection</span>
+                        <a class="btn" disabled>save</a>
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="col s12">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus sodales ex,
+                                    non pellentesque dui condimentum quis. Cras sit amet nibh eu lacus fermentum dapibus
+                                    non vel justo.
+                                </p>
+                                <div class="row">
+                                    <label>
+                                        <input placeholder="Title..." class="create-collection-title">
+                                        Title will briefly describe your button
+                                    </label>
+
+                                    <label>
+                                        <input placeholder="Description..." class="create-collection-description">
+                                        Just for you, tell something about it
+                                    </label>
+                                    <label>
+                                        <input type="color" class="create-collection-color" value="#ffffff">
+                                        Chose button color
+                                    </label>
+
+                                </div>
+                                <div class="row">
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus sodales ex,
-                                        non pellentesque dui condimentum quis. Cras sit amet nibh eu lacus fermentum dapibus
-                                        non vel justo.
+                                        <label>
+                                            <input name="group1" type="radio" checked />
+                                            <span class="tooltipped" data-position="bottom"
+                                                data-tooltip="When board becomes public, every one, may use public copy cards">
+                                                Public (default)
+                                                <i class="material-icons right">info_outline</i>
+                                            </span>
+                                        </label>
                                     </p>
-                                    <div class="row">
+                                    <p>
                                         <label>
-                                            <input placeholder="Title..." class="create-collection-title">
-                                            Title will briefly describe your button
+                                            <input name="group1" type="radio" />
+                                            <span class="tooltipped" data-position="bottom"
+                                                data-tooltip="When board becomes private, no one is allowed to access copy cards, but owner">
+                                                Private
+                                                <i class="material-icons right">info_outline</i>
+                                            </span>
                                         </label>
-    
+                                    </p>
+                                    <p>
                                         <label>
-                                            <input placeholder="Description..." class="create-collection-description">
-                                            Just for you, tell something about it
+                                            <input name="group1" type="radio" />
+                                            <span class="tooltipped" data-position="bottom"
+                                                data-tooltip="Access copy cards with password">
+                                                Protected
+                                                <i class="material-icons right">info_outline</i>
                                         </label>
-                                        <label>
-                                            <input type="color" class="create-collection-color" value="#ffffff">
-                                            Chose button color
-                                        </label>
-    
-                                    </div>
-                                    <div class="row">
-                                        <p>
-                                            <label>
-                                                <input name="group1" type="radio" checked />
-                                                <span class="tooltipped" data-position="bottom"
-                                                    data-tooltip="When board becomes public, every one, may use public copy cards">
-                                                    Public (default)
-                                                    <i class="material-icons right">info_outline</i>
-                                                </span>
-                                            </label>
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input name="group1" type="radio" />
-                                                <span class="tooltipped" data-position="bottom"
-                                                    data-tooltip="When board becomes private, no one is allowed to access copy cards, but owner">
-                                                    Private
-                                                    <i class="material-icons right">info_outline</i>
-                                                </span>
-                                            </label>
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input name="group1" type="radio" />
-                                                <span class="tooltipped" data-position="bottom"
-                                                    data-tooltip="Access copy cards with password">
-                                                    Protected
-                                                    <i class="material-icons right">info_outline</i>
-                                            </label>
-                                        </p>
-                                    </div>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </li>
-                </ul>
-                <div class="row create-button-toolbar right-align">
-                    <div class="col s12">
-                        <button class="btn waves-effect waves-light red lighten-2">CLEAR</button>
-                        <button class="btn waves-effect waves-light">ADD</button>
                     </div>
-                </div>
+                </li>
+            </ul>
 
 
-            <p>
-            <h5>Button</h5>
-            </p>
             <ul class="collapsible">
                 <li class="create-button-tool regular-button">
                     <!-- Creation tool for regular button -->
-                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Regular button</div>
+                    <div class="collapsible-header valign-wrapper">
+                        <i class="material-icons">control_point</i>
+                        <span class="create-button-header">Regular button</span>
+                        <button class="btn" disabled>save</button>
+                    </div>
                     <div class="collapsible-body">
                         <div class="row">
                             <div class="col s12">
@@ -196,109 +169,52 @@
             </ul>
 
 
-            <div class="row create-button-toolbar right-align">
-                <div class="col s12">
-                    <button class="btn waves-effect waves-light red lighten-2">CLEAR</button>
-                    <button class="btn waves-effect waves-light">ADD</button>
+        </div>
+        <div class="col s12 l9">
+            <div class="row">
+                <div class="col s6 l3">
+                    <div class="button-card-regular card sticky-action">
+                        <div class="red"></div>
+                        <div class="card-content">
+                            <span class="card-title">
+                                Card Title
+                                <a href="#"><i class="activator material-icons right">more_vert</i></a>
+                            </span>
+                            <p>
+                                I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.
+                            </p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title"><i class="material-icons right">close</i></span>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn button-card-copy">copy</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
-    </div>
-
-
-
-
-    <!-- 
-                     <div class="row">
-                    <div class="col s6 l3">
-                        <div class="card ccard">
-                            <div class="red ccard-color-mark"></div>
-                            <div class="card-content">
-                                <span class="card-title">Card Title</span>
-                                <p>I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div class="card-action center-align">
-                                <a href="#">copy</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s6 l3">
-                        <div class="card ccard">
-                            <div class="red ccard-color-mark"></div>
-                            <div class="card-content">
-                                <span class="card-title">Card Title</span>
-                                <p>I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div class="card-action center-align">
-                                <a href="#">copy</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s6 l3">
-                        <div class="card ccard">
-                            <div class="blue ccard-color-mark"></div>
-                            <div class="card-content">
-                                <span class="card-title">Card Title</span>
-                                <p>I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div class="card-action center-align">
-                                <a href="#">copy</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-
-
-
-
-
- -->
-
-
 
 
 

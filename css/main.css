@@ -3,11 +3,15 @@
     max-height: 100%;
 }
 
-.hide-slider::-webkit-scrollbar {
+::-webkit-scrollbar {
     display: none;
 }
 
 /* Regular button */
+
+.create-button-tool .create-button-header {
+    width: 100%;
+}
 
 .create-button-tool.regular-button .create-button-content, .create-button-title, .create-button-description {
     font-size: 1.4em !important;
@@ -39,13 +43,22 @@
     height: 2em;
 }
 
+.create-collection-tool .create-collection-header {
+    width: 100%;
+}
+
 /* List of collections */
 
 .list-collection {
-    min-height: 15vh;
     max-height: 30vh;
 }
 
 .list-collection .list-collection-title {
+    width: 100%;
+}
+
+/* Button card - regular */
+
+.button-card-regular .button-card-copy {
     width: 100%;
 }
