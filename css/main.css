@@ -67,8 +67,12 @@
 
 /* Button card - regular */
 
+.button-card-regular .card-action {
+    display: flex;
+}
+
 .button-card-regular .button-card-copy {
-    width: 100%;
+    width: 100%;   
 }
 
 .button-card-area .card {
