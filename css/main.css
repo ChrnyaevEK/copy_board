@@ -62,3 +62,7 @@
 .button-card-regular .button-card-copy {
     width: 100%;
 }
+
+.button-card-area .card {
+    border-width: 0 .2rem;
+}
