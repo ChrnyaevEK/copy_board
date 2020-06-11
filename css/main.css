@@ -25,12 +25,20 @@
     border-radius: 0.2em;
 }
 
-.create-button-tool.regular-button .create-button-color {
-    width: 100%;
-    margin: .5em 0 0 0;
-    border: none;
-    border-width: 0;
-    height: 2em;
+.create-collection-button-color {
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-collection-button-color .color {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.create-collection-button-color .color.active {
+    border-width: 2px;
+    border-style: dotted;
 }
 
 /* Collection creation */
