@@ -29,7 +29,7 @@ class CCardBuilder {
     }
 }
 
-class RegularCCardBuilder_ extends CCardBuilder{
+class CCardRegularBuilder_ extends CCardBuilder{
     constructor() {
         super()
         this.toolIndex = 0
@@ -78,7 +78,7 @@ class RegularCCardBuilder_ extends CCardBuilder{
     }
 }
 
-class RegularCCardBuilder extends RegularCCardBuilder_ {
+class CCardRegularBuilder extends CCardRegularBuilder_ {
     onSave(data) { 
         // Called on save button request, generated data will be passed
     }
