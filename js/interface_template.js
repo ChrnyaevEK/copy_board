@@ -1,11 +1,4 @@
-cl = console.log
-class Template {
-    constructor(selector) {
-        this.origin = $(`.${selector}.template`).clone().removeClass('template')
-    }
-}
-
-class Button extends Template{
+class CCard extends Template{
     copyNoFormat(text) {
         var $temp = $("<input>");
         $("body").append($temp);
@@ -15,7 +8,7 @@ class Button extends Template{
     }
 }
 
-class RegularButton extends Clipboard{
+class CCardRegular extends CCard{
     constructor(data) {
         super('button-card-regular')
         this.color = data.color
@@ -29,18 +22,18 @@ class RegularButton extends Clipboard{
     }
 }
 
-class ButtonBuilder {
+class CCardBuilder {
     constructor() {
         this.origin = $('#create-button-tool')
         this.collapsible = M.Collapsible.getInstance(this.origin)
     }
 }
 
-class RegularButtonBuilder_ extends ButtonBuilder{
+class RegularCCardBuilder_ extends CCardBuilder{
     constructor() {
         super()
         this.toolIndex = 0
-        this.workspace = this.origin.find('li.regular-button')
+        this.workspace = this.origin.find('li.ccard-regular')
         this.title = this.workspace.find('[field=title]')
         this.description  = this.workspace.find('[field=description]')
         this.content = this.workspace.find('[field=content]')
@@ -85,8 +78,9 @@ class RegularButtonBuilder_ extends ButtonBuilder{
     }
 }
 
-class RegularButtonBuilder extends RegularButtonBuilder_ {
+class RegularCCardBuilder extends RegularCCardBuilder_ {
     onSave(data) { 
         // Called on save button request, generated data will be passed
     }
 }
+

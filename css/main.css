@@ -9,41 +9,41 @@
 
 /* Regular button */
 
-#create-button-tool .create-button-header {
+#ccard-builder .ccard-header {
     width: 100%;
 }
 
-#create-button-tool .regular-button .create-button-content, .create-button-title, .create-button-description {
+#ccard-builder .ccard-content, .ccard-title, .ccard-description {
     font-size: 1.4em !important;
     font-weight: 400;
 }
 
-#create-button-tool .regular-button .create-button-content {
+#ccard-builder .create-button-content {
     resize: vertical;
     margin: .5em 0 0 0;
     border-style: dotted;
     border-radius: 0.2em;
 }
 
-.create-collection-button-color {
+#ccard-builder .ccard-color {
     display: flex;
     justify-content: space-between;
 }
 
-.create-collection-button-color .color {
+#ccard-builder [data-color] {
     width: 100%;
     height: 1rem;
     cursor: pointer;
 }
 
-.create-collection-button-color .color.active {
-    border-width: 2px;
+#ccard-builder [data-color].active {
+    border-width: 1px;
     border-style: dotted;
 }
 
 /* Collection creation */
 
-#create-collection-tool .create-collection-color {
+#ccollection-builder .ccollection-color {
     width: 100%;
     margin: .5em 0 0 0;
     border: none;
@@ -51,31 +51,31 @@
     height: 2em;
 }
 
-#create-collection-tool .create-collection-header {
+#ccollection-builder .ccollection-header {
     width: 100%;
 }
 
 /* List of collections */
 
-.list-collection {
+#ccollection-holder {
     max-height: 30vh;
 }
 
-.list-collection .list-collection-title {
+#ccollection-holder .ccollection-title {
     width: 100%;
 }
 
 /* Button card - regular */
 
-.button-card-regular .card-action {
+.ccard-regular .card-action {
     display: flex;
 }
 
-.button-card-regular .button-card-copy {
+.ccard-regular .ccard-regular-copy {
     width: 100%;   
 }
 
-.button-card-area .card {
+.ccard-holder .card {
     border-width: 0 .2rem;
 }
 
