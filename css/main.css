@@ -9,16 +9,16 @@
 
 /* Regular button */
 
-.create-button-tool .create-button-header {
+#create-button-tool .create-button-header {
     width: 100%;
 }
 
-.create-button-tool.regular-button .create-button-content, .create-button-title, .create-button-description {
+#create-button-tool .regular-button .create-button-content, .create-button-title, .create-button-description {
     font-size: 1.4em !important;
     font-weight: 400;
 }
 
-.create-button-tool.regular-button .create-button-content {
+#create-button-tool .regular-button .create-button-content {
     resize: vertical;
     margin: .5em 0 0 0;
     border-style: dotted;
@@ -31,7 +31,7 @@
 }
 
 .create-collection-button-color .color {
-    width: 1rem;
+    width: 100%;
     height: 1rem;
     cursor: pointer;
 }
@@ -43,7 +43,7 @@
 
 /* Collection creation */
 
-.create-collection-tool .create-collection-color {
+#create-collection-tool .create-collection-color {
     width: 100%;
     margin: .5em 0 0 0;
     border: none;
@@ -51,7 +51,7 @@
     height: 2em;
 }
 
-.create-collection-tool .create-collection-header {
+#create-collection-tool .create-collection-header {
     width: 100%;
 }
 
@@ -77,4 +77,8 @@
 
 .button-card-area .card {
     border-width: 0 .2rem;
+}
+
+.template, .hidden {
+    display: none;
 }

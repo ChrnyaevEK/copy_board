@@ -14,7 +14,7 @@
 <body>
     <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper">
+            <div class="nav-wrapper teal">
                 <a href="#!" class="brand-logo">Copy board</a>
                 <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
@@ -23,7 +23,7 @@
                     <li><a href="#">Examples</a></li>
                     <li><a href="#">Support</a></li>
                     <li><a href="#">Sign up</a></li>
-                    <li class="green lighten-1"><a href="#">Log in</a></li>
+                    <li class="teal lighten-2"><a href="#">Log in</a></li>
                 </ul>
             </div>
         </nav>
@@ -34,7 +34,7 @@
         <li><a href="#">Examples</a></li>
         <li><a href="#">Support</a></li>
         <li><a href="#">Sign up</a></li>
-        <li class="green lighten-1"><a href="#!">Log in</a></li>
+        <li class="teal lighten-2"><a href="#!">Log in</a></li>
     </ul>
     <div class="row">
         <!-- Toolbar - left column -->
@@ -45,13 +45,13 @@
             <!-- List of collections -->
             <div class="list-collection">
                 <!-- Collection representation -->
-                <div class="card lime lighten-4">
+                <div class="card">
                     <div class="card-content">
                         <span class="list-collection-title">Main</span>
                         <a href="#" class="dropdown-trigger right" data-target='dropdown-1'>
-                            <i class="material-icons">more_vert</i>
+                            <i class="material-icons teal-text">more_vert</i>
                         </a>
-                        <span class="badge">11</span>
+                        <span class="badge">1</span>
                         <span class="new badge">1</span>
                     </div>
                     <ul id="dropdown-1" class="list-collection-dropdown dropdown-content">
@@ -64,9 +64,9 @@
             <h6>Tools</h6>
             <div class="divider"></div>
             <!-- Tools to create collection -->
-            <ul class="collapsible">
+            <ul id="create-collection-tool" class="collapsible">
                 <!-- Tool to create regular collection (some other tools will be added in future) -->
-                <li class="create-collection-tool">
+                <li>
                     <div class="collapsible-header valign-wrapper">
                         <i class="material-icons">control_point_duplicate</i>
                         <span class="create-collection-header">Collection</span>
@@ -91,16 +91,16 @@
                                     </label>
                                     <p>
                                     <div class="create-collection-button-color">
-                                        <span class="color blue lighten-3 active"></span>
-                                        <span class="color cyan lighten-3"></span>
-                                        <span class="color teal lighten-3"></span>
-                                        <span class="color green lighten-3"></span>
-                                        <span class="color lime lighten-3"></span>
-                                        <span class="color orange lighten-3"></span>
-                                        <span class="color red lighten-3"></span>
-                                        <span class="color pink lighten-3"></span>
-                                        <span class="color purple lighten-3"></span>
-                                        <span class="color indigo lighten-3"></span>
+                                        <span data-color="blue" class="color blue lighten-3 active"></span>
+                                        <span data-color="cyan" class="color cyan lighten-3"></span>
+                                        <span data-color="teal" class="color teal lighten-3"></span>
+                                        <span data-color="green" class="color green lighten-3"></span>
+                                        <span data-color="lime" class="color lime lighten-3"></span>
+                                        <span data-color="orange" class="color orange lighten-3"></span>
+                                        <span data-color="red" class="color red lighten-3"></span>
+                                        <span data-color="pink" class="color pink lighten-3"></span>
+                                        <span data-color="purple" class="color purple lighten-3"></span>
+                                        <span data-color="indigo" class="color indigo lighten-3"></span>
                                     </div>
                                     <label>Chose button color</label>
                                     </p>
@@ -145,9 +145,10 @@
             </ul>
 
             <!-- Tools to create buttons -->
-            <ul class="collapsible">
+            <ul id="create-button-tool" class="collapsible">
                 <!-- Tool to create regular button -->
-                <li class="create-button-tool regular-button">
+                <!-- TODO Tool as form -->
+                <li class="regular-button">
                     <div class="collapsible-header valign-wrapper">
                         <i class="material-icons">control_point</i>
                         <span class="create-button-header">Regular button</span>
@@ -161,39 +162,47 @@
                                     non vel justo.
                                 </p>
                                 <label>
-                                    <input placeholder="Title..." class="create-button-title">
-                                    Title will briefly describe your button
+                                    <input field="title" placeholder="Title..." class="create-button-title">
+                                    <div>
+                                        Title will briefly describe your button
+                                    </div>
                                 </label>
 
                                 <label>
-                                    <input placeholder="Description..." class="create-button-description">
+                                    <input field="description" placeholder="Description..."
+                                        class="create-button-description">
                                     Just for you, tell something about it
                                 </label>
 
-                                <label>
-                                    <textarea class="create-button-content" rows="10"
-                                        placeholder="Some useful info..."></textarea>
-                                    Button content will be copied to clipboard!
-                                </label>
+                                <p>
+                                    <label>
+                                        <textarea field="content" class="create-button-content" rows="10"
+                                            placeholder="Some useful info..."></textarea>
+                                        <span class="center-align"> 
+                                            Button content will be copied to clipboard!
+                                            <a href="#" field="textarea-clear" class="grey-text lighten-1"><i class="material-icons right">delete</i></a>
+                                        </span>
+                                    </label>
+                                </p>
 
                                 <p>
-                                <div class="create-collection-button-color">
-                                    <span class="color blue lighten-3 active"></span>
-                                    <span class="color cyan lighten-3"></span>
-                                    <span class="color teal lighten-3"></span>
-                                    <span class="color green lighten-3"></span>
-                                    <span class="color lime lighten-3"></span>
-                                    <span class="color orange lighten-3"></span>
-                                    <span class="color red lighten-3"></span>
-                                    <span class="color pink lighten-3"></span>
-                                    <span class="color purple lighten-3"></span>
-                                    <span class="color indigo lighten-3"></span>
+                                <div field="color" class="create-collection-button-color">
+                                    <span data-color="blue" class="color blue lighten-3 active"></span>
+                                    <span data-color="cyan" class="color cyan lighten-3"></span>
+                                    <span data-color="teal" class="color teal lighten-3"></span>
+                                    <span data-color="green" class="color green lighten-3"></span>
+                                    <span data-color="lime" class="color lime lighten-3"></span>
+                                    <span data-color="orange" class="color orange lighten-3"></span>
+                                    <span data-color="red" class="color red lighten-3"></span>
+                                    <span data-color="pink" class="color pink lighten-3"></span>
+                                    <span data-color="purple" class="color purple lighten-3"></span>
+                                    <span data-color="indigo" class="color indigo lighten-3"></span>
                                 </div>
                                 <label>Chose button color</label>
                                 </p>
                                 <p><span class="new badge left" data-badge-caption="xxx-xxx-xxx">id</span></p>
                             </div>
-                            <button class="btn right" disabled>save</button>
+                            <button field="save" class="btn right" disabled>save</button>
                         </div>
                     </div>
                 </li>
@@ -204,26 +213,21 @@
         <!-- Buttons area - center -->
         <div class="col s12 l6 button-card-area">
             <!-- Button's card -->
-            <div class="button-card-regular card sticky-action col s12 m6 xl4">
-                <div class="red"></div>
+            <div class="button-card-regular template card sticky-action col s12 m6 xl4">
                 <div class="card-content">
-                    <span class="card-title truncate">
-                        Card Title Card Title Card Title Card Title Card Title Card Title
-                    </span>
-                    <p class="truncate">
-                        I am a very simple card. I am good at containing small bits of information.
-                        I am convenient because I require little markup to use effectively.
-                    </p>
+                    <span class="card-title truncate"></span>
+                    <p class="truncate card-body"></p>
+                    <input class="copy-area hidden">
                 </div>
                 <div class="card-action">
-                    <button class="btn button-card-copy">copy</button>  
-                    <i class="material-icons dropdown-trigger right" data-target='dropdown-2' >more_vert</i>
-                    <ul id="dropdown-2" class="dropdown-content">
-                        <li><a href="#!">Share</a></li>
-                        <li><a href="#!">Delete</a></li>
-                    </ul>
+                    <button class="btn button-card-copy">copy</button>
+                    <!-- <i class="material-icons dropdown-trigger right" data-target="none">more_vert</i>
+                    <ul id="none" class="dropdown-content">
+                        <li><a href="#!" data-share="">Share</a></li>
+                        <li><a href="#!" data-delete="">Delete</a></li>
+                    </ul> -->
                 </div>
-                            
+
             </div>
         </div>
     </div>
@@ -250,7 +254,10 @@
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/gui.js"></script>
+    <script type="text/javascript" src="js/core.js"></script>
+    <script type="text/javascript" src="js/init_materialize.js"></script>
+    <script type="text/javascript" src="js/interface_template.js"></script>
+    <script type="text/javascript" src="js/interface.js"></script>
 </body>
 
 </html>
