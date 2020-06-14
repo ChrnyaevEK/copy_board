@@ -10,7 +10,7 @@ class CCard extends Template{
 
 class CCardRegular extends CCard{
     constructor(data) {
-        super('button-card-regular')
+        super('ccard-regular')
         this.color = data.color
         this.title = data.title
         this.description = data.description
@@ -24,7 +24,7 @@ class CCardRegular extends CCard{
 
 class CCardBuilder {
     constructor() {
-        this.origin = $('#create-button-tool')
+        this.origin = $('#ccard-builder')
         this.collapsible = M.Collapsible.getInstance(this.origin)
     }
 }
