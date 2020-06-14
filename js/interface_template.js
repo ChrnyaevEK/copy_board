@@ -11,20 +11,27 @@ class CCard extends Template{
 class CCardRegular extends CCard{
     constructor(data) {
         super('ccard-regular')
-        this.color = data.color
-        this.title = data.title
-        this.description = data.description
+        this.origin.addClass(data.color)
+        this.origin.find('[field=title]').text(data.title)
+        this.origin.find('[field=description]').text(data.description || '')
+        if (data.content) {
+            this.origin.find('[field=content]').text(data.content).removeClass('hidden')
+            this.origin.find('[field=copy]').click((event)=>{
+                __noEventPropagation(event)
+                this.copyNoFormat()
+            })
+        }
         this.content = data.content
     }
 
     copyNoFormat() {
-        if (this.body !== undefined ) super.copyNoFormat(this.body)
+        if (this.content !== undefined ) super.copyNoFormat(this.content)
     }
 }
 
-class CCardBuilder {
+class CCardBuilder extends Block{
     constructor() {
-        this.origin = $('#ccard-builder')
+        super($('#ccard-builder'))
         this.collapsible = M.Collapsible.getInstance(this.origin)
     }
 }
@@ -33,7 +40,7 @@ class CCardRegularBuilder_ extends CCardBuilder{
     constructor() {
         super()
         this.toolIndex = 0
-        this.workspace = this.origin.find('li.ccard-regular')
+        this.workspace = this.origin.find('li.ccard-builder-regular')
         this.title = this.workspace.find('[field=title]')
         this.description  = this.workspace.find('[field=description]')
         this.content = this.workspace.find('[field=content]')
@@ -84,3 +91,8 @@ class CCardRegularBuilder extends CCardRegularBuilder_ {
     }
 }
 
+class CCardHolder extends Block{
+    constructor() {
+        super($('#ccard-holder'))
+    }
+}

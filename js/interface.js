@@ -9,5 +9,9 @@ class Data {
     hashCode = s => s.split('').reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0)
 }
 
-rccb = new CCardRegularBuilder()
-rccb.init()
+let cCardHolder = new CCardHolder()
+let cCardRegularBuilder = new CCardRegularBuilder()
+cCardRegularBuilder.onSave = data => {
+    cCardHolder.prepend(new CCardRegular(data))
+}
+cCardRegularBuilder.init()

@@ -7,7 +7,9 @@
     display: none;
 }
 
-/* Regular button */
+#tool-holder {
+    max-height: 90vh;
+}
 
 #ccard-builder .ccard-header {
     width: 100%;
@@ -43,14 +45,6 @@
 
 /* Collection creation */
 
-#ccollection-builder .ccollection-color {
-    width: 100%;
-    margin: .5em 0 0 0;
-    border: none;
-    border-width: 0;
-    height: 2em;
-}
-
 #ccollection-builder .ccollection-header {
     width: 100%;
 }
@@ -67,18 +61,52 @@
 
 /* Button card - regular */
 
+.ccard-regular .card-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.ccard-regular .ccard-regular-content {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 .ccard-regular .card-action {
     display: flex;
 }
 
 .ccard-regular .ccard-regular-copy {
-    width: 100%;   
+    width: 100%;
 }
 
-.ccard-holder .card {
-    border-width: 0 .2rem;
+#ccard-holder {
+    padding-top: 1em;
+    max-height: 90vh;
 }
 
 .template, .hidden {
-    display: none;
+    display: none !important;
+}
+
+.dropdown-content {
+    position: fixed;
+    z-index: 100000000;
+}
+
+.masonry {
+    /* Masonry container */
+    column-count: 4;
+    column-gap: 1em;
+}
+
+.item {
+    /* Masonry bricks or child elements */
+    background-color: #eee;
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
 }

@@ -79,7 +79,7 @@ class Template extends Block {
      * @param {string} template name of template
      */
     constructor(template) {
-        super($(`.${template}.template`).clone().removeClass('template'))
+        super($(`.${template}.template`).clone())
         this.origin.removeClass('template')
     }
 }
