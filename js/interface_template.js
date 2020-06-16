@@ -13,7 +13,6 @@ class CCardRegular extends CCard{
         super('ccard-regular')
         this.origin.addClass(data.color)
         this.origin.find('[field=title]').text(data.title)
-        this.origin.find('[field=description]').text(data.description || '')
         if (data.content) {
             this.origin.find('[field=content]').text(data.content).removeClass('hidden')
             this.origin.find('[field=copy]').click((event)=>{
@@ -42,7 +41,6 @@ class CCardRegularBuilder_ extends CCardBuilder{
         this.toolIndex = 0
         this.workspace = this.origin.find('li.ccard-builder-regular')
         this.title = this.workspace.find('[field=title]')
-        this.description  = this.workspace.find('[field=description]')
         this.content = this.workspace.find('[field=content]')
         this.clearContent = this.workspace.find('[field=textarea-clear]')
         this.color = this.workspace.find('[field=color]')
@@ -78,7 +76,6 @@ class CCardRegularBuilder_ extends CCardBuilder{
     generate() {
         return {
             title: this.title.val(),
-            description: this.description.val(),
             content: this.content.val(),
             color: this.color.find('.active').data('color')
         }

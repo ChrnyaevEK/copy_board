@@ -1,6 +1,5 @@
 var cCard = {
     title: 'Test button',
-    description: 'Test description',
     content: 'Test button body',
     color: 'lime'
 }

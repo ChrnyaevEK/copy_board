@@ -7,5 +7,13 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.fixed-action-btn').floatingActionButton();
     $('.dropdown-trigger').dropdown();
+    $('.grid').masonry({
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-item',
+        percentPosition: true,
+        gutter: 3,
+        horizontalOrder: true,
+        transitionDuration: '0.6s'
+      });
 });
 
