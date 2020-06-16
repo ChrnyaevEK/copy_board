@@ -1,4 +1,4 @@
-class CCard extends Template{
+class CCard extends Template {
     copyNoFormat(text) {
         var $temp = $("<input>");
         $("body").append($temp);
@@ -8,14 +8,14 @@ class CCard extends Template{
     }
 }
 
-class CCardRegular extends CCard{
+class CCardRegular extends CCard {
     constructor(data) {
         super('ccard-regular')
-        this.origin.addClass(data.color)
+        this.origin.find('[field=color]').addClass(data.color)
         this.origin.find('[field=title]').text(data.title)
         if (data.content) {
             this.origin.find('[field=content]').text(data.content).removeClass('hidden')
-            this.origin.find('[field=copy]').click((event)=>{
+            this.origin.find('[field=copy]').click((event) => {
                 __noEventPropagation(event)
                 this.copyNoFormat()
             })
@@ -24,18 +24,18 @@ class CCardRegular extends CCard{
     }
 
     copyNoFormat() {
-        if (this.content !== undefined ) super.copyNoFormat(this.content)
+        if (this.content !== undefined) super.copyNoFormat(this.content)
     }
 }
 
-class CCardBuilder extends Block{
+class CCardBuilder extends Block {
     constructor() {
         super($('#ccard-builder'))
         this.collapsible = M.Collapsible.getInstance(this.origin)
     }
 }
 
-class CCardRegularBuilder_ extends CCardBuilder{
+class CCardRegularBuilder_ extends CCardBuilder {
     constructor() {
         super()
         this.toolIndex = 0
@@ -48,18 +48,18 @@ class CCardRegularBuilder_ extends CCardBuilder{
     }
 
     init() {
-        this.color.find('span').click((event)=>{
+        this.color.find('span').click((event) => {
             __noEventPropagation(event)
             this.color.find('span').removeClass('active')
             $(event.target).addClass('active')
         })
-        this.clearContent.click((event)=>{
+        this.clearContent.click((event) => {
             __noEventPropagation(event)
-            if (this.content.val() && confirm('Are you sure? Text will be lost!')){                
+            if (this.content.val() && confirm('Are you sure? Text will be lost!')) {
                 this.content.val('')
             }
         })
-        this.title.change((event)=>{
+        this.title.change((event) => {
             __noEventPropagation(event)
             if (this.title.val()) {
                 this.save.removeAttr('disabled')
@@ -67,7 +67,7 @@ class CCardRegularBuilder_ extends CCardBuilder{
                 this.save.attr('disabled', '')
             }
         })
-        this.save.click((event)=>{ 
+        this.save.click((event) => {
             __noEventPropagation(event)
             this.onSave(this.generate())
         })
@@ -83,13 +83,23 @@ class CCardRegularBuilder_ extends CCardBuilder{
 }
 
 class CCardRegularBuilder extends CCardRegularBuilder_ {
-    onSave(data) { 
+    onSave(data) {
         // Called on save button request, generated data will be passed
     }
 }
 
-class CCardHolder extends Block{
-    constructor() {
-        super($('#ccard-holder'))
+class CCardHolder {
+    append(block) {
+        masonry.masonry()
+            .append(block.origin)
+            .masonry('appended', block.origin)
+            .masonry();
+    }
+
+    prepend(block) {
+        masonry.masonry()
+            .prepend(block.origin)
+            .masonry('prepended', block.origin)
+            .masonry();
     }
 }

@@ -7,7 +7,7 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.fixed-action-btn').floatingActionButton();
     $('.dropdown-trigger').dropdown();
-    $('.grid').masonry({
+    masonry = $('.grid').masonry({
         itemSelector: '.grid-item',
         columnWidth: '.grid-item',
         percentPosition: true,
@@ -16,4 +16,4 @@ $(document).ready(function () {
         transitionDuration: '0.6s'
       });
 });
-
+var masonry;

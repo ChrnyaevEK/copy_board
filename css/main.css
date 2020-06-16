@@ -7,10 +7,6 @@
     display: none;
 }
 
-#tool-holder {
-    max-height: 90vh;
-}
-
 #ccard-builder .ccard-header {
     width: 100%;
 }
@@ -20,7 +16,8 @@
     font-weight: 400;
 }
 
-#ccard-builder .create-button-content {
+#ccard-builder textarea {
+    height: 10em;
     resize: vertical;
     margin: .5em 0 0 0;
     border-style: dotted;
@@ -73,6 +70,7 @@
     display: -webkit-box !important;
     -webkit-line-clamp: 8;
     -webkit-box-orient: vertical;
+    word-break: break-all;
 }
 
 .ccard-regular .card-action {
@@ -81,11 +79,6 @@
 
 .ccard-regular .ccard-regular-copy {
     width: 100%;
-}
-
-#ccard-holder {
-    padding-top: 1em;
-    max-height: 90vh;
 }
 
 .template, .hidden {
