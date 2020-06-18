@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.fixed-action-btn').floatingActionButton();
     $('.dropdown-trigger').dropdown();
+    $('.tabs').tabs();
     masonry = $('.grid').masonry({
         itemSelector: '.grid-item',
         columnWidth: '.grid-item',

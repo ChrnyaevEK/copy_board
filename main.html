@@ -137,13 +137,12 @@
                 </li>
             </ul>
 
-            <!-- Tools to create buttons -->
+            <!-- Tools to create ccards -->
             <ul id="ccard-builder" class="collapsible">
-                <!-- Tool to create regular button -->
-                <!-- TODO Tool as form -->
+                <!-- Tool to create regular ccard -->
                 <li class="ccard-builder-regular">
                     <div class="collapsible-header valign-wrapper">
-                        <i class="material-icons">control_point</i>
+                        <i class="material-icons">content_copy</i>
                         <span class="ccard-header">Regular button</span>
                     </div>
                     <div class="collapsible-body">
@@ -194,6 +193,99 @@
                         </div>
                     </div>
                 </li>
+
+                <!-- Tool to create iterative ccard -->
+                <li class="ccard-builder-iterative">
+                    <div class="collapsible-header valign-wrapper">
+                        <i class="material-icons">loop</i>
+                        <span class="ccard-header">Iterative button</span>
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="col s12">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus sodales ex,
+                                    non pellentesque dui condimentum quis. Cras sit amet nibh eu lacus fermentum dapibus
+                                    non vel justo.
+                                </p>
+                                <label>
+                                    <input field="title" placeholder="Title..." class="ccard-title">
+                                    <div>
+                                        Title will briefly describe your button
+                                    </div>
+                                </label>
+                                <p>How you would like to create values?</p>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <ul class="tabs">
+                                            <li class="tab col s3"><a href="#over-range-of-num"
+                                                    class="teal-text">range</a>
+                                            </li>
+                                            <li class="tab col s3"><a href="#over-set-of-values"
+                                                    class="active teal-text">set</a></li>
+                                            <li class="tab col s3"><a href="#over-gen-values" class="teal-text">func</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="over-range-of-num" class="card col s12">
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <div class="input-field col s4">
+                                                    <input placeholder="Start value" type="number" class="validate">
+                                                    <label>From:</label>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <input placeholder="End value" type="number" class="validate">
+                                                    <label>To:</label>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <input placeholder="Step" type="number" class="validate">
+                                                    <label>Step:</label>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <input type="checkbox" checked />
+                                                <span>Auto repeat</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div id="over-set-of-values" class="card col s12">
+                                        <div class="row valign-wrapper">
+                                            <div class="col">
+                                                <input placeholder="Value">
+                                                <label>Add some values to set, to iterate over!</label>
+                                            </div>
+                                            <div class="col">
+                                                <i class="material-icons teal-text">add_circle_outline</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="over-gen-values" class="card col s12">
+
+                                    </div>
+                                </div>
+                                <p>
+                                <div field="color" class="ccard-color">
+                                    <span data-color="white" class="white active"></span>
+                                    <span data-color="blue" class="blue lighten-3"></span>
+                                    <span data-color="cyan" class="cyan lighten-3"></span>
+                                    <span data-color="teal" class="teal lighten-3"></span>
+                                    <span data-color="green" class="green lighten-3"></span>
+                                    <span data-color="lime" class="lime lighten-3"></span>
+                                    <span data-color="orange" class="orange lighten-3"></span>
+                                    <span data-color="red" class="red lighten-3"></span>
+                                    <span data-color="pink" class="pink lighten-3"></span>
+                                    <span data-color="purple" class="purple lighten-3"></span>
+                                    <span data-color="indigo" class="indigo lighten-3"></span>
+                                </div>
+                                <label>Chose button color</label>
+                                </p>
+                                <p><span class="new badge left" data-badge-caption="xxx-xxx-xxx">id</span></p>
+                            </div>
+                            <button field="save" class="btn right" disabled>save</button>
+                        </div>
+                    </div>
+                </li>
             </ul>
 
 
@@ -202,20 +294,38 @@
 
         <div class="col s12 l6">
             <div id="ccard-holder" class="grid">
-                <!-- CCard -->
-                <div class=" ccard-regular grid-item template">
+                <!-- CCard regular -->
+                <div class="ccard ccard-regular grid-item">
                     <div field="color" class="lighten-3 card">
                         <div class="card-content">
-                            <div field="title" class="card-title"></div>
+                            <div field="title" class="card-title ccard-title"></div>
                             <div field="content" class="ccard-regular-content hidden">
                             </div>
                         </div>
-                        <div field="color" field="copy" class="btn lighten-2 card-action valign-wrapper">
-                            <span class="centered ccard-regular-copy">COPY</span>
-                            <i class="material-icons" data-target="none">more_vert</i>
+                        <div class="lighten-2 ccard-action">
+                            <a href="#!" field="color" field="copy" class="btn ccard-copy">copy</a>
                         </div>
                     </div>
                 </div>
+
+                <!-- CCard iterative -->
+                <div class="ccard ccard-iterative grid-item">
+                    <div field="color" class="lighten-3 card white">
+                        <div class="card-content">
+                            <div field="title" class="card-title ccard-title"></div>
+                            <div field="content" class="ccard-iterative-content hidden">
+                                <p field="value"></p>
+                            </div>
+                        </div>
+                        <div class="ccard-action lighten-2">
+                            <a href="#!" field="copy-prev" class="btn"><i class="material-icons">navigate_before</i></a>
+                            <a href="#!" field="copy" class="btn ccard-copy">copy</a>
+                            <a href="#!" field="copy-next" class="btn"><i class="material-icons">navigate_next</i></a>
+                            <a href="#!" field="reload" class="btn"><i class="material-icons">loop</i></a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
