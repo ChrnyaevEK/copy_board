@@ -78,10 +78,7 @@
     width: 100%;
 }
 
-
-/* CCard - regular */
-
-.ccard-regular .ccard-regular-content {
+.ccard-regular-content, .ccard-iterative-content {
     overflow: hidden;
     display: -webkit-box !important;
     -webkit-line-clamp: 8;

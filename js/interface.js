@@ -1,7 +1,16 @@
-var cCard = {
+var regCard = {
     title: 'Test button',
     content: 'Test button body',
     color: 'lime'
+}
+
+var iterCard = {
+    title: 'Test iter button',
+    color: 'yellow',
+    values: [1,2,3,4,5],
+    autoRepeat: true,
+    autoCopy: true,
+    random: false,
 }
 
 class Data {
@@ -10,7 +19,13 @@ class Data {
 
 let cCardHolder = new CCardHolder()
 let cCardRegularBuilder = new CCardRegularBuilder()
-cCardRegularBuilder.onSave = data => {
-    cCardHolder.prepend(new CCardRegular(data))
+cCardRegularBuilder.build = ccard => {
+    cCardHolder.prepend(ccard.origin)
 }
 cCardRegularBuilder.init()
+
+let cCardIterativeBuilder = new CCardIterativeBuilder()
+cCardIterativeBuilder.build = ccard => {
+    cCardHolder.prepend(ccard.origin)
+}
+cCardIterativeBuilder.init()
