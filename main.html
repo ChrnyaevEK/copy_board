@@ -307,13 +307,14 @@
 
         <div class="col s12 l6">
             <div id="ccard-holder" class="grid">
+
+
                 <!-- CCard regular -->
-                <div class="ccard ccard-regular template grid-item">
-                    <div field="color" class="lighten-3 card">
+                <div draggable="true" class="grid-item">
+                    <div  field="color" class="lighten-3 card ccard ccard-regular">
                         <div class="card-content">
-                            <div field="title" class="card-title ccard-title"></div>
-                            <div field="content" class="ccard-regular-content hidden">
-                            </div>
+                            <div field="title" class="card-title ccard-title">1</div>
+                            <div field="content" class="ccard-regular-content hidden"></div>
                         </div>
                         <div class="lighten-2 ccard-action">
                             <a href="#!" field="color" field="copy" class="btn ccard-copy">copy</a>
@@ -322,10 +323,10 @@
                 </div>
 
                 <!-- CCard iterative -->
-                <div class="ccard ccard-iterative template grid-item">
-                    <div field="color" class="lighten-3 card white">
+                <div draggable="true" class="grid-item">
+                    <div field="color" class="lighten-3 card ccard ccard-iterative">
                         <div class="card-content">
-                            <div field="title" class="card-title ccard-title"></div>
+                            <div field="title" class="card-title ccard-title">2</div>
                             <div field="value" class="ccard-iterative-content center-align"></div>
                         </div>
                         <div field="color" class="ccard-action">
@@ -336,6 +337,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -351,6 +354,7 @@
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/masonry.min.js"></script>
     <script type="text/javascript" src="js/lib.js"></script>
+    <script type="text/javascript" src="js/draggable_logic.js"></script>
     <script type="text/javascript" src="js/init_materialize.js"></script>
     <script type="text/javascript" src="js/interface_base.js"></script>
     <script type="text/javascript" src="js/interface_template.js"></script>

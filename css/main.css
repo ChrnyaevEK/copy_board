@@ -86,6 +86,18 @@
     word-break: break-all;
 }
 
+/* DnD */
+/* DnD start */
+.dnd-dragstart {
+    opacity: 0.6;
+}
+
+/* DnD start */
+
+.dnd-dragover {
+    border-style: dashed;
+}
+
 .template, .hidden {
     display: none !important;
 }
