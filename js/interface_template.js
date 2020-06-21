@@ -162,7 +162,7 @@ class CCardIterativeBuilder extends ICCardBuilder {
         }
 
         copyNoFormat() {
-            if(this.values) super.copyNoFormat(this.values[this.lastIndex])
+            if (this.values) super.copyNoFormat(this.values[this.lastIndex])
         }
 
         updateValue() {
@@ -300,5 +300,50 @@ class CCardHolder {
     }
     static update() {
         masonry.masonry()
+    }
+}
+
+class UIDGenerator {
+    static UIDSet = new Set();
+    static generateID(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
+    static registerUID(UID) {
+        UIDGenerator.UIDSet.add(UID)
+    }
+
+    static generateUID(length) {
+        let UID;
+        while (true) {
+            UID = UIDGenerator.generateID(length)
+            if (!UIDGenerator.UIDSet.has(UID)) {
+                UIDGenerator.UIDSet.add(UID)
+                return UID
+            }
+        }
+    }
+}
+
+class UIDBuilder extends UIDGenerator {
+    static prefix = 'CC'
+    static length = 6
+    static delimiter = '__'
+    static generateUID() {
+        return UIDGenerator.generateUID(UIDBuilder.length)
+    }
+
+    static buildUID(type, UID) {
+        return `${UIDBuilder.prefix}_${UID === undefined ? UIDBuilder.generateUID() : UID}${UIDBuilder.delimiter}${type}`
+    }
+
+    static parseUID(UID) {
+        return UID.split(UIDBuilder.delimiter)[0]
     }
 }
