@@ -56,6 +56,27 @@
                         <li><a href="#!">Delete</a></li>
                     </ul>
                 </div>
+
+                <!-- Collection card template -->
+                <div class="card ccollection template">
+                    <div class="card-content">
+                        <span>
+                            <i field="public" class="hidden material-icons teal-text">public</i>
+                            <i field="person" class="hidden material-icons teal-text">person</i>
+                            <i field="lock" class="hidden material-icons teal-text">lock</i>
+                        </span>
+                        <span field="title" class="ccollection-title"></span>
+                        <a href="#" class="dropdown-trigger right" data-target='ccollection-dropdown-template'>
+                            <i class="material-icons teal-text">more_vert</i>
+                        </a>
+                    </div>
+                    <ul id="ccollection-dropdown-template" class="ccollection-dropdown dropdown-content">
+                        <li><a field="share" href="#!">Share</a></li>
+                        <li><a field="edit" href="#!">Edit</a></li>
+                        <li><a field="delete" href="#!">Delete</a></li>
+                    </ul>
+                </div>
+
             </div>
 
             <h6>Tools</h6>
@@ -63,7 +84,7 @@
             <!-- Tools to create collection -->
             <ul id="ccollection-builder" class="collapsible">
                 <!-- Tool to create regular collection (some other tools will be added in future) -->
-                <li>
+                <li class="ccollection">
                     <div class="collapsible-header valign-wrapper">
                         <i class="material-icons">control_point_duplicate</i>
                         <span class="ccollection-header">Collection</span>
@@ -78,31 +99,31 @@
                                 </p>
                                 <div class="row">
                                     <label>
-                                        <input placeholder="Title..." class="ccollection-title">
+                                        <input placeholder="Title..." field="title">
                                         Title will briefly describe your button
                                     </label>
                                     <p>
-                                    <div class="ccollection-color">
-                                        <span data-color="white" class="white active"></span>
-                                        <span data-color="blue" class="color blue lighten-3"></span>
-                                        <span data-color="cyan" class="color cyan lighten-3"></span>
-                                        <span data-color="teal" class="color teal lighten-3"></span>
-                                        <span data-color="green" class="color green lighten-3"></span>
-                                        <span data-color="lime" class="color lime lighten-3"></span>
-                                        <span data-color="orange" class="color orange lighten-3"></span>
-                                        <span data-color="red" class="color red lighten-3"></span>
-                                        <span data-color="pink" class="color pink lighten-3"></span>
-                                        <span data-color="purple" class="color purple lighten-3"></span>
-                                        <span data-color="indigo" class="color indigo lighten-3"></span>
-                                    </div>
-                                    <label>Chose button color</label>
+                                        <div field="color" class="ccard-color">
+                                            <span data-color="white" class="white active"></span>
+                                            <span data-color="blue" class="blue lighten-3"></span>
+                                            <span data-color="cyan" class="cyan lighten-3"></span>
+                                            <span data-color="teal" class="teal lighten-3"></span>
+                                            <span data-color="green" class="green lighten-3"></span>
+                                            <span data-color="lime" class="lime lighten-3"></span>
+                                            <span data-color="orange" class="orange lighten-3"></span>
+                                            <span data-color="red" class="red lighten-3"></span>
+                                            <span data-color="pink" class="pink lighten-3"></span>
+                                            <span data-color="purple" class="purple lighten-3"></span>
+                                            <span data-color="indigo" class="indigo lighten-3"></span>
+                                        </div>
+                                        <label>Chose button color</label>
                                     </p>
 
                                 </div>
                                 <div class="row">
                                     <p>
                                         <label>
-                                            <input name="group1" type="radio" checked />
+                                            <input field="public" name="group1" type="radio" checked />
                                             <span class="tooltipped" data-position="bottom"
                                                 data-tooltip="When board becomes public, every one, may use public copy cards">
                                                 Public (default)
@@ -112,17 +133,17 @@
                                     </p>
                                     <p>
                                         <label>
-                                            <input name="group1" type="radio" />
+                                            <input field="person" name="group1" type="radio" />
                                             <span class="tooltipped" data-position="bottom"
-                                                data-tooltip="When board becomes private, no one is allowed to access copy cards, but owner">
-                                                Private
+                                                data-tooltip="When board becomes Personal, no one is allowed to access copy cards, but owner">
+                                                Personal
                                                 <i class="material-icons right">info_outline</i>
                                             </span>
                                         </label>
                                     </p>
                                     <p>
                                         <label>
-                                            <input name="group1" type="radio" />
+                                            <input field="lock" name="group1" type="radio" />
                                             <span class="tooltipped" data-position="bottom"
                                                 data-tooltip="Access copy cards with password">
                                                 Protected

@@ -295,6 +295,33 @@ class CCardIterativeBuilder extends ICCardBuilder {
     }
 }
 
+
+class CCardCollectionBuilder extends ICCardBuilder {
+    CCardCollection = class extends Template {
+        constructor(data) {
+            super('ccollection')
+            this.uid = UIDBuilder.generateUID()
+            this.origin.find(`[field="${data.type}"]`).removeClass('hidden')
+            this.origin.find('[field=title]').text(data.title)
+            this.origin.find('a[data-target]').attr('data-target', UIDBuilder.buildUID('dropdown', this.uid))
+            this.origin.find('ul').attr('id', UIDBuilder.buildUID('dropdown', this.uid))
+        }
+    }
+
+    constructor() {
+        super($('#ccollection-builder li.ccollection'))
+        this.title = this.origin.find('[field=title]')
+        this.content = this.origin.find('[field=content]')
+        this.clearContent = this.origin.find('[field=textarea-clear]')
+        this.color = this.origin.find('[field=color]')
+        this.save = this.origin.find('[field=save]')
+    }
+
+    init() {
+
+    }
+}
+
 // ------------------------------------------------------------------------- CCard holder
 class CCardHolder {
     append(origin) {
@@ -315,47 +342,3 @@ class CCardHolder {
     }
 }
 
-class UIDGenerator {
-    static UIDSet = new Set();
-    static generateID(length) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
-    }
-
-    static registerUID(UID) {
-        UIDGenerator.UIDSet.add(UID)
-    }
-
-    static generateUID(length) {
-        let UID;
-        while (true) {
-            UID = UIDGenerator.generateID(length)
-            if (!UIDGenerator.UIDSet.has(UID)) {
-                UIDGenerator.UIDSet.add(UID)
-                return UID
-            }
-        }
-    }
-}
-
-class UIDBuilder extends UIDGenerator {
-    static prefix = 'CC'
-    static length = 6
-    static delimiter = '__'
-    static generateUID() {
-        return UIDGenerator.generateUID(UIDBuilder.length)
-    }
-
-    static buildUID(type, UID) {
-        return `${UIDBuilder.prefix}_${UID === undefined ? UIDBuilder.generateUID() : UID}${UIDBuilder.delimiter}${type}`
-    }
-
-    static parseUID(UID) {
-        return UID.split(UIDBuilder.delimiter)[0]
-    }
-}

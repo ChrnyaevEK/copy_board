@@ -24,26 +24,20 @@
     border-radius: 0.2em;
 }
 
-#ccard-builder .ccard-color {
+#ccard-builder .ccard-color, #ccollection-builder .ccard-color {
     display: flex;
     justify-content: space-between;
 }
 
-#ccard-builder [data-color] {
+#ccard-builder [data-color], #ccollection-builder [data-color] {
     width: 100%;
     height: 1rem;
     cursor: pointer;
 }
 
-#ccard-builder [data-color].active {
+#ccard-builder [data-color].active, #ccollection-builder [data-color].active {
     border-width: 1px;
     border-style: dotted;
-}
-
-/* Collection creation */
-
-#ccollection-builder .ccollection-header {
-    width: 100%;
 }
 
 /* List of collections */
