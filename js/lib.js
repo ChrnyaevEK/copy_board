@@ -14,3 +14,7 @@ function shuffle(array) {
         array[j] = temp;
     }
 }
+
+function deepCopy (obj) {
+    return JSON.parse(JSON.stringify(obj))
+}

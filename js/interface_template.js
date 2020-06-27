@@ -7,6 +7,13 @@ class CCard extends Template {
         document.execCommand("copy");
         $temp.remove();
     }
+
+    static toast(text) {
+        M.toast({
+            displayLength: 1500,
+            html: `<span><span class="ccard-copy-toast">${text === undefined ? 'Nothing to copy!': text}</span><div><span class="right">Copied!</span></div></span>`,
+        })
+    }
 }
 
 class ICCardBuilder extends Block {
@@ -40,7 +47,12 @@ class CCardRegularBuilder extends ICCardBuilder {
         }
 
         copyNoFormat() {
-            if (this.content !== undefined) super.copyNoFormat(this.content)
+            if (this.content !== undefined) {
+                super.copyNoFormat(this.content)
+                CCard.toast(this.content)
+            } else {
+                CCard.toast()
+            }
         }
     }
 
@@ -108,7 +120,7 @@ class CCardIterativeBuilder extends ICCardBuilder {
             })
             this.origin.find('[field=copy]').click((event) => {
                 __noEventPropagation(event)
-                this.copyCurrent()
+                this.copyNoFormat()
             })
             this.origin.find('[field=copy-next]').click((event) => {
                 __noEventPropagation(event)
@@ -119,7 +131,7 @@ class CCardIterativeBuilder extends ICCardBuilder {
                 this.lastIndex = 0
                 if (this.random) shuffle(this.values)
                 this.updateValue()
-                if (this.autoCopy) this.copyCurrent()
+                if (this.autoCopy) this.copyNoFormat()
             })
             this.updateValue()
         }
@@ -131,18 +143,14 @@ class CCardIterativeBuilder extends ICCardBuilder {
                 if (this.autoRepeat) {
                     this.lastIndex = this.values.length - 1
                 } else {
-                    M.toast({ html: 'This is the first value!!' })
+                    CCard.toast('First value!')
                     return
                 }
             }
             this.updateValue()
             if (this.autoCopy) {
-                this.copyNoFormat(this.values[this.lastIndex])
+                this.copyNoFormat()
             }
-        }
-
-        copyCurrent() {
-            this.copyNoFormat(this.values[this.lastIndex])
         }
 
         copyNext() {
@@ -152,17 +160,21 @@ class CCardIterativeBuilder extends ICCardBuilder {
                 if (this.autoRepeat) {
                     this.lastIndex = 0
                 } else {
-                    M.toast({ html: 'This is the last value!!' })
+                    CCard.toast('Last value!')
+                    return
                 }
             }
             this.updateValue()
-            if (this.autoCopy) {
-                this.copyNoFormat(this.values[this.lastIndex])
-            }
+            if (this.autoCopy) this.copyNoFormat()
         }
 
         copyNoFormat() {
-            if (this.values) super.copyNoFormat(this.values[this.lastIndex])
+            if (this.values) {
+                super.copyNoFormat(this.values[this.lastIndex])
+                CCard.toast(this.values[this.lastIndex])
+            } else {
+                CCard.toast()
+            }
         }
 
         updateValue() {

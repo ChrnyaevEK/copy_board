@@ -58,6 +58,11 @@
 
 /* CCard */
 
+.ccard {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 .ccard .white {
     color: black;
 }
@@ -101,6 +106,15 @@
     box-shadow: 0 0 20px 12px silver;
 }
 
+/* Toast on copy */
+
+.ccard-copy-toast {
+    width: 16vw;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
 
 .template, .hidden {
     display: none !important;
