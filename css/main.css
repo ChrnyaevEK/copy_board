@@ -88,15 +88,19 @@
 
 /* DnD */
 /* DnD start */
-.dnd-dragstart {
+.dnd-dropzone {
     opacity: 0.6;
 }
 
-/* DnD start */
+.dnd-dragged {
+    opacity: 0.3;
+}
 
 .dnd-dragover {
-    border-style: dashed;
+    opacity: 0.9;
+    box-shadow: 0 0 20px 12px silver;
 }
+
 
 .template, .hidden {
     display: none !important;
