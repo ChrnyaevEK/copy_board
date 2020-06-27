@@ -27,7 +27,7 @@ class CCardRegularBuilder extends ICCardBuilder {
     CCard = class extends CCard {
         constructor(data) {
             super('ccard-regular')
-            this.origin.find('[field=color]').addClass(data.color)
+            this.origin.find('[field=color] ,[field=color] a').addClass(data.color)
             this.origin.find('[field=title]').text(data.title)
             if (data.content) {
                 this.origin.find('[field=content]').text(data.content).removeClass('hidden')
