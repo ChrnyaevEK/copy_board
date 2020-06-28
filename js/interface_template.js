@@ -11,7 +11,7 @@ class CCard extends Template {
     static toast(text) {
         M.toast({
             displayLength: 1500,
-            html: `<span><span class="ccard-copy-toast">${text === undefined ? 'Nothing to copy!': text}</span><div><span class="right">Copied!</span></div></span>`,
+            html: `<span><span class="ccard-copy-toast">${text === undefined ? 'Nothing to copy!' : text}</span><div><span class="right">Copied!</span></div></span>`,
         })
     }
 }
@@ -297,11 +297,11 @@ class CCardIterativeBuilder extends ICCardBuilder {
 
 
 class CCardCollectionBuilder extends ICCardBuilder {
+
     CCardCollection = class extends Template {
         constructor(data) {
             super('ccollection')
             this.uid = UIDBuilder.generateUID()
-            this.origin.find(`[field="${data.type}"]`).removeClass('hidden')
             this.origin.find('[field=title]').text(data.title)
             this.origin.find('a[data-target]').attr('data-target', UIDBuilder.buildUID('dropdown', this.uid))
             this.origin.find('ul').attr('id', UIDBuilder.buildUID('dropdown', this.uid))
@@ -311,14 +311,37 @@ class CCardCollectionBuilder extends ICCardBuilder {
     constructor() {
         super($('#ccollection-builder li.ccollection'))
         this.title = this.origin.find('[field=title]')
-        this.content = this.origin.find('[field=content]')
-        this.clearContent = this.origin.find('[field=textarea-clear]')
         this.color = this.origin.find('[field=color]')
         this.save = this.origin.find('[field=save]')
     }
 
     init() {
+        this.color.find('span').click((event) => {
+            __noEventPropagation(event)
+            this.color.find('span').removeClass('active')
+            $(event.target).addClass('active')
+        })
 
+        this.title.change((event) => {
+            __noEventPropagation(event)
+            if (this.title.val()) {
+                this.save.removeAttr('disabled')
+            } else {
+                this.save.attr('disabled', '')
+            }
+        })
+
+        this.save.click((event) => {
+            __noEventPropagation(event)
+            this.build(new this.CCardCollection(this.generate()))
+        })
+    }
+
+    generate() {
+        return {
+            title: this.title.val(),
+            color: this.color.find('.active').data('color'),
+        }
     }
 }
 
@@ -342,3 +365,8 @@ class CCardHolder {
     }
 }
 
+class CCardCollectionHolder extends Block{
+    constructor() {
+        super($('#ccollection-holder'))
+    }
+}
