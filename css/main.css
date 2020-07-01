@@ -153,6 +153,10 @@ nav {
     margin-bottom: 2px;
 }
 
+#ccard-holder {
+    margin-top: .8rem;
+}
+
 #ccard-holder .ccard .ccard-title {
     font-size: 1rem;
     font-weight: 500;

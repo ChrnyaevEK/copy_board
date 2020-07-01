@@ -14,41 +14,42 @@ $(document).ready(function () {
     var iterCard = {
         title: 'Test iter button',
         color: 'green',
-        values: [100, 223, 3111, 43232, 511112],
-        autoRepeat: false,
+        from: 12,
+        to: 44,
+        step: 10,
         autoCopy: true,
-        random: true,
+        random: false,
     }
 
     cCardHolder = new CCardHolder()
     cCardRegularBuilder = new CCardRegularBuilder()
-    cCardIterativeBuilder = new CCardIterativeBuilder()
-    cCardCollectionBuilder = new CCardCollectionBuilder()
-    cCardCollectionHolder = new CCardCollectionHolder()
+    cCardIterativeBuilderNumbers = new CCardIterativeBuilderNumbers()
+    // cCardCollectionBuilder = new CCardCollectionBuilder()
+    // cCardCollectionHolder = new CCardCollectionHolder()
 
-    cCardCollectionBuilder.build = ccollection => {
-        cCardCollectionHolder.append(ccollection)
-        ccollection.origin.find('.dropdown-trigger').dropdown();
-    }
+    // cCardCollectionBuilder.build = ccollection => {
+    //     cCardCollectionHolder.append(ccollection)
+    //     ccollection.origin.find('.dropdown-trigger').dropdown();
+    // }
 
     cCardRegularBuilder.build = ccard => {
         cCardHolder.prepend(DND.init(ccard.origin))
     }
-    cCardIterativeBuilder.build = ccard => {
+    cCardIterativeBuilderNumbers.build = ccard => {
         cCardHolder.prepend(DND.init(ccard.origin))
     }
     cCardRegularBuilder.init()
-    cCardIterativeBuilder.init()
-    cCardCollectionBuilder.init()
+    cCardIterativeBuilderNumbers.init()
+    // cCardCollectionBuilder.init()
 
     cCardHolder.prepend(DND.init(new cCardRegularBuilder.CCard(deepCopy(regCard)).origin))
     cCardHolder.prepend(DND.init(new cCardRegularBuilder.CCard(deepCopy(regCard)).origin))
     cCardHolder.prepend(DND.init(new cCardRegularBuilder.CCard(deepCopy(regCard)).origin))
     cCardHolder.prepend(DND.init(new cCardRegularBuilder.CCard(deepCopy(regCard)).origin))
     cCardHolder.prepend(DND.init(new cCardRegularBuilder.CCard(deepCopy(regCard)).origin))
-    cCardHolder.prepend(DND.init(new cCardIterativeBuilder.CCard(deepCopy(iterCard)).origin))
-    cCardHolder.prepend(DND.init(new cCardIterativeBuilder.CCard(deepCopy(iterCard)).origin))
-    cCardHolder.prepend(DND.init(new cCardIterativeBuilder.CCard(deepCopy(iterCard)).origin))
-    cCardHolder.prepend(DND.init(new cCardIterativeBuilder.CCard(deepCopy(iterCard)).origin))
-    cCardHolder.prepend(DND.init(new cCardIterativeBuilder.CCard(deepCopy(iterCard)).origin))
+    cCardHolder.prepend(DND.init(new cCardIterativeBuilderNumbers.CCard(deepCopy(iterCard)).origin))
+    cCardHolder.prepend(DND.init(new cCardIterativeBuilderNumbers.CCard(deepCopy(iterCard)).origin))
+    cCardHolder.prepend(DND.init(new cCardIterativeBuilderNumbers.CCard(deepCopy(iterCard)).origin))
+    cCardHolder.prepend(DND.init(new cCardIterativeBuilderNumbers.CCard(deepCopy(iterCard)).origin))
+    cCardHolder.prepend(DND.init(new cCardIterativeBuilderNumbers.CCard(deepCopy(iterCard)).origin))
 })

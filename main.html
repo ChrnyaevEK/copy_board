@@ -101,6 +101,8 @@
                 </li>
             </ul>
 
+            <hr>
+
             <!-- Tools to create ccards -->
             <ul id="ccard-builder" class="collapsible">
                 <!-- Tool to create regular ccard -->
@@ -132,7 +134,7 @@
                     </div>
                 </li>
                 <!-- Tool to create iterative ccard - over numbers -->
-                <li class="ccard-builder-iterative">
+                <li class="ccard-builder-iterative-num">
                     <div class="collapsible-header valign-wrapper blue-grey white-text">
                         <span class="ccard-header">Card iterating over numbers</span>
                         <i class="material-icons">keyboard_arrow_down</i>
@@ -142,19 +144,19 @@
                         <input field="title" class="ccard-title">
                         <div class="row">
                             <div class="input-field col s4">
-                                <input field="from" placeholder="Start value" type="number" value="0" class="validate">
+                                <input field="from" type="number" value="0" class="validate">
                                 <label>From:</label>
                             </div>
                             <div class="input-field col s4">
-                                <input field="to" placeholder="End value" type="number" value="0" class="validate">
+                                <input field="to" type="number" value="0" class="validate">
                                 <label>To:</label>
                             </div>
                             <div class="input-field col s4">
-                                <input field="step" placeholder="Step" type="number" value="0" class="validate">
+                                <input field="step" type="number" value="0" class="validate">
                                 <label>Step:</label>
                             </div>
-                            <div field="expected-values-range" class="col s12 truncate grey-text lighten-3"></div>
-                            <span class="red lighten-3 new badge left hidden" field="error" data-badge-caption=""></span>
+                            <div field="expected" class="col s12 truncate grey-text lighten-3"></div>
+                            <div class="col s12 truncate"><p class="left red white-text lighten-3 hidden" field="error"></p></div>
                         </div>
                         <p>
                             <label>
@@ -162,30 +164,24 @@
                                 <span>Endless</span>
                             </label>
                         </p>
-                        <p>
-                            <label>
-                                <input  field="endless" type="checkbox" />
-                                <span>Simple only</span>
-                            </label>
-                        </p>
 
                         <hr>
 
                         <p>
                             <label>
-                                <input  field="auto-repeat" type="checkbox" checked />
+                                <input  field="repeat" type="checkbox" checked />
                                 <span>Auto repeat</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input field="random-order" type="checkbox" />
+                                <input field="random" type="checkbox" />
                                 <span>Random order</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input field="auto-copy" type="checkbox" />
+                                <input field="copy" type="checkbox" />
                                 <span>Copy on prev/next</span>
                             </label>
                         </p>

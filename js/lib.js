@@ -15,7 +15,26 @@ function shuffle(array) {
     }
 }
 
-function deepCopy (obj) {
+function rand(min, max, step) {
+    var delta, range, rand;
+    if (arguments.length < 2) {
+        max = min;
+        min = 0;
+    }
+    if (!step) {
+        step = 1;
+    }
+    delta = max - min;
+    range = delta / step;
+    rand = Math.random();
+    rand *= range;
+    rand = Math.floor(rand);
+    rand *= step;
+    rand += min;
+    return rand;
+}
+
+function deepCopy(obj) {
     return JSON.parse(JSON.stringify(obj))
 }
 
