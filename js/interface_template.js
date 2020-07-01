@@ -101,7 +101,6 @@ class CCardRegularBuilder extends ICCardBuilder {
     }
 }
 
-
 class CCardIterativeBuilderNumbers extends ICCardBuilder {
     CCard = class extends CCard {
         constructor(data) {
@@ -299,200 +298,159 @@ class CCardIterativeBuilderNumbers extends ICCardBuilder {
     }
 }
 
+class CCardIterativeBuilderText extends ICCardBuilder {
+    CCard = class extends CCard {
+        lastIndex = 0;
+        constructor(data) {
+            super('ccard-iterative')
+            this.values = data.values
+            this.autoRepeat = data.autoRepeat
+            this.autoCopy = data.autoCopy
+            this.random = data.random
+            if (this.random) shuffle(this.values)
+            this.origin.find('[field=color], [field=color] a').addClass(data.color)
+            this.origin.find('[field=title]').text(data.title)
+            this.origin.find('[field=copy-prev]').click((event) => {
+                __noEventPropagation(event)
+                this.copyPrevious()
+            })
+            this.origin.find('[field=copy]').click((event) => {
+                __noEventPropagation(event)
+                this.copyNoFormat()
+            })
+            this.origin.find('[field=copy-next]').click((event) => {
+                __noEventPropagation(event)
+                this.copyNext()
+            })
+            this.origin.find('[field=reload]').click((event) => {
+                __noEventPropagation(event)
+                this.lastIndex = 0
+                if (this.random) shuffle(this.values)
+                this.updateValue()
+                if (this.autoCopy) this.copyNoFormat()
+            })
+            this.updateValue()
+        }
 
-// class CCardIterativeBuilder extends ICCardBuilder {
-//     CCard = class extends CCard {
-//         lastIndex = 0;
-//         values; repeat; random;
-//         constructor(data) {
-//             super('ccard-iterative')
-//             this.values = data.values
-//             this.autoRepeat = data.autoRepeat
-//             this.autoCopy = data.autoCopy
-//             this.random = data.random
-//             if (this.random) shuffle(this.values)
-//             this.origin.find('[field=color], [field=color] a').addClass(data.color)
-//             this.origin.find('[field=title]').text(data.title)
-//             this.origin.find('[field=copy-prev]').click((event) => {
-//                 __noEventPropagation(event)
-//                 this.copyPrevious()
-//             })
-//             this.origin.find('[field=copy]').click((event) => {
-//                 __noEventPropagation(event)
-//                 this.copyNoFormat()
-//             })
-//             this.origin.find('[field=copy-next]').click((event) => {
-//                 __noEventPropagation(event)
-//                 this.copyNext()
-//             })
-//             this.origin.find('[field=reload]').click((event) => {
-//                 __noEventPropagation(event)
-//                 this.lastIndex = 0
-//                 if (this.random) shuffle(this.values)
-//                 this.updateValue()
-//                 if (this.autoCopy) this.copyNoFormat()
-//             })
-//             this.updateValue()
-//         }
+        copyPrevious() {
+            if (this.lastIndex > 0) {
+                this.lastIndex -= 1
+            } else {
+                if (this.autoRepeat) {
+                    this.lastIndex = this.values.length - 1
+                } else {
+                    CCard.toast('First value!')
+                    return
+                }
+            }
+            this.updateValue()
+            if (this.autoCopy) {
+                this.copyNoFormat()
+            }
+        }
 
-//         copyPrevious() {
-//             if (this.lastIndex > 0) {
-//                 this.lastIndex -= 1
-//             } else {
-//                 if (this.autoRepeat) {
-//                     this.lastIndex = this.values.length - 1
-//                 } else {
-//                     CCard.toast('First value!')
-//                     return
-//                 }
-//             }
-//             this.updateValue()
-//             if (this.autoCopy) {
-//                 this.copyNoFormat()
-//             }
-//         }
+        copyNext() {
+            if (this.lastIndex < this.values.length - 1) {
+                this.lastIndex += 1
+            } else {
+                if (this.autoRepeat) {
+                    this.lastIndex = 0
+                } else {
+                    CCard.toast('Last value!')
+                    return
+                }
+            }
+            this.updateValue()
+            if (this.autoCopy) this.copyNoFormat()
+        }
 
-//         copyNext() {
-//             if (this.lastIndex < this.values.length - 1) {
-//                 this.lastIndex += 1
-//             } else {
-//                 if (this.autoRepeat) {
-//                     this.lastIndex = 0
-//                 } else {
-//                     CCard.toast('Last value!')
-//                     return
-//                 }
-//             }
-//             this.updateValue()
-//             if (this.autoCopy) this.copyNoFormat()
-//         }
+        copyNoFormat() {
+            if (this.values) {
+                super.copyNoFormat(this.values[this.lastIndex])
+                CCard.toast(this.values[this.lastIndex])
+            } else {
+                CCard.toast()
+            }
+        }
 
-//         copyNoFormat() {
-//             if (this.values) {
-//                 super.copyNoFormat(this.values[this.lastIndex])
-//                 CCard.toast(this.values[this.lastIndex])
-//             } else {
-//                 CCard.toast()
-//             }
-//         }
+        updateValue() {
+            this.origin.find('[field=value]').text(this.values[this.lastIndex])
+            CCardHolder.update()
+        }
+    }
 
-//         updateValue() {
-//             this.origin.find('[field=value]').text(this.values[this.lastIndex])
-//             CCardHolder.update()
-//         }
-//     }
+    constructor() {
+        super($('#ccard-builder li.ccard-builder-iterative'))
+        this.title = this.origin.find('[field=title]')
+        this.valid = false
+        this.values = undefined
+        this.delimiter = this.origin.find('[field="delimiter"]')
+        this.content = this.origin.find('[field="content"]')
+        this.expected = this.origin.find('[field="expected"]')
+        this.color = this.origin.find('[field="color"]')
+        this.save = this.origin.find('[field="save"]')
+    }
 
-//     constructor() {
-//         super($('#ccard-builder li.ccard-builder-iterative'))
-//         this.title = this.origin.find('[field=title]')
-//         this.typeRange = {
-//             valid: false,
-//             header: this.origin.find('.tabs a[href="#over-range-of-num"]'),
-//             tab: this.origin.find('#over-range-of-num'),
-//             values: undefined,
-//         }
-//         this.typeSet = {
-//             valid: false,
-//             header: this.origin.find('.tabs a[href="#over-set-of-values"]'),
-//             tab: this.origin.find('#over-set-of-values'),
-//             values: undefined,
-//         }
-//         this.expected = this.origin.find('[field="expected-values"]')
-//         this.error = this.origin.find('[field="error"]')
-//         this.color = this.origin.find('[field="color"]')
-//         this.save = this.origin.find('[field="save"]')
-//     }
+    init() {
+        this.color.find('span').click((event) => {
+            __noEventPropagation(event)
+            this.color.find('span').removeClass('active')
+            $(event.target).addClass('active')
+        })
+        this.title.change((event) => {
+            __noEventPropagation(event)
+            this.parseSetInput()
+        })
+        this.save.click((event) => {
+            __noEventPropagation(event)
+            this.build(new this.CCard(this.parse()))
+        })
+        this.origin.find('[field="delimiter"], [field="content"], [field="remove-whitespace"]').change((event) => {
+            __noEventPropagation(event)
+            this.parseSetInput()
+        })
 
-//     init() {
-//         this.color.find('span').click((event) => {
-//             __noEventPropagation(event)
-//             this.color.find('span').removeClass('active')
-//             $(event.target).addClass('active')
-//         })
-//         this.title.change((event) => {
-//             __noEventPropagation(event)
-//             this.parseRangeInput()
-//             this.parseSetInput()
-//         })
-//         this.save.click((event) => {
-//             __noEventPropagation(event)
-//             this.build(new this.CCard(this.generate()))
-//         })
-//         this.typeRange.tab.find('[field="from"], [field="to"], [field="step"]').change((event) => {
-//             __noEventPropagation(event)
-//             this.parseRangeInput()
-//         })
-//         this.typeSet.tab.find('[field="delimiter"], [field="content"], [field="remove-whitespace"]').change((event) => {
-//             __noEventPropagation(event)
-//             this.parseSetInput()
-//         })
+    }
 
-//     }
+    parseSetInput() {
+        let delimiter = this.delimiter.val()
+        let content = this.content.val()
+        if (delimiter && content) {
+            let values = []
+            for (let value of content.split(delimiter)) {
+                value = this.origin.find('[field="remove-whitespace"]').prop('checked') ? value.trim() : value
+                if (value) values.push(value)
+            }
+            this.expected.text(JSON.stringify(values))
+            this.values = values
+            this.valid = true
+            this.validate()
+        } else {
+            this.valid = false
+        }
+    }
 
-//     parseRangeInput() {
-//         let from = parseInt(this.typeRange.tab.find('[field="from"]').val())
-//         let to = parseInt(this.typeRange.tab.find('[field="to"]').val())
-//         let step = parseInt(this.typeRange.tab.find('[field="step"]').val())
-//         if (from !== NaN && to !== NaN && step !== NaN) {
-//             try {
-//                 this.expected.text(JSON.stringify(range(from, to, step)))
-//             } catch (err) {
-//                 this.expected.text('')
-//                 this.error.text('This range may not be created...').removeClass('hidden')
-//                 this.typeRange.valid = false
-//                 return
-//             }
-//             this.error.text('').addClass('hidden')
-//             this.typeRange.values = range(from, to, step)
-//             this.typeRange.valid = true
-//             this.validate()
-//         } else {
-//             this.typeRange.valid = false
-//         }
-//     }
+    validate() {
+        if (this.title.val().trim() && this.valid) {
+            this.save.removeAttr('disabled')
+            return
+        }
+        this.save.attr('disabled', '')
 
-//     parseSetInput() {
-//         let delimiter = this.typeSet.tab.find('[field="delimiter"]').val()
-//         let content = this.typeSet.tab.find('[field="content"]').val()
-//         if (delimiter && content) {
-//             let values = []
-//             for (let value of content.split(delimiter)) {
-//                 value = this.typeSet.tab.find('[field="remove-whitespace"]').prop('checked') ? value.trim() : value
-//                 if (value) values.push(value)
-//             }
-//             this.expected.text(JSON.stringify(values))
-//             this.typeSet.values = values
-//             this.typeSet.valid = true
-//             this.validate()
-//         } else {
-//             this.typeSet.valid = false
-//         }
-//     }
+    }
 
-//     validate() {
-//         if ((this.typeRange.header.hasClass('active') && this.typeRange.valid) || (this.typeSet.header.hasClass('active') && this.typeSet.valid)) {
-//             if (this.title.val().trim()) {
-//                 this.save.removeAttr('disabled')
-//                 return
-//             }
-//         }
-//         this.save.attr('disabled', '')
+    parse() {
+        return {
+            title: this.title.val(),
+            color: this.color.find('.active').data('color'),
+            values: this.values,
+            autoRepeat: this.origin.find('[field="repeat"]').prop('checked'),
+            autoCopy: this.origin.find('[field="copy"]').prop('checked'),
+            random: this.origin.find('[field="random"]').prop('checked'),
+        }
 
-//     }
-
-//     generate() {
-//         let values = this.typeRange.header.hasClass('active') ? this.typeRange.values : this.typeSet.values
-//         return {
-//             title: this.title.val(),
-//             color: this.color.find('.active').data('color'),
-//             values,
-//             autoRepeat: this.origin.find('[field="auto-repeat"]').prop('checked'),
-//             autoCopy: this.origin.find('[field="auto-copy"]').prop('checked'),
-//             random: this.origin.find('[field="random-order"]').prop('checked'),
-//         }
-
-//     }
-// }
+    }
+}
 
 class CCardCollectionBuilder extends ICCardBuilder {
 
@@ -535,7 +493,7 @@ class CCardCollectionBuilder extends ICCardBuilder {
         })
     }
 
-    generate() {
+    parse() {
         return {
             title: this.title.val(),
             color: this.color.find('.active').data('color'),

@@ -24,6 +24,7 @@ $(document).ready(function () {
     cCardHolder = new CCardHolder()
     cCardRegularBuilder = new CCardRegularBuilder()
     cCardIterativeBuilderNumbers = new CCardIterativeBuilderNumbers()
+    cCardIterativeBuilderText = new CCardIterativeBuilderText()
     // cCardCollectionBuilder = new CCardCollectionBuilder()
     // cCardCollectionHolder = new CCardCollectionHolder()
 
@@ -38,8 +39,12 @@ $(document).ready(function () {
     cCardIterativeBuilderNumbers.build = ccard => {
         cCardHolder.prepend(DND.init(ccard.origin))
     }
+    cCardIterativeBuilderText.build = ccard => {
+        cCardHolder.prepend(DND.init(ccard.origin))
+    }
     cCardRegularBuilder.init()
     cCardIterativeBuilderNumbers.init()
+    cCardIterativeBuilderText.init()
     // cCardCollectionBuilder.init()
 
     cCardHolder.prepend(DND.init(new cCardRegularBuilder.CCard(deepCopy(regCard)).origin))
