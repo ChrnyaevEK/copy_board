@@ -1,11 +1,12 @@
 from django.shortcuts import render
+from django.template import loader
 from django.http import HttpResponse
 
 
-class BoardView: pass
+def index(request):
+    return HttpResponse('<h3><span style="color: white; background-color: teal; display: inline-flex; padding: 5px">ʕ•́ᴥ•̀ʔっ</br>Coming soon!</span></h3>')
 
 
-class CreationToolView: pass
-
-
-class NavigationBarView: pass
+def workspace(request, collection_id):
+    template = loader.get_template('copy_board/workspace.html')
+    return HttpResponse(template.render({}, request))

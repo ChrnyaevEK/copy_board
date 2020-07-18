@@ -25,12 +25,13 @@ SECRET_KEY = '8s7s9xt@13#_%*ltx-tx19^cg0^_7pstf3r+hz-cto*7wk#^ky'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'www.toptools.tech', 'toptools.tech']
+ALLOWED_HOSTS = ['127.0.0.1', 'www.toptools.tech', 'toptools.tech', '188.120.230.184']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'copy_board.apps.CopyBoardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
