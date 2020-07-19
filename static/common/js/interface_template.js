@@ -131,38 +131,30 @@ class CCardRegularBuilder extends Block {
     }
 
     constructor() {
-        super($('#ccard-builder li.ccard-builder-regular'))
-        this.title = this.origin.find('[field=title]')
-        this.content = this.origin.find('[field=content]')
-        this.color = this.origin.find('[field=color]')
-        this.save = this.origin.find('[field=save]')
+        super($('#ccard-builder li.ccard-builder-regular form'))
+        this.title = this.origin.find('[name=title]')
+        this.copy_content = this.origin.find('[name=copy_content]')
+        this.save = this.origin.find('[type=submit]')
     }
 
     init() {
-        this.color.find('span').click((event) => {
+        this.origin.change((event) => {
             __noEventPropagation(event)
-            this.color.find('span').removeClass('active')
-            $(event.target).addClass('active')
+            this.validate()
         })
-        this.title.change((event) => {
-            __noEventPropagation(event)
-            if (this.title.val()) {
-                this.save.removeAttr('disabled')
-            } else {
-                this.save.attr('disabled', '')
-            }
-        })
-        this.save.click((event) => {
-            __noEventPropagation(event)
-            this.build(new this.CCard(this.parse()))
+
+        this.origin.ajaxForm({
+            url : '/copy_board/ccard/regular/create/',
+            success : (response) => { this.build(new this.CCard(response)) },
+            error:()=>{ alert('An error occurred, try again later..') },
         })
     }
 
-    parse() {
-        return {
-            title: this.title.val(),
-            content: this.content.val(),
-            color: this.color.find('.active').data('color')
+    validate() {
+        if (this.title.val() && this.copy_content.val()) {
+            this.save.removeAttr('disabled')
+        } else {
+            this.save.attr('disabled', '')
         }
     }
 }
@@ -253,55 +245,33 @@ class CCardIterativeBuilderNumbers extends Block {
     }
 
     constructor() {
-        super($('#ccard-builder li.ccard-builder-iterative-num'))
+        super($('#ccard-builder li.ccard-builder-iterative-num form'))
 
         this.valid = false
-        this.values = undefined
 
-        this.title = this.origin.find('[field=title]')
-        this.from = this.origin.find('[field=from]')
-        this.to = this.origin.find('[field=to]')
-        this.step = this.origin.find('[field=step]')
-        this.endless = this.origin.find('[field=endless]')
-        this.repeat = this.origin.find('[field=repeat]')
-        this.random = this.origin.find('[field=random]')
-        this.copy = this.origin.find('[field=copy]')
-        this.expected = this.origin.find('[field="expected"]')
-        this.error = this.origin.find('[field="error"]')
-        this.color = this.origin.find('[field="color"]')
-        this.save = this.origin.find('[field="save"]')
+        this.title = this.origin.find('[name=title]')
+        this.from_val = this.origin.find('[name=from_val]')
+        this.to_val = this.origin.find('[name=to_val]')
+        this.step_val = this.origin.find('[name=step_val]')
+        this.endless = this.origin.find('[name=endless]')
+        this.repeat = this.origin.find('[name=repeat]')
+        this.random = this.origin.find('[name=random]')
+        this.auto_copy = this.origin.find('[name=auto_copy]')
+        this.expected = this.origin.find('[field=expected]')
+        this.error = this.origin.find('[field=error]')
+        this.save = this.origin.find('[type=submit]')
     }
 
     init() {
-        this.color.find('span').click((event) => {
-            __noEventPropagation(event)
-            this.color.find('span').removeClass('active')
-            $(event.target).addClass('active')
-        })
-        this.title.change((event) => {
-            __noEventPropagation(event)
-            this.parseRangeInput()
-        })
-        this.save.click((event) => {
-            __noEventPropagation(event)
-            this.build(new this.CCard(this.parse()))
-        })
-        this.origin.find('[field="from"], [field="to"], [field="step"]').change((event) => {
-            __noEventPropagation(event)
-            this.parseRangeInput()
-        })
-        this.endless.change((event) => {
+        this.origin.change((event) => {
             __noEventPropagation(event)
             if (this.endless.prop('checked')) {
                 this.random.prop('checked', false).attr('disabled', '')
-                this.to.attr('disabled', '')
+                this.to_val.attr('disabled', '')
             } else {
-                this.to.removeAttr('disabled')
+                this.to_val.removeAttr('disabled')
                 this.random.removeAttr('disabled')
             }
-            this.parseRangeInput()
-        })
-        this.random.change((event) => {
             if (this.random.prop('checked')) {
                 this.endless.prop('checked', false).attr('disabled', '')
                 this.repeat.prop('checked', true).attr('disabled', '')
@@ -309,13 +279,19 @@ class CCardIterativeBuilderNumbers extends Block {
                 this.repeat.removeAttr('disabled')
                 this.endless.removeAttr('disabled')
             }
+            this.parseRangeInput()
+        })
+        this.origin.ajaxForm({
+            url : '/copy_board/ccard/iter/number/create/',
+            success : (response) => { this.build(new this.CCard(response)) },
+            error:()=>{ alert('An error occurred, try again later..') },
         })
     }
 
     parseRangeInput() {
-        let from = parseInt(this.from.val())
-        let to = parseInt(this.to.val())
-        let step = parseInt(this.step.val())
+        let from = parseInt(this.from_val.val())
+        let to = parseInt(this.to_val.val())
+        let step = parseInt(this.step_val.val())
         let endless = this.endless.prop('checked')
         if (from !== NaN && to !== NaN && step !== NaN) {
             try {
@@ -346,21 +322,6 @@ class CCardIterativeBuilderNumbers extends Block {
             return
         }
         this.save.attr('disabled', '')
-    }
-
-    parse() {
-        return {
-            title: this.title.val(),
-            color: this.color.find('.active').data('color'),
-            from: parseInt(this.from.val()),
-            to: parseInt(this.to.val()),
-            step: parseInt(this.step.val()),
-            endless: this.endless.prop('checked'),
-            autoRepeat: this.repeat.prop('checked'),
-            autoCopy: this.copy.prop('checked'),
-            random: this.random.prop('checked'),
-        }
-
     }
 }
 
@@ -542,12 +503,12 @@ class CCardCollectionBuilder extends Block  {
             this.validate()
         })
         this.origin.ajaxForm({
-            url : '/copy_board/create/',
+            url : '/copy_board/ccollection/create/',
             success : (response) => { 
                 this.build(new this.CCardCollection(response))
             },
             error:()=>{
-                M.toast('An ERROR occurred, try again later..')
+                alert('An error occurred, try again later..')  // TODO
             }
         })
     }

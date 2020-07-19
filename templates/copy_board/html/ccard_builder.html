@@ -7,25 +7,18 @@
             <i class="material-icons">keyboard_arrow_down</i>
         </div>
         <div class="collapsible-body grey lighten-5">
-            <label>Title</label>
-            <input field="title" class="ccard-title">
-            <label>Copy-content</label>
-            <textarea field="content" class="ccard-content"></textarea>
-            <div field="color" class="color-picker">
-                <span data-color="blue" class="blue lighten-3 active"></span>
-                <span data-color="cyan" class="cyan lighten-3"></span>
-                <span data-color="teal" class="teal lighten-3"></span>
-                <span data-color="green" class="green lighten-3"></span>
-                <span data-color="lime" class="lime lighten-3"></span>
-                <span data-color="orange" class="orange lighten-3"></span>
-                <span data-color="red" class="red lighten-3"></span>
-                <span data-color="pink" class="pink lighten-3"></span>
-                <span data-color="purple" class="purple lighten-3"></span>
-                <span data-color="indigo" class="indigo lighten-3"></span>
-            </div>
-            <p>
-                <button field="save" class="btn" disabled>save</button>
-            </p>
+            <form method="post">
+                {% csrf_token %}
+                <input name="title" class="ccard-title">
+                <label>Card content (text to copy)</label>
+                <textarea name="copy_content" class="ccard-content"></textarea>
+                <div field="color" class="color-picker">
+                {% for item in color_set %}
+                    <input id="ccard-regular-builder-{{item}}" name="color" type="radio" value="{{item}}"  {% if item == default_color %}checked{% endif %}/><label for="ccard-regular-builder-{{item}}" class="{{item}} lighten-3"></label>
+                {% endfor %}
+                </div>
+                <p><input type="submit" class="btn" value="create"disabled/></p>
+            </form>
         </div>
     </li>
     <!-- Tool to create iterative ccard - over numbers -->
@@ -35,67 +28,56 @@
             <i class="material-icons">keyboard_arrow_down</i>
         </div>
         <div class="collapsible-body">
-            <label>Title</label>
-            <input field="title" class="ccard-title">
-            <div class="row">
-                <div class="input-field col s4">
-                    <input field="from" type="number" value="0" class="validate">
-                    <label>From:</label>
+            <form method="post">
+                {% csrf_token %}
+                <input name="title" class="ccard-title">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input name="from_val" type="number" value="0" class="validate">
+                        <label>from</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input name="to_val" type="number" value="0" class="validate">
+                        <label>to</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input name="step_val" type="number" value="1" class="validate">
+                        <label>step</label>
+                    </div>
+                    <div field="expected" class="col s12 truncate grey-text lighten-3"></div>
+                    <div class="col s12 truncate"><p class="left red white-text lighten-3 hidden" field="error"></p></div>
                 </div>
-                <div class="input-field col s4">
-                    <input field="to" type="number" value="0" class="validate">
-                    <label>To:</label>
-                </div>
-                <div class="input-field col s4">
-                    <input field="step" type="number" value="0" class="validate">
-                    <label>Step:</label>
-                </div>
-                <div field="expected" class="col s12 truncate grey-text lighten-3"></div>
-                <div class="col s12 truncate"><p class="left red white-text lighten-3 hidden" field="error"></p></div>
-            </div>
-            <p>
-                <label>
-                    <input  field="endless" type="checkbox" />
-                    <span>Endless</span>
-                </label>
-            </p>
-
-            <hr>
-
-            <p>
-                <label>
-                    <input  field="repeat" type="checkbox" checked />
-                    <span>Auto repeat</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input field="random" type="checkbox" />
-                    <span>Random order</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input field="copy" type="checkbox" />
-                    <span>Copy on prev/next</span>
-                </label>
-            </p>
-
-            <div field="color" class="color-picker">
-                <span data-color="blue" class="blue lighten-3 active"></span>
-                <span data-color="cyan" class="cyan lighten-3"></span>
-                <span data-color="teal" class="teal lighten-3"></span>
-                <span data-color="green" class="green lighten-3"></span>
-                <span data-color="lime" class="lime lighten-3"></span>
-                <span data-color="orange" class="orange lighten-3"></span>
-                <span data-color="red" class="red lighten-3"></span>
-                <span data-color="pink" class="pink lighten-3"></span>
-                <span data-color="purple" class="purple lighten-3"></span>
-                <span data-color="indigo" class="indigo lighten-3"></span>
-            </div>
-            <p>
-                <button field="save" class="btn" disabled>save</button>
-            </p>
+                <p>
+                    <label>
+                        <input  name="endless" type="checkbox" />
+                        <span>Endless</span>
+                    </label>
+                </p><hr>
+                <p>
+                    <label>
+                        <input name="repeat" type="checkbox" checked />
+                        <span>Repeat</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="random" type="checkbox" />
+                        <span>Random order</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="auto_copy" type="checkbox" />
+                        <span>Auto copy</span>
+                    </label>
+                </p>
+                <div field="color" class="color-picker">
+                    {% for item in color_set %}
+                        <input id="ccard-iter-num-builder-{{item}}" name="color" type="radio" value="{{item}}"  {% if item == default_color %}checked{% endif %}/><label for="ccard-iter-num-builder-{{item}}" class="{{item}} lighten-3"></label>
+                    {% endfor %}
+                    </div>
+                <p><input type="submit" class="btn" value="create"disabled/></p>
+            </form>
         </div>
     </li>
     <!-- Tool to create iterative ccard - over text -->

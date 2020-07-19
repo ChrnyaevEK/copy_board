@@ -21,6 +21,8 @@ class Constants:
     )
     default_color = 'blue'
     default_access_type = 'public'
+    default_ccollection_id = 1
+    activated = 'on'
 
 
 class CCollection(models.Model):
@@ -29,14 +31,6 @@ class CCollection(models.Model):
     access_type = models.CharField(max_length=10, choices=Constants.access_type_set,
                                    default=Constants.default_access_type)
     color = models.CharField(max_length=10, choices=Constants.color_set, default=Constants.color_set[0])
-
-    def as_json(self):
-        return {
-            'title': self.title,
-            'creation_date': self.creation_date,
-            'access_type': self.access_type,
-            'color': self.color,
-        }
 
     def __str__(self):
         return self.title
@@ -47,7 +41,7 @@ class CCollection(models.Model):
 
 
 class CCard(models.Model):
-    ccollection = models.ForeignKey(CCollection, on_delete=models.CASCADE)
+    ccollection = models.ForeignKey(CCollection, on_delete=models.CASCADE, default=Constants.default_ccollection_id)
     title = models.CharField(max_length=200)
     creation_date = models.DateTimeField(auto_now_add=True)
     color = models.CharField(max_length=10, choices=Constants.color_set, default=Constants.color_set[0])
@@ -71,7 +65,8 @@ class IterativeCCardNumber(CCard):
     from_val = models.IntegerField()
     to_val = models.IntegerField()
     step_val = models.IntegerField()
-    autoCopy = models.BooleanField(default=False)
+    auto_copy = models.BooleanField(default=False)
+    repeat = models.BooleanField(default=False)
     random = models.BooleanField(default=False)
 
     class Meta:
