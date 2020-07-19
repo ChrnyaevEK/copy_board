@@ -102,29 +102,9 @@ class CCard extends Template {
     }
 }
 
-class ICCardBuilder extends Block {
-    CCard = class {
-        constructor() {
-            throw Error('Not implemented')
-        }
-    }
-    init() {  // Will init JS for element
-        throw Error('Not implemented')
-    };
-
-    parse() {
-        throw Error('Not implemented')
-    }
-
-    // --- Override ---
-    build(ccard) {  // Called on save event, CCard object will be passed
-        throw Error('Not implemented')
-    };
-}
-
 // ------------------------------------------------------------------------- 
 
-class CCardRegularBuilder extends ICCardBuilder {
+class CCardRegularBuilder extends Block {
     CCard = class extends CCard {
         constructor(data) {
             super('ccard-regular')
@@ -187,7 +167,7 @@ class CCardRegularBuilder extends ICCardBuilder {
     }
 }
 
-class CCardIterativeBuilderNumbers extends ICCardBuilder {
+class CCardIterativeBuilderNumbers extends Block {
     CCard = class extends CCard {
         constructor(data) {
             super('ccard-iterative')
@@ -384,7 +364,7 @@ class CCardIterativeBuilderNumbers extends ICCardBuilder {
     }
 }
 
-class CCardIterativeBuilderText extends ICCardBuilder {
+class CCardIterativeBuilderText extends Block  {
     CCard = class extends CCard {
         lastIndex = 0;
         constructor(data) {
@@ -538,7 +518,7 @@ class CCardIterativeBuilderText extends ICCardBuilder {
     }
 }
 
-class CCardCollectionBuilder extends ICCardBuilder {
+class CCardCollectionBuilder extends Block  {
 
     CCardCollection = class extends Template {
         constructor(data) {
@@ -551,38 +531,32 @@ class CCardCollectionBuilder extends ICCardBuilder {
     }
 
     constructor() {
-        super($('#ccollection-builder li.ccollection'))
+        super($('#ccollection-builder'))
         this.title = this.origin.find('[field=title]')
-        this.color = this.origin.find('[field=color]')
         this.save = this.origin.find('[field=save]')
     }
 
     init() {
-        this.color.find('span').click((event) => {
+        this.origin.change((event) => {
             __noEventPropagation(event)
-            this.color.find('span').removeClass('active')
-            $(event.target).addClass('active')
+            this.validate()
         })
-
-        this.title.change((event) => {
-            __noEventPropagation(event)
-            if (this.title.val()) {
-                this.save.removeAttr('disabled')
-            } else {
-                this.save.attr('disabled', '')
+        this.origin.ajaxForm({
+            url : '/copy_board/create/',
+            success : (response) => { 
+                this.build(new this.CCardCollection(response))
+            },
+            error:()=>{
+                M.toast('An ERROR occurred, try again later..')
             }
-        })
-
-        this.save.click((event) => {
-            __noEventPropagation(event)
-            this.build(new this.CCardCollection(this.generate()))
         })
     }
 
-    parse() {
-        return {
-            title: this.title.val(),
-            color: this.color.find('.active').data('color'),
+    validate() {
+        if (this.title.val()) {
+            this.save.removeAttr('disabled')
+        } else {
+            this.save.attr('disabled', '')
         }
     }
 }

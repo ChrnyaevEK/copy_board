@@ -19,14 +19,24 @@ class Constants:
         ('private', 'private'),
         ('protected', 'protected'),
     )
-    default_access = 'public'
+    default_color = 'blue'
+    default_access_type = 'public'
 
 
 class CCollection(models.Model):
     title = models.CharField(max_length=200)
     creation_date = models.DateTimeField(auto_now_add=True)
-    access_type = models.CharField(max_length=10, choices=Constants.access_type_set, default=Constants.default_access)
+    access_type = models.CharField(max_length=10, choices=Constants.access_type_set,
+                                   default=Constants.default_access_type)
     color = models.CharField(max_length=10, choices=Constants.color_set, default=Constants.color_set[0])
+
+    def as_json(self):
+        return {
+            'title': self.title,
+            'creation_date': self.creation_date,
+            'access_type': self.access_type,
+            'color': self.color,
+        }
 
     def __str__(self):
         return self.title
