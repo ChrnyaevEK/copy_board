@@ -63,12 +63,26 @@ class RegularCCard(CCard):
 
 class IterativeCCardNumber(CCard):
     from_val = models.IntegerField()
-    to_val = models.IntegerField()
+    to_val = models.IntegerField(null=True)
     step_val = models.IntegerField()
     auto_copy = models.BooleanField(default=False)
+    endless = models.BooleanField(default=False)
     repeat = models.BooleanField(default=False)
     random = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Iterative ccard(number)'
         verbose_name_plural = 'Iterative ccards(number)'
+
+
+class IterativeCCardText(CCard):
+    content = models.TextField()
+    delimiter = models.CharField(max_length=50)
+    remove_whitespace = models.BooleanField(default=False)
+    auto_copy = models.BooleanField(default=False)
+    repeat = models.BooleanField(default=False)
+    random = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Iterative ccard(text)'
+        verbose_name_plural = 'Iterative ccards(text)'

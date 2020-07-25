@@ -18,6 +18,8 @@ from django.urls import path
 from django.urls import include
 
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('copy_board/', include('copy_board.urls')),
+    path('', include('copy_board.urls')),  # TODO remove
 ]

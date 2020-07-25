@@ -51,6 +51,19 @@ $(document).ready(function () {
     cCardIterativeBuilderNumbers.init()
     cCardIterativeBuilderText.init()
     cCardCollectionBuilder.init()
-    // cCardHolder.prepend(DND.init(new cCardRegularBuilder.CCard(deepCopy(regCard)).origin))
-    // cCardHolder.prepend(DND.init(new cCardIterativeBuilderNumbers.CCard(deepCopy(iterCard)).origin))
+    {% autoescape off %}
+    {% for item in collections %}
+        cCardCollectionHolder.append(new cCardCollectionBuilder.CCardCollection({{item}}))
+    {% endfor %}
+    {% for item in cards %}
+        {% if item.0 == 'reg' %}
+            cCardHolder.append(DND.init(new cCardRegularBuilder.CCard({{ item.1 }}).origin))
+        {% elif item.0 == 'num' %}
+            cCardHolder.append(DND.init(new cCardIterativeBuilderNumbers.CCard({{ item.1 }}).origin))
+        {% else %}
+            cCardHolder.append(DND.init(new cCardIterativeBuilderText.CCard({{ item.1 }}).origin))
+        {% endif %}
+    {% endfor %}
+    {% endautoescape %}
+    $('.dropdown-trigger').dropdown();
 })

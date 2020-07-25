@@ -20,6 +20,11 @@ nav {
     box-shadow: 0 0 3px 0px #a3a3a3;
 }
 
+nav .user-name {
+    font-size: 1.5rem;
+
+}
+
 .navbar-fixed .brand-logo {
     margin-left: .5rem;
     font-size: 2rem;
