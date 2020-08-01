@@ -1,27 +1,180 @@
 {% extends "copy_board/html/base.html" %}
 {% load static %}
+
 {% block content %}
-    <div class="row">
-        <!-- Toolbar - left column -->
-        <div id="tool-holder" class="col s12 l2">
-            <label>Your copy boards</label>
-            {% include "copy_board/html/ccollection_holder.html" %}
-            <label>Create new copy board</label>
-            {% include "copy_board/html/ccollection_builder.html" %}
-            <label>Create new copy card</label>
-            {% include "copy_board/html/ccard_builder.html" %}
+<div class="row">
+    <div id="tool-holder" class="col s12 l2">
+        <label>Your collections</label>
+        <div id="collection_holder"></div>
+        {%if collection_builder%}
+        <label>Create new collection</label>
+        <div>
+            <!-- Tool to create collection -->
+            <form id="collection_builder" method="post" v-on:submit="createCollection">
+                {% csrf_token %}
+                <input name="title" v-model="title" required>
+                <p class="color-picker">
+                {% for item in Constants.color_set %}
+                    <label class="{{item}} lighten-3"><input name="color" type="radio" value="{{item.0}}" v-model:color/></label>
+                {% endfor %}
+                </p>
+                <p>
+                {% for item in Constants.acess_type_set %}
+                    <label><input name="acess_type" type="radio" value="{{item.0}}" v-model:acess_type/><span>{{item.1}}</span></label>
+                {% endfor %}
+                </p>
+                <input type="submit" class="btn" value="create" disabled>
+            </form>
         </div>
-        <!-- CCard holder - center -->
-        <div class="col s12 l7">
-            <div id="ccard-holder" class="grid">
-            </div>
+        {%endif%}
+        <label>Create new card</label>
+        <!-- Tool to create cards -->
+        <ul id="card-builder" class="collapsible">  // TODO
+            <!-- Tool to create regular card -->
+            <li class="card-builder-regular">
+                <div class="collapsible-header valign-wrapper blue-grey white-text">
+                    <span class="card-header truncate">Regular card</span>
+                    <i class="material-icons">keyboard_arrow_down</i>
+                </div>
+                <div class="collapsible-body grey lighten-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input name="title" class="card-title">
+                        <label>Card content (text to copy)</label>
+                        <textarea name="copy_content" class="card-content"></textarea>
+                        <div field="color" class="color-picker">
+                        {% for item in color_set %}
+                            <input id="card-regular-builder-{{item}}" name="color" type="radio" value="{{item}}"  {% if item == default_color %}checked{% endif %}/><label for="card-regular-builder-{{item}}" class="{{item}} lighten-3"></label>
+                        {% endfor %}
+                        </div>
+                        <p><input type="submit" class="btn" value="create"disabled/></p>
+                    </form>
+                </div>
+            </li>
+            <!-- Tool to create iterative card - over numbers -->
+            <li class="card-builder-iterative-num">
+                <div class="collapsible-header valign-wrapper blue-grey white-text">
+                    <span class="card-header truncate">Card iterating over numbers</span>
+                    <i class="material-icons">keyboard_arrow_down</i>
+                </div>
+                <div class="collapsible-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input name="title" class="card-title">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input name="from_val" type="number" value=0 class="validate">
+                                <label>from</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input name="to_val" type="number" value=1 class="validate">
+                                <label>to</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input name="step_val" type="number" value=1 class="validate">
+                                <label>step</label>
+                            </div>
+                            <div field="expected" class="col s12 truncate grey-text lighten-3"></div>
+                            <div class="col s12 truncate"><p class="left red white-text lighten-3 hidden" field="error"></p></div>
+                        </div>
+                        <p>
+                            <label>
+                                <input  name="endless" type="checkbox" />
+                                <span>Endless</span>
+                            </label>
+                        </p><hr>
+                        <p>
+                            <label>
+                                <input name="repeat" type="checkbox" checked />
+                                <span>Repeat</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input name="random" type="checkbox" />
+                                <span>Random order</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input name="auto_copy" type="checkbox" />
+                                <span>Auto copy</span>
+                            </label>
+                        </p>
+                        <div field="color" class="color-picker">
+                            {% for item in color_set %}
+                                <input id="card-iter-num-builder-{{item}}" name="color" type="radio" value="{{item}}"  {% if item == default_color %}checked{% endif %}/><label for="card-iter-num-builder-{{item}}" class="{{item}} lighten-3"></label>
+                            {% endfor %}
+                        </div>
+                        <p><input type="submit" class="btn" value="create"disabled/></p>
+                    </form>
+                </div>
+            </li>
+            <!-- Tool to create iterative card - over text -->
+            <li class="card-builder-iterative">
+                <div class="collapsible-header valign-wrapper blue-grey white-text">
+                    <span class="card-header truncate">Card iterating over text</span>
+                    <i class="material-icons">keyboard_arrow_down</i>
+                </div>
+                <div class="collapsible-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input name="title" class="card-title">
+                        <label>Delimiter</label>
+                        <input name="delimiter">
+                        <textarea name="content"></textarea>
+                        <div field="expected" class="col s12 truncate grey-text lighten-3"></div>
+                        <p>
+                            <label>
+                                <input name="remove_whitespace" type="checkbox" checked />
+                                <span>Remove whitespace</span>
+                            </label>
+                        </p>
+
+                        <hr>
+
+                        <p>
+                            <label>
+                                <input  name="repeat" type="checkbox" checked />
+                                <span>Auto repeat</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input name="random" type="checkbox" />
+                                <span>Random order</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input name="auto_copy" type="checkbox" />
+                                <span>Copy on prev/next</span>
+                            </label>
+                        </p>
+                        <div field="color" class="color-picker">
+                            {% for item in color_set %}
+                                <input id="card-iter-text-builder-{{item}}" name="color" type="radio" value="{{item}}"  {% if item == default_color %}checked{% endif %}/><label for="card-iter-text-builder-{{item}}" class="{{item}} lighten-3"></label>
+                            {% endfor %}
+                        </div>
+                        <p><input type="submit" class="btn" value="create"disabled/></p>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- card holder - center -->
+    <div class="col s12 l7">
+        <div id="card-holder" class="grid">
         </div>
     </div>
-    {% include "copy_board/html/ccard_regular.html" %}
-    {% include "copy_board/html/ccard_iterative.html" %}
-    <script type="text/javascript" src="{% static 'common/js/masonry.min.js' %}"></script>
-    <script> {% include "copy_board/js/common.js" %} </script>
-    <script> {% include "copy_board/js/interface_draggable.js" %} </script>
-    <script> {% include "copy_board/js/interface_template.js" %} </script>
-    <script> {% include "copy_board/js/init.js" %} </script>
-{%endblock%}
+</div>
+{% endblock %}
+
+{% block inject %}
+<script type="text/javascript" src="{% static 'common/js/vue.js' %}"></script>
+<script type="text/javascript" src="{% static 'common/js/masonry.min.js' %}"></script>
+<script> {% include "copy_board/js/common.js" %} </script>
+<script> {% include "copy_board/js/interface_draggable.js" %} </script>
+<script> {% include "copy_board/js/components.js" %} </script>
+<script> {% include "copy_board/js/init.js" %} </script>
+{% endblock %}

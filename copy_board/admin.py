@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import CCollection, IterativeCCardNumber, RegularCCard
+from .models import Collection, NumberCard, RegularCard
 
-admin.site.register(CCollection)
-admin.site.register(IterativeCCardNumber)
-admin.site.register(RegularCCard)
+admin.site.register(Collection)
+admin.site.register(NumberCard)
+admin.site.register(RegularCard)

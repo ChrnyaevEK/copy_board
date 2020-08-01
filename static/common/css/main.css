@@ -22,7 +22,6 @@ nav {
 
 nav .user-name {
     font-size: 1.5rem;
-
 }
 
 .navbar-fixed .brand-logo {
@@ -39,23 +38,23 @@ nav .user-name {
     margin: 0 .5rem 0 0;
 }
 
-#ccollection-holder {
+#cc-collection-holder {
     max-height: 30rem;
     margin: .5rem 0;
 }
 
-#ccollection-holder>label, #tool-holder>label, #ccollection-builder > label {
+#cc-collection-holder>label, #tool-holder>label, #cc-collection-builder>label {
     font-size: 1rem;
 }
 
-.ccollection {
+.cc-collection {
     margin: .1rem;
     padding: .3rem;
     margin: .3rem;
     box-shadow: 0 0 3px 0px #a3a3a3;
 }
 
-.ccollection .card-content {
+.cc-collection .card-content {
     display: flex;
     justify-content: space-between;
     font-size: 1rem;
@@ -63,19 +62,18 @@ nav .user-name {
     width: 100%;
 }
 
-.ccollection .card-content i {
+.cc-collection .card-content i {
     font-size: 1.3rem;
     margin: auto 0 auto .3rem;
 }
 
-.ccollection .ccollection-title {
+.cc-collection .cc-collection-title {
     display: flex;
-    justify-content: space-between;
     font-size: 1rem;
     width: 100%;
 }
 
-.ccollection .ccollection-title label {
+.cc-collection .cc-collection-title label {
     font-size: 1rem;
     margin: auto .3rem;
 }
@@ -114,7 +112,7 @@ nav .user-name {
     padding: .5rem;
 }
 
-#tool-holder input, a, button {
+#tool-holder input, a, buccon {
     font-size: 1rem;
 }
 
@@ -129,19 +127,19 @@ nav .user-name {
     cursor: pointer;
 }
 
-#tool-holder .color-picker input:checked + label{
+#tool-holder .color-picker input:checked+label {
     z-index: 10;
     box-shadow: 0 0 5px 0px black;
 }
 
-#ccard-builder textarea {
+#card-builder textarea {
     height: 7rem;
     border-radius: 0.2rem;
     resize: vertical;
     border-style: solid;
 }
 
-#ccard-builder .tabs a {
+#card-builder .tabs a {
     text-align: center;
     width: 100%;
     font-size: 1rem !important;
@@ -149,16 +147,16 @@ nav .user-name {
     overflow: unset !important;
 }
 
-#ccard-holder .card {
+#card-holder .card {
     margin-top: 2px;
-    margin-bottom: 2px;
+    margin-boccom: 2px;
 }
 
-#ccard-holder {
+#card-holder {
     margin-top: .8rem;
 }
 
-#ccard-holder .ccard .ccard-title {
+#card-holder .card .card-title {
     font-size: 1rem;
     font-weight: 500;
     overflow: hidden;
@@ -167,7 +165,7 @@ nav .user-name {
     -webkit-box-orient: vertical;
 }
 
-#ccard-holder .ccard-regular-content, .ccard-iterative-content {
+#card-holder .card-regular-content, .card-iterative-content {
     font-size: 1rem;
     overflow: hidden;
     display: -webkit-box !important;
@@ -176,65 +174,18 @@ nav .user-name {
     word-break: break-all;
 }
 
-#ccard-holder .ccard .ccard-action {
+#card-holder .card .card-action {
     display: flex;
     height: 100%;
 }
 
-#ccard-holder .ccard .ccard-action a {
+#card-holder .card .card-action a {
     font-size: 1rem;
 }
 
-#ccard-holder .ccard .ccard-copy {
+#card-holder .card .card-copy {
     width: 100%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .scroll-section {
     overflow-y: auto;
@@ -244,10 +195,6 @@ nav .user-name {
 ::-webkit-scrollbar {
     display: none;
 }
-
-
-
-
 
 /* DnD */
 
@@ -268,7 +215,7 @@ nav .user-name {
 
 /* Toast on copy */
 
-.ccard-copy-toast {
+.card-copy-toast {
     width: 16vw;
     overflow: hidden;
     display: -webkit-box !important;
@@ -288,4 +235,3 @@ nav .user-name {
 .grid-item {
     width: 33%;
 }
-

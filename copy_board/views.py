@@ -3,158 +3,113 @@ from django.template import loader
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 from django.http import JsonResponse
-from django.http import Http404
-from .models import CCollection
-from .models import IterativeCCardNumber
-from .models import IterativeCCardText
-from .models import RegularCCard
+from .models import Collection
+from .models import NumberCard
+from .models import TextCard
+from .models import RegularCard
 from .models import Constants
-from django.forms.models import model_to_dict
+from copy_board.forms import RegistrationForm
+from django.contrib.auth import login
+from django.urls import reverse
+from django.shortcuts import redirect
+from django.contrib.auth.models import Permission, User
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
+from django.views.decorators.http import require_http_methods, require_GET, require_POST
 
 
+# TODO Do not allow to create too much collections if user is not auth.
+
+
+@require_GET
 def index(request):
-    tempalte = loader.get_template('copy_board/html/index.html')
-    return HttpResponse(tempalte.render({
+    return HttpResponse(loader.get_template('copy_board/html/index.html').render({
         'user': request.user if request.user.is_authenticated else None
     }))
 
 
-def workspace(request, collection_id=1):
-    template = loader.get_template('copy_board/html/workspace.html')
-    collection = CCollection.objects.get(id=collection_id)
-    collections = [model_to_dict(c) for c in CCollection.objects.all()]
-    cards = []
-    cards.extend(collection.regularccard_set.all())
-    cards.extend(collection.iterativeccardnumber_set.all())
-    cards.extend(collection.iterativeccardtext_set.all())
-    for i in range(1, len(cards)):
-        item_to_insert = cards[i]
-        j = i - 1
-        while j >= 0 and cards[j].creation_date > item_to_insert.creation_date:
-            cards[j + 1] = cards[j]
-            j -= 1
-        cards[j + 1] = item_to_insert
-    for i in range(len(cards)):
-        if isinstance(cards[i], RegularCCard):
-            cards[i] = ('reg', json.dumps(model_to_dict(cards[i])))
-        elif isinstance(cards[i], IterativeCCardNumber):
-            cards[i] = ('num', json.dumps(model_to_dict(cards[i])))
+@require_http_methods(["GET", "POST"])
+def registration(request):
+    if request.method == "GET":
+        template = loader.get_template('registration/registration.html')
+        return HttpResponse(template.render({
+            'form': RegistrationForm,
+            'next': 'index'
+        }, request))
+    elif request.method == "POST":
+        if User.objects.filter(email__exact=request.POST['email']).exists():
+            return JsonResponse(Constants.api(error='User already exist!'))  # Resource exist
         else:
-            cards[i] = ('text', json.dumps(model_to_dict(cards[i])))
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                Collection.objects.create(user=user, title=Constants.default_title)
+                login(request, user)
+                return redirect(reverse('index'))
+            else:
+                return JsonResponse(Constants.api(error=list(form.errors.values())[0]))
+
+
+@require_GET
+def workspace(request, c_id):
+    template = loader.get_template('copy_board/html/workspace.html')
+    user = request.user
+    collection = CollectionView.get(user, c_id)
+    collections = Collection.objects.filter(user=user) if user.is_authenticated else []
+    cards = collection.regularcard_set.all().union(collection.numbercard_set.all(), collection.textcard_set.all())
+    cards.order_by('index')
     return HttpResponse(template.render({
+        'collection_builder': user.is_authenticated,
         'collections': collections,
         'cards': cards,
-        'color_set': [item[0] for item in Constants.color_set],
-        'default_color': Constants.default_color,
-        'access_type_set': [item[0] for item in Constants.access_type_set],
-        'default_access_type': Constants.default_access_type,
+        'Constants': Constants,
     }, request))
 
 
-class CCollectionView:
+class CollectionView:
     @staticmethod
+    @require_POST
     def create(request):
-        if request.method == 'POST':
-            try:
-                source = {
-                    'title': request.POST['title'],
-                }
-            except KeyError:
-                return HttpResponseBadRequest('Not enough data')
-            else:
-                for optional in ('color', 'access_type'):
-                    try:
-                        source[optional] = request.POST[optional]
-                    except KeyError:
-                        pass
-            ccollection = CCollection.objects.create(**source)
-            return JsonResponse(model_to_dict(ccollection))
-        raise Http404('Not found')
+        user = request.user
+        try:
+            collection = Collection.objects.create(user, **request.POST) if user.is_authenticated else Collection(
+                **request.POST)
+        except IntegrityError:  # TODO check
+            return HttpResponseBadRequest('Not enough data')
+        return JsonResponse(collection.json())
+
+    @classmethod
+    def get(cls, user, c_id):
+        try:
+            return Collection.objects.get(pk=c_id, user=user)
+        except ObjectDoesNotExist:
+            return Collection.objects.get_or_create(title=Constants.default_title,
+                                                    user=user if user.is_authenticated else None)[0]
 
 
-class RegularCCardView:
+class CardView:
     @staticmethod
-    def create(request):
-        if request.method == 'POST':
-            try:
-                source = {  # TODO bind ccollection
-                    'title': request.POST['title'],
-                    'copy_content': request.POST['copy_content'],
-                }
-            except KeyError:
-                return HttpResponseBadRequest('Not enough data')
-            else:
-                try:
-                    source['color'] = request.POST['color']
-                except KeyError:
-                    pass
-            card = RegularCCard.objects.create(**source)
-            return JsonResponse(model_to_dict(card))
-        raise Http404('Not found')
+    def create(request, card):
+        try:
+            collection = CollectionView.get(request.user, request.POST['c_id'])
+        except KeyError:
+            return HttpResponseBadRequest(Constants.bad_request)
+        try:
+            return JsonResponse(card.objects.create(collection=collection, **request.POST).json())
+        except IntegrityError:
+            return HttpResponseBadRequest(Constants.bad_request)
 
+    @classmethod
+    @require_POST
+    def create_regular(cls, request):
+        return cls.create(request, RegularCard)
 
-class IterativeCCardNumberView:
-    @staticmethod
-    def create(request):
-        if request.method == 'POST':
-            try:
-                source = {  # TODO bind ccollection
-                    'title': request.POST['title'],
-                    'from_val': request.POST['from_val'],
-                    'step_val': request.POST['step_val'],
-                }
-            except KeyError:
-                return HttpResponseBadRequest('Not enough data')
-            else:
-                try:
-                    source['endless'] = request.POST['endless'] == Constants.activated
-                except KeyError:
-                    try:
-                        source['to_val'] = request.POST['to_val']
-                    except KeyError:
-                        return HttpResponseBadRequest('Not enough data')
-                try:
-                    source['color'] = request.POST['color']
-                except KeyError:
-                    pass
-                for option in ('repeat', 'auto_copy', 'random'):
-                    try:
-                        source[option] = request.POST[option] == Constants.activated
-                    except KeyError:
-                        pass
-            card = IterativeCCardNumber.objects.create(**source)
-            card = model_to_dict(card)
-            for option in ('from_val', 'to_val', 'step_val'):
-                try:
-                    card[option] = int(card[option])
-                except TypeError:
-                    pass
-            return JsonResponse(card)
-        raise Http404('Not found')
+    @classmethod
+    @require_POST
+    def create_number(cls, request):
+        return cls.create(request, NumberCard)
 
-
-class IterativeCCardTextView:
-    @staticmethod
-    def create(request):
-        if request.method == 'POST':
-            try:
-                source = {  # TODO bind ccollection
-                    'title': request.POST['title'],
-                    'content': request.POST['content'],
-                    'delimiter': request.POST['delimiter'],
-                }
-            except KeyError:
-                return HttpResponseBadRequest('Not enough data')
-            else:
-                try:
-                    source['color'] = request.POST['color']
-                except KeyError:
-                    pass
-                for optional in ('remove_whitespace', 'repeat', 'auto_copy', 'random'):
-                    try:
-                        source[optional] = request.POST[optional] == Constants.activated
-                    except KeyError:
-                        pass
-            card = IterativeCCardText.objects.create(**source)
-            return JsonResponse(model_to_dict(card))
-        raise Http404('Not found')
+    @classmethod
+    @require_POST
+    def create_text(cls, request):
+        return cls.create(request, TextCard)
