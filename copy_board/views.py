@@ -28,20 +28,20 @@ def registration(request):
         template = loader.get_template('registration/registration.html')
         return HttpResponse(template.render({
             'form': RegistrationForm,
-            'next': 'index'
         }, request))
     elif request.method == "POST":
         if User.objects.filter(email__exact=request.POST['email']).exists():
-            return JsonResponse(Common.api(error='User already exist!'))  # Resource exist
+            return HttpResponseBadRequest('User already exist!')  # Resource exist
         else:
             form = RegistrationForm(request.POST)
             if form.is_valid():
                 user = form.save()
-                Collection.objects.create(user=user, title=Constants.default_title)
+                collection = Collection.objects.create(user=user, title=Constants.default_title)
+                request.session['c_id'] = collection.id
                 login(request, user)
-                return redirect(reverse('index'))
+                return redirect(reverse('main_workspace'))
             else:
-                return JsonResponse(Common.api(error=list(form.errors.values())[0]))
+                return HttpResponseBadRequest(list(form.errors.values())[0])
 
 
 @require_GET
@@ -56,19 +56,25 @@ def workspace(request, c_id=None):
                 return HttpResponseForbidden()
         else:
             try:
-                seccion_c_id = request.session['c_id']
+                if c_id == request.session['c_id']:
+                    collection = Collection.objects.get(pk=c_id)
+                else:
+                    return HttpResponseForbidden()
             except KeyError:
                 return HttpResponseForbidden()
-            if seccion_c_id == c_id:
-                collection = Collection.objects.get(pk=c_id)
-            else:
-                return HttpResponseForbidden()
     else:
-        collection = Collection.objects.get_or_create(is_main=True, title=Constants.default_title, user=user if user.is_authenticated else None)[0]
+        if user.is_authenticated:
+            collection = Collection.objects.get_or_create(user=user, is_main=True)[0]
+        else:
+            try:
+                collection = Collection.objects.get(pk=request.session['c_id'])
+            except (KeyError, ObjectDoesNotExist):
+                collection = Collection.objects.create(is_main=True, title=Constants.default_title)
+                request.session['c_id'] = collection.id
+                return redirect(reverse('workspace', kwargs={'c_id': collection.id}))
     if user.is_authenticated:
         collections = Collection.objects.filter(user=user)
     else:
-        request.session['c_id'] = collection.id
         collections = [collection]
     regular_cards = collection.regularcard_set.all()
     number_cards = collection.numbercard_set.all()
@@ -79,7 +85,7 @@ def workspace(request, c_id=None):
         reverse=True,
     )
     return HttpResponse(template.render({
-        'c_id': c_id,
+        'c_id': collection.id,
         'collection_builder': user.is_authenticated,
         'collections': Common.iter_json(collections),
         'cards': Common.iter_json(cards),
@@ -113,10 +119,24 @@ class CollectionView:
 class CardView:
     @staticmethod
     def create(request, card):
-        try:
-            collection = Collection.objects.get(request.user, request.POST['c_id'])
-        except (KeyError, ObjectDoesNotExist):
-            return HttpResponseBadRequest(Constants.bad_request)
+        user = request.user
+        if user.is_authenticated:
+            try:
+                collection = Collection.objects.get(user, request.POST['c_id'])
+            except (KeyError, ObjectDoesNotExist):
+                return HttpResponseBadRequest(Constants.bad_request)
+        else:
+            try:
+                c_id = int(request.POST['c_id'])
+            except (KeyError, TypeError):
+                return HttpResponseBadRequest(Constants.bad_request)
+            try:
+                if c_id == request.session['c_id']:
+                    collection = Collection.objects.get(pk=c_id)
+                else:
+                    return HttpResponseForbidden()
+            except KeyError:
+                return HttpResponseForbidden()
         try:
             data = Common.pick(request.POST, [field.name for field in card._meta.get_fields()])
             card = card.objects.create(collection=collection, index=collection.last_index, **data)

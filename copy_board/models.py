@@ -114,9 +114,9 @@ class NumberCard(Card):
     def json(self):
         return super().json(**{
             'card_type': 'number',
-            'from_val': self.from_val,
-            'to_val': self.to_val if self.to_val is not None else Constants.undefined,
-            'step_val': self.step_val,
+            'from_val': float(self.from_val),
+            'to_val': float(self.to_val) if self.to_val is not None else Constants.undefined,
+            'step_val': float(self.step_val),
             'auto_copy': self.auto_copy,
             'endless': self.endless,
             'repeat': self.repeat,
