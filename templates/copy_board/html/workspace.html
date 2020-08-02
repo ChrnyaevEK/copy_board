@@ -4,159 +4,180 @@
 {% block content %}
 <div class="row">
     <div id="tool-holder" class="col s12 l2">
-        <label>Your collections</label>
-        <div id="collection_holder"></div>
-        {%if collection_builder%}
-        <label>Create new collection</label>
-        <div>
-            <!-- Tool to create collection -->
-            <form id="collection_builder" method="post" v-on:submit="createCollection">
-                {% csrf_token %}
-                <input name="title" v-model="title" required>
-                <p class="color-picker">
-                {% for item in Constants.color_set %}
-                    <label class="{{item}} lighten-3"><input name="color" type="radio" value="{{item.0}}" v-model:color/></label>
-                {% endfor %}
-                </p>
-                <p>
-                {% for item in Constants.acess_type_set %}
-                    <label><input name="acess_type" type="radio" value="{{item.0}}" v-model:acess_type/><span>{{item.1}}</span></label>
-                {% endfor %}
-                </p>
-                <input type="submit" class="btn" value="create" disabled>
-            </form>
+        <span>Your collections</span>
+        <div id="collection_holder">
+            <collection
+                v-for="collection in collections"
+                v-bind:key="collection.id"
+                v-bind:data="collection"
+            ></collection>
         </div>
+        {% if collection_builder %}
+        <!-- Tool to create collection -->
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header valign-wrapper blue-grey white-text">
+                    <span class="card-header truncate">Collection</span>
+                    <i class="material-icons">keyboard_arrow_down</i>
+                </div>
+                <div class="collapsible-body">
+                    <form id="collection_builder" v-on:submit.prevent.stop="create">
+                        {% csrf_token %}
+                        <label for="collection-builder-title">Title</label>
+                        <input name="title" v-model="title" id="collection-builder-title" required>
+                        <div class="access-type-picker">
+                        {% for item in Constants.access_type_set %}
+                            <label><input name="access_type" v-model="access_type" type="radio" value="{{item.0}}"/><span>{{item.1}}</span></label>
+                        {% endfor %}
+                        </div>
+                        <div class="color-picker">
+                        {% for item in Constants.color_set %}
+                            <input id="collection-builder-color-{{forloop.counter}}" type="radio" value="{{item.0}}" name="color" v-model="color"/><label for="collection-builder-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                        {% endfor %}
+                        </div>
+                        <input type="submit" class="btn-small btn-wide" value="create">
+                    </form>
+                </div>
+            </li>
+        </ul>
         {%endif%}
-        <label>Create new card</label>
-        <!-- Tool to create cards -->
-        <ul id="card-builder" class="collapsible">  // TODO
-            <!-- Tool to create regular card -->
-            <li class="card-builder-regular">
+        <span>Create card</span>
+        <ul id="card-builder" class="collapsible"> 
+            <li>
                 <div class="collapsible-header valign-wrapper blue-grey white-text">
                     <span class="card-header truncate">Regular card</span>
                     <i class="material-icons">keyboard_arrow_down</i>
                 </div>
-                <div class="collapsible-body grey lighten-5">
-                    <form method="post">
+                <div class="collapsible-body">
+                    <!-- Tool to create regular card -->
+                    <form id="regular_card_builder" v-on:submit.prevent.stop="create">
                         {% csrf_token %}
-                        <input name="title" class="card-title">
-                        <label>Card content (text to copy)</label>
-                        <textarea name="copy_content" class="card-content"></textarea>
-                        <div field="color" class="color-picker">
-                        {% for item in color_set %}
-                            <input id="card-regular-builder-{{item}}" name="color" type="radio" value="{{item}}"  {% if item == default_color %}checked{% endif %}/><label for="card-regular-builder-{{item}}" class="{{item}} lighten-3"></label>
+                        <label for="regular-card-builder-title">Title</label>
+                        <input v-model="title" name="title" id="regular-card-builder-title" required>
+                        <label for="regular-card-builder-textarea">Text to copy</label>
+                        <textarea  id="regular-card-builder-textarea" name="copy_content" v-model="copy_content" class="card-content" required></textarea>
+                        <div class="color-picker">
+                        {% for item in Constants.color_set %}
+                            <input v-model="color" name="color" id="regular-card-builder-color-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="regular-card-builder-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
                         {% endfor %}
                         </div>
-                        <p><input type="submit" class="btn" value="create"disabled/></p>
+                        <input type="hidden" name="c_id" value="{{c_id}}"/>
+                        <input type="submit" class="btn-small btn-wide" value="create"/>
                     </form>
                 </div>
             </li>
-            <!-- Tool to create iterative card - over numbers -->
-            <li class="card-builder-iterative-num">
+            <li>
                 <div class="collapsible-header valign-wrapper blue-grey white-text">
-                    <span class="card-header truncate">Card iterating over numbers</span>
+                    <span class="card-header truncate">Number card</span>
                     <i class="material-icons">keyboard_arrow_down</i>
                 </div>
                 <div class="collapsible-body">
-                    <form method="post">
+                    <!-- Tool to create card (numbers) -->
+                    <form id="number_card_builder" v-on:submit.prevent.stop="create">
                         {% csrf_token %}
-                        <input name="title" class="card-title">
+                        <label for="number-card-builder-title">Title</label>
+                        <input v-model="title" name="title" id="number-card-builder-title" required>
                         <div class="row">
-                            <div class="input-field col s4">
-                                <input name="from_val" type="number" value=0 class="validate">
-                                <label>from</label>
+                            <div class="col s4">
+                                <label for="number-card-builder-from">From</label>
+                                <input id="number-card-builder-from" name="from_val" v-model="from_val" type="number" class="validate" required>
                             </div>
-                            <div class="input-field col s4">
-                                <input name="to_val" type="number" value=1 class="validate">
-                                <label>to</label>
+                            <div class="col s4">
+                                <label for="number-card-builder-to">To</label>
+                                <input v-bind:disabled="endless" id="number-card-builder-to" name="to_val" v-model="to_val" type="number" class="validate">
                             </div>
-                            <div class="input-field col s4">
-                                <input name="step_val" type="number" value=1 class="validate">
-                                <label>step</label>
+                            <div class="col s4">
+                                <label for="number-card-builder-step">Step</label>
+                                <input id="number-card-builder-step" name="step_val" v-model="step_val" type="number" class="validate" required>
                             </div>
-                            <div field="expected" class="col s12 truncate grey-text lighten-3"></div>
-                            <div class="col s12 truncate"><p class="left red white-text lighten-3 hidden" field="error"></p></div>
                         </div>
+                        {%verbatim%}
+                            <p v-show="expected" class="wide left truncate">{{expected}}</p>
+                            <p v-show="error" class="truncate left red white-text lighten-3 wide center-align">Unable to create...</p>
+                        {%endverbatim%}
                         <p>
                             <label>
-                                <input  name="endless" type="checkbox" />
+                                <input v-model="endless" name="endless" type="checkbox" value="1" />
                                 <span>Endless</span>
-                            </label>
-                        </p><hr>
-                        <p>
-                            <label>
-                                <input name="repeat" type="checkbox" checked />
-                                <span>Repeat</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="random" type="checkbox" />
+                                <input v-model="repeat" name="repeat" type="checkbox" value="1"/>
+                                <span>Repeat values</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input v-model="random" name="random" type="checkbox" value="1" />
                                 <span>Random order</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="auto_copy" type="checkbox" />
+                                <input v-model="auto_copy" name="auto_copy" type="checkbox" value="1" />
                                 <span>Auto copy</span>
                             </label>
                         </p>
-                        <div field="color" class="color-picker">
-                            {% for item in color_set %}
-                                <input id="card-iter-num-builder-{{item}}" name="color" type="radio" value="{{item}}"  {% if item == default_color %}checked{% endif %}/><label for="card-iter-num-builder-{{item}}" class="{{item}} lighten-3"></label>
-                            {% endfor %}
+                        <div class="color-picker">
+                        {% for item in Constants.color_set %}
+                            <input v-model="color" name="color" id="number-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="number-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                        {% endfor %}
                         </div>
-                        <p><input type="submit" class="btn" value="create"disabled/></p>
+                        <input type="hidden" name="c_id" value="{{c_id}}"/>
+                        <input type="submit" class="btn-small btn-wide" value="create"/>
                     </form>
                 </div>
             </li>
-            <!-- Tool to create iterative card - over text -->
-            <li class="card-builder-iterative">
+            <li>
                 <div class="collapsible-header valign-wrapper blue-grey white-text">
-                    <span class="card-header truncate">Card iterating over text</span>
+                    <span class="card-header truncate">Text card</span>
                     <i class="material-icons">keyboard_arrow_down</i>
                 </div>
                 <div class="collapsible-body">
-                    <form method="post">
+                    <!-- Tool to create card (text) -->
+                    <form v-on:submit.prevent.stop="create" id="text_card_builder">
                         {% csrf_token %}
-                        <input name="title" class="card-title">
-                        <label>Delimiter</label>
-                        <input name="delimiter">
-                        <textarea name="content"></textarea>
-                        <div field="expected" class="col s12 truncate grey-text lighten-3"></div>
+                        <label for="text-card-builder-title">Title</label>
+                        <input v-model="title" name="title" id="text-card-builder-title" required>                    
+                        <label for="text-card-builder-delimiter">Delimiter</label>
+                        <input v-model="delimiter" name="delimiter" id="text-card-builder-delimiter" required>
+                        <label for="text-card-builder-textarea">Content</label>
+                        <textarea v-model="content" name="content" id="text-card-builder-textarea" required></textarea>
+                        {%verbatim%}
+                        <p v-show="expected" class="wide left truncate">{{expected}}</p>
+                        {%endverbatim%}
                         <p>
                             <label>
-                                <input name="remove_whitespace" type="checkbox" checked />
+                                <input v-model="remove_whitespace" name="remove_whitespace" type="checkbox" value="1" />
                                 <span>Remove whitespace</span>
                             </label>
                         </p>
-
-                        <hr>
-
                         <p>
                             <label>
-                                <input  name="repeat" type="checkbox" checked />
-                                <span>Auto repeat</span>
+                                <input v-model="repeat" name="repeat" type="checkbox" value="1" />
+                                <span>Repeat values</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="random" type="checkbox" />
+                                <input v-model="random" name="random" type="checkbox" value="1"/>
                                 <span>Random order</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="auto_copy" type="checkbox" />
-                                <span>Copy on prev/next</span>
+                                <input v-model="auto_copy" name="auto_copy" type="checkbox" value="1"/>
+                                <span>Auto copy</span>
                             </label>
                         </p>
-                        <div field="color" class="color-picker">
-                            {% for item in color_set %}
-                                <input id="card-iter-text-builder-{{item}}" name="color" type="radio" value="{{item}}"  {% if item == default_color %}checked{% endif %}/><label for="card-iter-text-builder-{{item}}" class="{{item}} lighten-3"></label>
-                            {% endfor %}
+                        <div class="color-picker">
+                        {% for item in Constants.color_set %}
+                            <input v-model="color" name="color" id="text-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="text-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                        {% endfor %}
                         </div>
-                        <p><input type="submit" class="btn" value="create"disabled/></p>
+                        <input type="hidden" name="c_id" value="{{c_id}}"/>
+                        <input type="submit" class="btn-small btn-wide" value="create"/>
                     </form>
                 </div>
             </li>
@@ -164,7 +185,25 @@
     </div>
     <!-- card holder - center -->
     <div class="col s12 l7">
-        <div id="card-holder" class="grid">
+        <div id="card_holder" class="grid">
+            <regular_card
+                v-for="card in cards"
+                v-if="card.card_type === 'regular' "
+                v-bind:key="card.creation_date"
+                v-bind:data="card"
+            ></regular_card>
+            <number_card
+                v-for="card in cards"
+                v-if="card.card_type === 'number' "
+                v-bind:key="card.creation_date"
+                v-bind:data="card"
+            ></number_card>
+            <text_card
+                v-for="card in cards"
+                v-if="card.card_type === 'text' "
+                v-bind:key="card.creation_date"
+                v-bind:data="card"
+            ></text_card>
         </div>
     </div>
 </div>

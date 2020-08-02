@@ -38,6 +38,10 @@ nav .user-name {
     margin: 0 .5rem 0 0;
 }
 
+.btn-wide, .wide {
+    width: 100%;
+}
+
 #cc-collection-holder {
     max-height: 30rem;
     margin: .5rem 0;
@@ -112,13 +116,14 @@ nav .user-name {
     padding: .5rem;
 }
 
-#tool-holder input, a, buccon {
+#tool-holder input, a, button {
     font-size: 1rem;
 }
 
-#tool-holder .color-picker {
+#tool-holder .color-picker, #tool-holder .access-type-picker {
     display: flex;
     justify-content: space-between;
+    padding: 3px 0;
 }
 
 #tool-holder .color-picker label {
@@ -147,16 +152,16 @@ nav .user-name {
     overflow: unset !important;
 }
 
-#card-holder .card {
+#card_holder .card {
     margin-top: 2px;
-    margin-boccom: 2px;
+    margin-bottom: 2px;
 }
 
-#card-holder {
+#card_holder {
     margin-top: .8rem;
 }
 
-#card-holder .card .card-title {
+#card_holder .card .card-title {
     font-size: 1rem;
     font-weight: 500;
     overflow: hidden;
@@ -165,7 +170,7 @@ nav .user-name {
     -webkit-box-orient: vertical;
 }
 
-#card-holder .card-regular-content, .card-iterative-content {
+#card_holder .card-regular-content, .card-iterative-content {
     font-size: 1rem;
     overflow: hidden;
     display: -webkit-box !important;
@@ -174,16 +179,16 @@ nav .user-name {
     word-break: break-all;
 }
 
-#card-holder .card .card-action {
+#card_holder .card .cc-card-action {
     display: flex;
     height: 100%;
 }
 
-#card-holder .card .card-action a {
+#card_holder .card .cc-card-action button {
     font-size: 1rem;
 }
 
-#card-holder .card .card-copy {
+#card_holder .card .copy {
     width: 100%;
 }
 
