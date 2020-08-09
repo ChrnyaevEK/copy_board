@@ -1,0 +1,90 @@
+{% extends "copy_board/html/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container" id="card_holder">
+    <h5 class="center">Copy board is a simple tools, which will greatly improve your copy-paste experience!</h5></br><hr>
+    <p class="center">
+        Keep all your notes at one place and copy any information you may need in a moment! 
+        Forget about Ctrl-C and annoying selecting - create card, click and paste!
+    </p>
+    <div class="card-panel center red lighten-3 white-text">
+        Please, make sure not to leave any kind of sensitive information yet! This project is only in test period and may face different kinds of issues. </br> Also you will be able to save your cards only after registration. </br> <strong> Thanks for understanding</strong> 
+    </div>
+    <div class="row">
+        <div class="col s12 m6 l4" id="number_card_controller">
+            <div class="color-picker">
+            {% for item in Constants.color_set %}
+                <input v-model="number_card.color" value="{{item.0}}" id="number_card-color-{{forloop.counter}}" type="radio"/><label for="number_card-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+            {% endfor %}
+            </div>
+            <number_card v-model="number_card" v-bind:data="number_card"></number_card>
+        </div>
+        <div class="col s12 m6 l4" id="regular_card_controller">
+            <div class="color-picker">
+            {% for item in Constants.color_set %}
+                <input v-model="regular_card.color" value="{{item.0}}" id="regular_card-color-{{forloop.counter}}" type="radio"/><label for="regular_card-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+            {% endfor %}
+            </div>
+            <regular_card v-model="regular_card" v-bind:data="regular_card"></regular_card>
+        </div>
+        <div class="col s12 m6 l4" id="text_card_controller">
+            <div class="color-picker">
+            {% for item in Constants.color_set %}
+                <input v-model="text_card.color" value="{{item.0}}" id="text_card-color-{{forloop.counter}}" type="radio"/><label for="text_card-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+            {% endfor %}
+            </div>
+            <text_card v-model="text_card" v-bind:data="text_card"></text_card>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block inject %}
+<script type="text/javascript" src="{% static 'common/js/vue.js' %}"></script>
+<script>{% include "copy_board/js/common.js" %} </script>
+<script> {% include "copy_board/js/components.js" %} </script>
+<script>
+    var number_card = {
+            'index': 0,
+            'title': 'Numeric card operates over numbers!',
+            'color': 'red',
+            'value': 0,
+            'from_val': 0,
+            'to_val': 100,
+            'step_val': 5,
+            'auto_copy': true,
+            'endless': false,
+            'repeat': true,
+            'random': false,
+        }
+    var regular_card = {
+            'index': 1,
+            'title': 'Regular card - copy and forget!',
+            'color': 'teal',
+            'copy_content': 'Regular cards may only copy single piece of information. Try to copy this text, for example. Simply press the "Copy" button!'
+        }
+    var text_card = {
+            'index': 2,
+            'title': 'Textual cards operate over text!',
+            'color': 'indigo',
+            'values': ['One','day','you','will','need','to','copy','some','long-long-list...','break','it','down','with','a','delimiter','and','go','ahead!'],
+            'last_index': 0,
+            'value': 'One',
+            'content': 'One day you will need to copy some long-long-list... break it down with a delimiter and go ahead!',
+            'delimiter': ' ',
+            'remove_whitespace': true,
+            'auto_copy': true,
+            'repeat': true,
+            'random': false,
+        }
+    var controller = new Vue({
+        el: '#card_holder',
+        data: {
+            number_card: number_card,
+            regular_card: regular_card,
+            text_card: text_card,
+        }
+    })
+</script>
+{%endblock%}

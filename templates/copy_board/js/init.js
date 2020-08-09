@@ -17,9 +17,6 @@ $(document).ready(function () {
     $('.tabs').tabs();
     masonry = $('.grid').masonry({
         itemSelector: '.grid-item',
-        columnWidth: '.grid-item',
-        percentPosition: true,
-        gutter: 3,
         horizontalOrder: true,
         transitionDuration: '0.6s'
       });

@@ -53,12 +53,12 @@
                     <form id="regular_card_builder" v-on:submit.prevent.stop="create">
                         {% csrf_token %}
                         <label for="regular-card-builder-title">Title</label>
-                        <input v-model="title" name="title" id="regular-card-builder-title" required>
+                        <input v-model="card.title" name="title" id="regular-card-builder-title" required>
                         <label for="regular-card-builder-textarea">Text to copy</label>
-                        <textarea  id="regular-card-builder-textarea" name="copy_content" v-model="copy_content" class="card-content" required></textarea>
+                        <textarea  id="regular-card-builder-textarea" name="copy_content" v-model="card.copy_content" class="card-content" required></textarea>
                         <div class="color-picker">
                         {% for item in Constants.color_set %}
-                            <input v-model="color" name="color" id="regular-card-builder-color-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="regular-card-builder-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                            <input v-model="card.color" name="color" id="regular-card-builder-color-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="regular-card-builder-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
                         {% endfor %}
                         </div>
                         <input type="hidden" name="c_id" value="{{c_id}}"/>
@@ -76,19 +76,19 @@
                     <form id="number_card_builder" v-on:submit.prevent.stop="create">
                         {% csrf_token %}
                         <label for="number-card-builder-title">Title</label>
-                        <input v-model="title" name="title" id="number-card-builder-title" required>
+                        <input v-model="card.title" name="title" id="number-card-builder-title" required>
                         <div class="row">
                             <div class="col s4">
                                 <label for="number-card-builder-from">From</label>
-                                <input id="number-card-builder-from" name="from_val" v-model="from_val" type="number" class="validate" required>
+                                <input id="number-card-builder-from" name="from_val" v-model="card.from_val" type="number" class="validate" required>
                             </div>
                             <div class="col s4">
                                 <label for="number-card-builder-to">To</label>
-                                <input v-bind:disabled="endless" id="number-card-builder-to" name="to_val" v-model="to_val" type="number" class="validate">
+                                <input v-bind:disabled="card.endless" id="number-card-builder-to" name="to_val" v-model="card.to_val" type="number" class="validate">
                             </div>
                             <div class="col s4">
                                 <label for="number-card-builder-step">Step</label>
-                                <input id="number-card-builder-step" name="step_val" v-model="step_val" type="number" class="validate" required>
+                                <input id="number-card-builder-step" name="step_val" v-model="card.step_val" type="number" class="validate" required>
                             </div>
                         </div>
                         {%verbatim%}
@@ -97,31 +97,31 @@
                         {%endverbatim%}
                         <p>
                             <label>
-                                <input v-model="endless" name="endless" type="checkbox" value="1" />
+                                <input v-model="card.endless" name="endless" type="checkbox" value="1" />
                                 <span>Endless</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="repeat" name="repeat" type="checkbox" value="1"/>
+                                <input v-model="card.repeat" name="repeat" type="checkbox" value="1"/>
                                 <span>Repeat values</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="random" name="random" type="checkbox" value="1" />
+                                <input v-model="card.random" name="random" type="checkbox" value="1" />
                                 <span>Random order</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="auto_copy" name="auto_copy" type="checkbox" value="1" />
+                                <input v-model="card.auto_copy" name="auto_copy" type="checkbox" value="1" />
                                 <span>Auto copy</span>
                             </label>
                         </p>
                         <div class="color-picker">
                         {% for item in Constants.color_set %}
-                            <input v-model="color" name="color" id="number-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="number-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                            <input v-model="card.color" name="color" id="number-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="number-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
                         {% endfor %}
                         </div>
                         <input type="hidden" name="c_id" value="{{c_id}}"/>
@@ -139,41 +139,41 @@
                     <form v-on:submit.prevent.stop="create" id="text_card_builder">
                         {% csrf_token %}
                         <label for="text-card-builder-title">Title</label>
-                        <input v-model="title" name="title" id="text-card-builder-title" required>                    
+                        <input v-model="card.title" name="title" id="text-card-builder-title" required>                    
                         <label for="text-card-builder-delimiter">Delimiter</label>
-                        <input v-model="delimiter" name="delimiter" id="text-card-builder-delimiter" required>
+                        <input v-model="card.delimiter" name="delimiter" id="text-card-builder-delimiter" required>
                         <label for="text-card-builder-textarea">Content</label>
-                        <textarea v-model="content" name="content" id="text-card-builder-textarea" required></textarea>
+                        <textarea v-model="card.content" name="content" id="text-card-builder-textarea" required></textarea>
                         {%verbatim%}
                         <p v-show="expected" class="wide left truncate">{{expected}}</p>
                         {%endverbatim%}
                         <p>
                             <label>
-                                <input v-model="remove_whitespace" name="remove_whitespace" type="checkbox" value="1" />
+                                <input v-model="card.remove_whitespace" name="remove_whitespace" type="checkbox" value="1" />
                                 <span>Remove whitespace</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="repeat" name="repeat" type="checkbox" value="1" />
+                                <input v-model="card.repeat" name="repeat" type="checkbox" value="1" />
                                 <span>Repeat values</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="random" name="random" type="checkbox" value="1"/>
+                                <input v-model="card.random" name="random" type="checkbox" value="1" />
                                 <span>Random order</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="auto_copy" name="auto_copy" type="checkbox" value="1"/>
+                                <input v-model="card.auto_copy" name="auto_copy" type="checkbox" value="1" />
                                 <span>Auto copy</span>
                             </label>
                         </p>
                         <div class="color-picker">
                         {% for item in Constants.color_set %}
-                            <input v-model="color" name="color" id="text-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="text-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                            <input v-model="card.color" name="color" id="text-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="text-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
                         {% endfor %}
                         </div>
                         <input type="hidden" name="c_id" value="{{c_id}}"/>
@@ -184,34 +184,34 @@
         </ul>
     </div>
     <!-- card holder - center -->
-    <div class="col s12 l7">
-        <div id="card_holder" class="grid">
-            <regular_card
-                v-for="card in cards"
-                v-if="card.card_type === 'regular' "
-                v-bind:key="card.creation_date"
-                v-bind:data="card"
-            ></regular_card>
-            <number_card
-                v-for="card in cards"
-                v-if="card.card_type === 'number' "
-                v-bind:key="card.creation_date"
-                v-bind:data="card"
-            ></number_card>
-            <text_card
-                v-for="card in cards"
-                v-if="card.card_type === 'text' "
-                v-bind:key="card.creation_date"
-                v-bind:data="card"
-            ></text_card>
+    <div class="col s12 l7 scroll-section">
+        <div id="card_holder" class="grid row">
+            <div class="grid-item col s12 m6 l4" v-for="card in cards">
+                <regular_card
+                    v-if="card.card_type === 'regular' "
+                    v-bind:key="card.creation_date"
+                    v-bind:data="card"
+                ></regular_card>
+                <number_card
+                    v-if="card.card_type === 'number' "
+                    v-bind:key="card.creation_date"
+                    v-bind:data="card"
+                ></number_card>
+                <text_card
+                    v-if="card.card_type === 'text' "
+                    v-bind:key="card.creation_date"
+                    v-bind:data="card"
+                ></text_card>
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block inject %}
-<script type="text/javascript" src="{% static 'common/js/masonry.min.js' %}"></script>
-<script> {% include "copy_board/js/interface_draggable.js" %} </script>
+<script type="text/javascript" src="{% static 'common/js/vue.js' %}"></script>
+<script>{% include "copy_board/js/common.js" %} </script>
 <script> {% include "copy_board/js/components.js" %} </script>
+<script type="text/javascript" src="{% static 'common/js/masonry.min.js' %}"></script>
 <script> {% include "copy_board/js/init.js" %} </script>
 {% endblock %}

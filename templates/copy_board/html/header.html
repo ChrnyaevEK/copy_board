@@ -1,0 +1,20 @@
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper white">
+            <a href="{% url 'index'%}" class="brand-logo blue-grey-text truncate">Copy board<label class="user-name">{{user.username}}</label></a>
+            <a href="#" data-target="mobile-menu" class="sidenav-trigger blue-grey-text"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a  class="blue-grey-text" href="{%url 'main_workspace'%}"><span>Workspace</span></a></li>
+                {%if user.is_authenticated%}
+                <li class="blue-grey"><a href="{%url 'logout'%}"><span>Logout</span></a></li>
+                {%else%}
+                <li class="blue-grey"><a href="{% url 'registration' %}"><span>Registration</span></a></li>
+                <li class="blue-grey"><a href="{% url 'login' %}"><span>Login</span></a></li>
+                {%endif%}
+            </ul>
+        </div>
+    </nav>
+</div>
+<ul class="sidenav" id="mobile-menu">
+    <li class="blue-grey"><a href="#" class="white-text"><span>{%if user%}Logout{%else%}Login{%endif%}</span><i class="material-icons white-text">person</i></a></li>
+</ul>

@@ -10,20 +10,34 @@
             <div class="col s12 offset-s0 l4 offset-l4">
                 {{ form.username.label_tag }}
                 {{ form.username }}
+                {% if form.username.errors %}
+                <div class="red lighten-3 white-text center">
+                    {% for error in form.username.errors %}
+                        <p>{{ error|escape }}</p>    
+                    {% endfor %}   
+                </div> 
+                {% endif %}
             </div>
         </div>
         <div class="row">
             <div class="col s12 offset-s0 l4 offset-l4">
                 {{ form.password.label_tag }}
                 {{ form.password }}
+                {% if form.password.errors %}
+                <div class="red lighten-3 white-text center">
+                    {% for error in form.password.errors %}
+                        <p>{{ error|escape }}</p>    
+                    {% endfor %}   
+                </div> 
+                {% endif %}
             </div>
         </div>
         <div class="row">
             <div class="col s12 offset-s0 l4 offset-l4 center">
-                <input type="submit" value="login" class="btn"/>
+                <input type="submit" value="login" class="btn blue-grey"/>
                 <div><a href="{% url 'password_reset' %}">Lost password?</a></div>
             </div>
-            <input type="hidden" name="next" value="{{ next }}"/>
+            <input type="hidden" name="next" value="{% url 'index' %}"/>
         </div>
     </form>
 </div>

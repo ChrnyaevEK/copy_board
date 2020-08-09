@@ -14,12 +14,10 @@
 
 <body>
     {% include "copy_board/html/header.html" %}
-    {% block content %}{%endblock%}
-    <script> {% include "copy_board/js/common.js" %} </script>
     <script type="text/javascript" src="{% static 'common/js/jquery-3.5.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'common/js/jquery-form.js' %}"></script>
     <script type="text/javascript" src="{% static 'common/js/materialize.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'common/js/vue.js' %}"></script>
+    {% block content %}{%endblock%}
     {% block inject %}{%endblock%}
 </body>
 </html>
