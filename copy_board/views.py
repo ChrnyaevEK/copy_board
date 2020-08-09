@@ -17,9 +17,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from itertools import chain
+import json
 
 
-# TODO Do not allow to create too much collections if user is not auth.
+@require_GET
+def index(request):
+    template = loader.get_template('copy_board/html/index.html')
+    return HttpResponse(template.render({
+        'Constants': Constants,
+        'user': request.user
+    }))
 
 
 @require_http_methods(["GET", "POST"])
@@ -30,18 +37,19 @@ def registration(request):
             'form': RegistrationForm,
         }, request))
     elif request.method == "POST":
-        if User.objects.filter(email__exact=request.POST['email']).exists():
-            return HttpResponseBadRequest('User already exist!')  # Resource exist
+        form = RegistrationForm(Common.get_data(request.POST))
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            collection = Collection.objects.create(user=user, title=Constants.default_title, is_main=True)
+            request.session['c_id'] = collection.id
+            return redirect(reverse('main_workspace'))
         else:
-            form = RegistrationForm(request.POST)
-            if form.is_valid():
-                user = form.save()
-                collection = Collection.objects.create(user=user, title=Constants.default_title)
-                request.session['c_id'] = collection.id
-                login(request, user)
-                return redirect(reverse('main_workspace'))
-            else:
-                return HttpResponseBadRequest(list(form.errors.values())[0])
+            template = loader.get_template('registration/registration.html')
+            return HttpResponse(template.render({
+                'form': form,
+                'errors': list(form.errors.items())[0][1]
+            }, request))
 
 
 @require_GET
@@ -59,12 +67,15 @@ def workspace(request, c_id=None):
                 if c_id == request.session['c_id']:
                     collection = Collection.objects.get(pk=c_id)
                 else:
-                    return HttpResponseForbidden()
+                    return redirect(reverse('workspace', kwargs={'c_id': request.session['c_id']}))
             except KeyError:
                 return HttpResponseForbidden()
     else:
         if user.is_authenticated:
-            collection = Collection.objects.get_or_create(user=user, is_main=True)[0]
+            try:
+                collection = Collection.objects.get(user=user, is_main=True)
+            except ObjectDoesNotExist:
+                collection = Collection.objects.create(user=user, is_main=True, title=Constants.default_title)
         else:
             try:
                 collection = Collection.objects.get(pk=request.session['c_id'])
@@ -86,10 +97,12 @@ def workspace(request, c_id=None):
     )
     return HttpResponse(template.render({
         'c_id': collection.id,
+        'workspace': True,
         'collection_builder': user.is_authenticated,
         'collections': Common.iter_json(collections),
         'cards': Common.iter_json(cards),
         'Constants': Constants,
+        'user': request.user,
     }, request))
 
 
@@ -98,11 +111,15 @@ class CollectionView:
     @require_POST
     def create(request):
         user = request.user
-        data = Common.pick(request.POST, [field.name for field in Collection._meta.get_fields()])
+        data = Common.pick(Common.get_data(request.POST), [field.name for field in Collection._meta.get_fields()])
         try:
-            collection = Collection.objects.create(user=user, **data) if user.is_authenticated else Collection(**data)
-        except IntegrityError:  # TODO check
-            return HttpResponseBadRequest('Not enough data')
+            if not data['title'].strip(): raise KeyError()
+        except KeyError:
+            return HttpResponseBadRequest(Constants.bad_request)
+        try:
+            collection = Collection.objects.create(user=user, **data)
+        except IntegrityError:
+            return HttpResponseBadRequest(Constants.bad_request)
         return JsonResponse(collection.json())
 
     @staticmethod
@@ -110,7 +127,7 @@ class CollectionView:
     def remove(request):
         user = request.user
         try:
-            Collection.objects.get(user=user, id=request.POST['id']).delete()
+            Collection.objects.get(user=user, pk=Common.get_data(request.POST)['id']).delete()
         except (KeyError, ObjectDoesNotExist):
             return HttpResponseBadRequest('Not enough data')
         return JsonResponse(Common.api(success='OK'))
@@ -118,16 +135,26 @@ class CollectionView:
 
 class CardView:
     @staticmethod
-    def create(request, card):
+    @require_POST
+    def create(request, card_type):
+        try:
+            card = {
+                'regular': RegularCard,
+                'number': NumberCard,
+                'text': TextCard,
+            }[card_type]
+        except KeyError:
+            return HttpResponseBadRequest(Constants.bad_request)
         user = request.user
+        data = Common.get_data(request.POST)
         if user.is_authenticated:
             try:
-                collection = Collection.objects.get(user, request.POST['c_id'])
+                collection = Collection.objects.get(user=user, pk=data['c_id'])
             except (KeyError, ObjectDoesNotExist):
                 return HttpResponseBadRequest(Constants.bad_request)
         else:
             try:
-                c_id = int(request.POST['c_id'])
+                c_id = int(data['c_id'])
             except (KeyError, TypeError):
                 return HttpResponseBadRequest(Constants.bad_request)
             try:
@@ -138,7 +165,7 @@ class CardView:
             except KeyError:
                 return HttpResponseForbidden()
         try:
-            data = Common.pick(request.POST, [field.name for field in card._meta.get_fields()])
+            data = Common.pick(data, [field.name for field in card._meta.get_fields()])
             card = card.objects.create(collection=collection, index=collection.last_index, **data)
         except IntegrityError:
             return HttpResponseBadRequest(Constants.bad_request)
@@ -149,18 +176,78 @@ class CardView:
 
     @staticmethod
     @require_POST
-    def create_regular(request):
-        return CardView.create(request, RegularCard)
+    def remove(request, card_type):
+        try:
+            card = {
+                'regular': RegularCard,
+                'number': NumberCard,
+                'text': TextCard,
+            }[card_type]
+        except KeyError:
+            return HttpResponseBadRequest(Constants.bad_request)
+        user = request.user
+        data = Common.get_data(request.POST)
+        if user.is_authenticated:
+            try:
+                collection = Collection.objects.get(user=user, pk=data['c_id'])
+            except (KeyError, ObjectDoesNotExist):
+                return HttpResponseBadRequest(Constants.bad_request)
+        else:
+            try:
+                c_id = int(data['c_id'])
+            except (KeyError, TypeError):
+                return HttpResponseBadRequest(Constants.bad_request)
+            try:
+                if c_id == request.session['c_id']:
+                    collection = Collection.objects.get(pk=c_id)
+                else:
+                    return HttpResponseForbidden()
+            except KeyError:
+                return HttpResponseForbidden()
+        try:
+            card.objects.get(collection=collection, pk=data['id']).delete()
+        except (KeyError, ObjectDoesNotExist):
+            return HttpResponseBadRequest(Constants.bad_request)
+        else:
+            return JsonResponse(Common.api(success='OK'))
 
     @staticmethod
     @require_POST
-    def create_number(request):
-        return CardView.create(request, NumberCard)
-
-    @staticmethod
-    @require_POST
-    def create_text(request):
-        return CardView.create(request, TextCard)
+    def update(request, card_type):
+        try:
+            card = {
+                'regular': RegularCard,
+                'number': NumberCard,
+                'text': TextCard,
+            }[card_type]
+        except KeyError:
+            return HttpResponseBadRequest(Constants.bad_request)
+        user = request.user
+        data = Common.get_data(request.POST)
+        if user.is_authenticated:
+            try:
+                collection = Collection.objects.get(user=user, pk=data['c_id'])
+            except (KeyError, ObjectDoesNotExist):
+                return HttpResponseBadRequest(Constants.bad_request)
+        else:
+            try:
+                c_id = int(data['c_id'])
+            except (KeyError, TypeError):
+                return HttpResponseBadRequest(Constants.bad_request)
+            try:
+                if c_id == request.session['c_id']:
+                    collection = Collection.objects.get(pk=c_id)
+                else:
+                    return HttpResponseForbidden()
+            except KeyError:
+                return HttpResponseForbidden()
+        try:
+            data = Common.pick(data, [field.name for field in card._meta.get_fields()])
+            card = card.objects.filter(collection=collection, pk=data['id']).update(**data)
+        except (KeyError, ObjectDoesNotExist):
+            return HttpResponseBadRequest(Constants.bad_request)
+        else:
+            return JsonResponse(Common.api(success='OK'))
 
 
 class Common:
@@ -177,6 +264,10 @@ class Common:
             'error': error,
             'data': data,
         }
+
+    @staticmethod
+    def get_data(obj):
+        return json.loads(obj['data'])
 
     @staticmethod
     def pick(source, fields):

@@ -14,7 +14,7 @@ urlpatterns = [
     path('<int:c_id>/', views.workspace, name='workspace'),
     path('collection/create/', views.CollectionView.create, name='collection_create'),
     path('collection/remove/', views.CollectionView.remove, name='collection_remove'),
-    path('card/regular/create/', views.CardView.create_regular, name='card_regular_create'),
-    path('card/number/create/', views.CardView.create_number, name='card_number_create'),
-    path('card/text/create/', views.CardView.create_text, name='card_text_create'),
+    path('card/<str:card_type>/create/', views.CardView.create, name='card_create'),
+    path('card/<str:card_type>/remove/', views.CardView.remove, name='card_remove'),
+    path('card/<str:card_type>/update/', views.CardView.update, name='card_update'),
 ]

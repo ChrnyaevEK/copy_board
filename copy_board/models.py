@@ -10,7 +10,7 @@ class Constants:
         ('cyan', 'Cyan'),
         ('teal', 'Teal'),
         ('green', 'Green'),
-        ('lime', 'Lime'),
+        ('amber', 'Amber'),
         ('orange', 'Orange'),
         ('red', 'Red'),
         ('pink', 'Pink'),
@@ -18,13 +18,13 @@ class Constants:
         ('indigo', 'Indigo'),
     )
     access_type_set = (
-        ('public', 'Public'),
+        # ('public', 'Public'),
         ('private', 'Private'),
-        ('protected', 'Protected'),
+        # ('protected', 'Protected'),
     )
 
-    default_color = 'blue'
-    default_access_type = 'public'
+    default_color = 'teal'
+    default_access_type = 'private'
     activated = 'on'
     undefined = 'undefined'
     default_title = 'Main'
@@ -37,7 +37,7 @@ class Collection(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     access_type = models.CharField(max_length=10, choices=Constants.access_type_set,
                                    default=Constants.default_access_type)
-    color = models.CharField(max_length=10, choices=Constants.color_set, default=Constants.color_set[0])
+    color = models.CharField(max_length=10, choices=Constants.color_set, default=Constants.default_color)
     last_index = models.IntegerField(default=0)
     is_main = models.BooleanField(default=False)
 
@@ -52,11 +52,12 @@ class Collection(models.Model):
     def json(self):
         return {
             'id': self.id,
+            'is_main': self.is_main,
             'title': self.title,
             'creation_date': self.creation_date.isoformat() if self.creation_date is not None else Constants.undefined,
             'access_type': self.access_type,
             'color': self.color,
-            'href': reverse('workspace', kwargs={'c_id':self.id})
+            'href': reverse('workspace', kwargs={'c_id': self.id})
         }
 
 
@@ -64,7 +65,7 @@ class Card(models.Model):
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
     creation_date = models.DateTimeField(auto_now_add=True)
-    color = models.CharField(max_length=10, choices=Constants.color_set, default=Constants.color_set[0])
+    color = models.CharField(max_length=10, choices=Constants.color_set, default=Constants.default_color)
     index = models.IntegerField()
 
     def __str__(self):
@@ -114,6 +115,7 @@ class NumberCard(Card):
     def json(self):
         return super().json(**{
             'card_type': 'number',
+            'value': float(self.from_val),
             'from_val': float(self.from_val),
             'to_val': float(self.to_val) if self.to_val is not None else Constants.undefined,
             'step_val': float(self.step_val),
@@ -139,6 +141,9 @@ class TextCard(Card):
     def json(self):
         return super().json(**{
             'card_type': 'text',
+            'last_index': 0,
+            'values': self.content.split(self.delimiter),
+            'value': self.content.split(self.delimiter)[0],
             'content': self.content,
             'delimiter': self.delimiter,
             'remove_whitespace': self.remove_whitespace,
