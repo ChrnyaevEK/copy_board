@@ -20,8 +20,18 @@ from itertools import chain
 import json
 
 
+def client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    print(f'Request IP: {ip}')
+
+
 @require_GET
 def index(request):
+    client_ip(request)
     template = loader.get_template('copy_board/html/index.html')
     return HttpResponse(template.render({
         'Constants': Constants,
@@ -37,7 +47,7 @@ def registration(request):
             'form': RegistrationForm,
         }, request))
     elif request.method == "POST":
-        form = RegistrationForm(Common.get_data(request.POST))
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)

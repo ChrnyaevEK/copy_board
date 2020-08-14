@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container" id="card_holder">
-    <h5 class="center">Copy board is a simple tools, which will greatly improve your copy-paste experience!</h5></br><hr>
+    <h5 class="center">Copy board is a simple tool, which will greatly improve your copy-paste experience!</h5></br><hr>
     <p class="center">
         Keep all your notes at one place and copy any information you may need in a moment! 
         Forget about Ctrl-C and annoying selecting - create card, click and paste!
@@ -35,6 +35,17 @@
             {% endfor %}
             </div>
             <text_card v-model="text_card" v-bind:data="text_card"></text_card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 l4">
+            <a class="btn wide blue-grey" href="{% url 'registration' %}">Registration</a>
+        </div>
+        <div class="col s12 l4">
+            <a class="btn wide blue-grey" href="{% url 'main_workspace' %}">Try!</a>
+        </div>
+        <div class="col s12 l4">
+            <a class="btn wide blue-grey" href="{% url 'login' %}">Login</a>
         </div>
     </div>
 </div>
@@ -86,5 +97,6 @@
             text_card: text_card,
         }
     })
+     $('.sidenav').sidenav();
 </script>
 {%endblock%}

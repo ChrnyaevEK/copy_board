@@ -80,7 +80,7 @@ Vue.component('regular_card', {
                 <div class="card-regular-content">{{copy_content}}</div>
             </div>
             <div>
-                <button v-bind:class="color" href="#!" draggable="false" v-on:click="copy" class="lighten-2 btn btn-wide copy">copy</button>
+                <button v-bind:class="color" href="#!" draggable="false" v-on:click="copy" class="lighten-2 btn btn-wide copy truncate">copy</button>
             </div>
         </div>
     </div>
@@ -156,7 +156,7 @@ Vue.component('number_card', {
                 <div class="cc-card-action">
                     <button v-bind:class="color" v-on:click="copyPrev" class="btn lighten-2"><i class="material-icons">navigate_before</i></button>
                     <button v-bind:class="color" v-on:click="reload" class="btn lighten-2"><i class="material-icons">loop</i></button>
-                    <button v-bind:class="color" v-on:click="copy" class="btn btn-wide lighten-2">copy</button>
+                    <button v-bind:class="color" v-on:click="copy" class="btn btn-wide lighten-2 truncate">copy</button>
                     <button v-bind:class="color" v-on:click="copyNext" class="btn lighten-2"><i class="material-icons">navigate_next</i></button>
                 </div>
             </div>
