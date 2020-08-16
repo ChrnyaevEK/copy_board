@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0f1e04f3-7c73-480a-801e-dd72635cc52b" name="Project" comment="uwsgi">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/egor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/copy_board/templatetags/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/copy_board/templatetags/common.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plugins/python_plugin.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/common/css/materialize.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/toptools_uwsgi.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uwsgi_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/toptools.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/toptools.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/copy_board/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/copy_board/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/copy_board/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/copy_board/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/copy_board/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/copy_board/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/common/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/common/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/common/js/vue.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/common/js/vue.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sync.sh" beforeDir="false" afterPath="$PROJECT_DIR$/sync.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/copy_board/html/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/html/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/copy_board/html/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/html/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/copy_board/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/copy_board/html/workspace.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/html/workspace.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/copy_board/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/js/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/copy_board/js/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/js/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/copy_board/js/init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_confirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_confirm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toptools/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/toptools/settings.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="PRESERVE_MERGES" value="true" />
+    <option name="ONTO" value="refs/remotes/origin/master" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master_backup" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1erYAz6UD1auhgSBQiuhE04sqYv" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/registration" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/copy_board" />
+      <recent name="$PROJECT_DIR$/templates/copy_board/js" />
+      <recent name="$PROJECT_DIR$/templates/copy_board/html" />
+      <recent name="$PROJECT_DIR$/static/common/js/library" />
+      <recent name="$PROJECT_DIR$/static/common" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/registration" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Local server" type="PythonConfigurationType" factoryName="Python">
+      <module name="toptools" />
+      <option name="INTERPRETER_OPTIONS" value="manage.py runserver" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="TOPTOOLS_RUN_CONTEXT" value="DEBUG" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f1e04f3-7c73-480a-801e-dd72635cc52b" name="Project" comment="" />
+      <created>1595081038779</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1595081038779</updated>
+    </task>
+    <task id="LOCAL-00001">
+      <created>1595090642931</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1595090642931</updated>
+    </task>
+    <task id="LOCAL-00002" summary="initial">
+      <created>1595091060246</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1595091060246</updated>
+    </task>
+    <task id="LOCAL-00003" summary="models and structure">
+      <created>1595098549818</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1595098549818</updated>
+    </task>
+    <task id="LOCAL-00004" summary="clean up">
+      <created>1595154941917</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1595154941917</updated>
+    </task>
+    <task id="LOCAL-00005" summary="create collections">
+      <created>1595174074226</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1595174074226</updated>
+    </task>
+    <task id="LOCAL-00006" summary="iterative card builder, reg card builder">
+      <created>1595183097105</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1595183097106</updated>
+    </task>
+    <task id="LOCAL-00007" summary="working, start of user auth">
+      <created>1595702520220</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1595702520220</updated>
+    </task>
+    <task id="LOCAL-00008" summary="vue and registration">
+      <created>1596296750353</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1596296750353</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Vue">
+      <created>1596384888137</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1596384888137</updated>
+    </task>
+    <task id="LOCAL-00010" summary="?????????????????????///">
+      <created>1596408376159</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1596408376159</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fin">
+      <created>1596989180052</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1596989180052</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fin">
+      <created>1596989208339</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1596989208339</updated>
+    </task>
+    <task id="LOCAL-00013" summary="uwsgi">
+      <created>1597430330348</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1597430330348</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="initial" />
+    <MESSAGE value="models and structure" />
+    <MESSAGE value="clean up" />
+    <MESSAGE value="create collections" />
+    <MESSAGE value="iterative card builder, reg card builder" />
+    <MESSAGE value="working, start of user auth" />
+    <MESSAGE value="vue and registration" />
+    <MESSAGE value="Vue" />
+    <MESSAGE value="?????????????????????///" />
+    <MESSAGE value="fin" />
+    <MESSAGE value="uwsgi" />
+    <option name="LAST_COMMIT_MESSAGE" value="uwsgi" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="649" y="252" width="1084" height="828" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597500195736">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="649" y="252" width="1084" height="828" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597500195736" />
+    <state x="696" y="346" width="528" height="394" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597506972097">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="696" y="346" width="528" height="394" key="#com.intellij.fileTypes.FileTypeChooser/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597506972097" />
+    <state x="1120" y="0" width="790" height="1080" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1596281228585">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="1120" y="0" width="790" height="1080" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1596281228585" />
+    <state x="616" y="189" width="678" height="709" key="CommitChangelistDialog2" timestamp="1595090642940">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="616" y="189" width="678" height="709" key="CommitChangelistDialog2/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595090642940" />
+    <state x="182" y="97" width="1536" height="901" key="DiffContextDialog" timestamp="1596989233205">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="182" y="97" width="1536" height="901" key="DiffContextDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1596989233205" />
+    <state width="651" height="620" key="GridCell.Tab.0.bottom" timestamp="1597602047737">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state width="651" height="620" key="GridCell.Tab.0.bottom/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597602047737" />
+    <state width="651" height="620" key="GridCell.Tab.0.center" timestamp="1597602047737">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state width="651" height="620" key="GridCell.Tab.0.center/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597602047737" />
+    <state width="651" height="620" key="GridCell.Tab.0.left" timestamp="1597602047737">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state width="651" height="620" key="GridCell.Tab.0.left/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597602047737" />
+    <state width="651" height="620" key="GridCell.Tab.0.right" timestamp="1597602047737">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state width="651" height="620" key="GridCell.Tab.0.right/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597602047737" />
+    <state x="472" y="175" width="977" height="737" key="SettingsEditor" timestamp="1597491432161">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="472" y="175" width="977" height="737" key="SettingsEditor/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597491432161" />
+    <state x="784" y="252" width="341" height="589" key="VCS.ChangeListViewerDialog" timestamp="1595174287663">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="784" y="252" width="341" height="589" key="VCS.ChangeListViewerDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595174287663" />
+    <state x="793" y="413" width="324" height="268" key="VCS.EditChangelistDialog" timestamp="1596988814774">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="793" y="413" width="324" height="268" key="VCS.EditChangelistDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1596988814774" />
+    <state x="512" y="1356" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1597430343008">
+      <screen x="0" y="1080" width="1920" height="1080" />
+    </state>
+    <state x="512" y="1356" key="Vcs.Push.Dialog.v2/0.1080.1920.1080/58.0.1862.1080@0.1080.1920.1080" timestamp="1596296752205" />
+    <state x="555" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1596989234114" />
+    <state x="512" y="1356" key="Vcs.Push.Dialog.v2/0.1080.1920.1080/58.867.1862.213@0.1080.1920.1080" timestamp="1597430343008" />
+    <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1596988905042">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1596988905042" />
+    <state x="676" y="172" width="557" height="742" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597493639518">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="676" y="172" width="557" height="742" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597493639518" />
+    <state x="766" y="458" width="378" height="171" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595090715910">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="766" y="458" width="378" height="171" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595090715910" />
+    <state x="744" y="333" width="432" height="421" key="git4idea.merge.GitMergeDialog" timestamp="1595174857161">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="744" y="333" width="432" height="421" key="git4idea.merge.GitMergeDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595174857161" />
+    <state x="677" y="333" width="555" height="421" key="git4idea.merge.GitPullDialog" timestamp="1595174196751">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="677" y="333" width="555" height="421" key="git4idea.merge.GitPullDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595174196751" />
+    <state x="762" y="405" width="396" height="276" key="git4idea.rebase.GitRebaseDialog" timestamp="1595174811088">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="762" y="405" width="396" height="276" key="git4idea.rebase.GitRebaseDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595174811088" />
+    <state x="799" y="457" width="311" height="172" key="git4idea.rebase.GitUnstructuredEditor" timestamp="1595174813584">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="799" y="457" width="311" height="172" key="git4idea.rebase.GitUnstructuredEditor/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595174813584" />
+    <state x="764" y="452" width="381" height="183" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1595174162128">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="764" y="452" width="381" height="183" key="git4idea.remote.GitConfigureRemotesDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595174162128" />
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1597503368011">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597503368011" />
+    <state x="374" y="298" key="vcs.ApplyPatchDifferentiatedDialog" timestamp="1595090681313">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state x="374" y="298" key="vcs.ApplyPatchDifferentiatedDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1595090681313" />
+  </component>
+</project>
