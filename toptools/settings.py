@@ -22,7 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8s7s9xt@13#_%*ltx-tx19^cg0^_7pstf3r+hz-cto*7wk#^ky'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = False  # Set Debug off
+try:
+    DEBUG = os.environ['TOPTOOLS_RUN_CONTEXT'] == 'DEBUG'  # If run locally - will be in debug mode
+except KeyError:
+    pass
 
 ALLOWED_HOSTS = ['127.0.0.1', 'www.toptools.tech', 'toptools.tech', '188.120.230.184']
 
@@ -96,6 +101,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
@@ -120,10 +129,10 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGOUT_REDIRECT_URL = 'index'
 LOGIN_REDIRECT_URL = 'index'
 

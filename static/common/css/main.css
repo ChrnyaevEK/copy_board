@@ -52,6 +52,12 @@ nav .user-name {
     width: 100%;
 }
 
+.btn-slim, .slim {
+    width: auto;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
 #cc-collection-holder {
     max-height: 30rem;
     margin: .5rem 0;
@@ -64,8 +70,6 @@ nav .user-name {
 .cc-collection {
     margin: .1rem;
     padding: .3rem;
-    margin: .3rem;
-    box-shadow: 0 0 3px 0px #a3a3a3;
 }
 
 .cc-collection .card-content {
@@ -107,7 +111,6 @@ nav .user-name {
 }
 
 #tool-holder .collapsible-header {
-    height: 2.5rem;
     display: flex;
     justify-content: space-between;
 }
@@ -147,14 +150,14 @@ nav .user-name {
     box-shadow: 0 0 5px 0px black;
 }
 
-#card-builder textarea {
+#card_builder textarea {
     height: 7rem;
     border-radius: 0.2rem;
     resize: vertical;
     border-style: solid;
 }
 
-#card-builder .tabs a {
+#card_builder .tabs a {
     text-align: center;
     width: 100%;
     font-size: 1rem !important;
@@ -168,7 +171,7 @@ nav .user-name {
 }
 
 #card_holder {
-    margin-top: .8rem;
+    margin-top: .3rem;
 }
 
 #card_holder .card .card-title {

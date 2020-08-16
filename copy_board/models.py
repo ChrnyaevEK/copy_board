@@ -42,7 +42,7 @@ class Collection(models.Model):
     is_main = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return f'{self.title}[user={self.user}]'
 
     class Meta:
         verbose_name = 'Collection'
@@ -57,7 +57,7 @@ class Collection(models.Model):
             'creation_date': self.creation_date.isoformat() if self.creation_date is not None else Constants.undefined,
             'access_type': self.access_type,
             'color': self.color,
-            'href': reverse('workspace', kwargs={'c_id': self.id})
+            'href': reverse('workspace', kwargs={'cid': self.id})
         }
 
 
@@ -69,7 +69,7 @@ class Card(models.Model):
     index = models.IntegerField()
 
     def __str__(self):
-        return self.title
+        return f'{self.title}[collection={self.collection}]'
 
     class Meta:
         abstract = True

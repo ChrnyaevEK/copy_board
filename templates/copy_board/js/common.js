@@ -121,6 +121,14 @@ class UIDGenerator {
     }
 }
 
+function plainVue(obj) {
+    res = {}
+    for (let i of Object.getOwnPropertyNames(obj)) {
+        if (i[0] !== '_' && i[0] !== '$' ) res[i] = obj[i]
+    }
+    return res
+}
+
 class UIDBuilder extends UIDGenerator {
     static length = 6
     static delimiter = '__'

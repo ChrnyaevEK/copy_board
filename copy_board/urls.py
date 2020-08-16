@@ -11,10 +11,9 @@ urlpatterns = [
          name='password_reset'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('registration/', views.registration, name="registration"),
-    path('<int:c_id>/', views.workspace, name='workspace'),
+    path('<int:cid>/', views.workspace, name='workspace'),
     path('collection/create/', views.CollectionView.create, name='collection_create'),
     path('collection/remove/', views.CollectionView.remove, name='collection_remove'),
-    path('card/<str:card_type>/create/', views.CardView.create, name='card_create'),
+    path('card/<str:card_type>/update_create/', views.CardView.update_create, name='card_update_create'),
     path('card/<str:card_type>/remove/', views.CardView.remove, name='card_remove'),
-    path('card/<str:card_type>/update/', views.CardView.update, name='card_update'),
 ]

@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="row">
-    <div id="tool-holder" class="col s12 l2">
+    <div id="tool-holder" class="col s12 m4 l2">
         <span>Your collections</span>
         <div id="collection_holder">
             <collection
@@ -16,7 +16,7 @@
         <!-- Tool to create collection -->
         <ul class="collapsible">
             <li>
-                <div class="collapsible-header valign-wrapper blue-grey white-text">
+                <div class="collapsible-header valign-wrapper {{main_color}} white-text">
                     <span class="card-header truncate">Collection</span>
                     <i class="material-icons">keyboard_arrow_down</i>
                 </div>
@@ -35,158 +35,165 @@
                             <input id="collection-builder-color-{{forloop.counter}}" type="radio" value="{{item.0}}" name="color" v-model="color"/><label for="collection-builder-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
                         {% endfor %}
                         </div>
-                        <input type="submit" class="btn-small btn-wide" value="create">
+                        <input type="submit" class="btn-small btn-wide {{main_submit_color}}" value="create">
                     </form>
                 </div>
             </li>
         </ul>
         {%endif%}
         <span>Create card</span>
-        <ul id="card-builder" class="collapsible"> 
+        <ul id="card_builder" class="collapsible"> 
             <li>
-                <div class="collapsible-header valign-wrapper blue-grey white-text">
+                <div class="collapsible-header valign-wrapper {{main_color}} white-text">
                     <span class="card-header truncate">Regular card</span>
                     <i class="material-icons">keyboard_arrow_down</i>
                 </div>
                 <div class="collapsible-body">
-                    <!-- Tool to create regular card -->
-                    <form id="regular_card_builder" v-on:submit.prevent.stop="create">
-                        {% csrf_token %}
+                    <form id="regular_card_builder" v-on:submit.stop.prevent="update_create">
+                        <!-- Tool to create regular card -->
                         <label for="regular-card-builder-title">Title</label>
-                        <input v-model="card.title" name="title" id="regular-card-builder-title" required>
+                        <input v-model="card.title" id="regular-card-builder-title" required>
                         <label for="regular-card-builder-textarea">Text to copy</label>
-                        <textarea  id="regular-card-builder-textarea" name="copy_content" v-model="card.copy_content" class="card-content" required></textarea>
+                        <textarea  id="regular-card-builder-textarea" v-model="card.copy_content" class="card-content" required></textarea>
                         <div class="color-picker">
-                        {% for item in Constants.color_set %}
-                            <input v-model="card.color" name="color" id="regular-card-builder-color-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="regular-card-builder-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
-                        {% endfor %}
+                            {% for item in Constants.color_set %}
+                                <input v-model="card.color" id="regular-card-builder-color-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="regular-card-builder-color-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                            {% endfor %}
                         </div>
-                        <input type="hidden" name="c_id" value="{{c_id}}"/>
-                        <input type="submit" class="btn-small btn-wide" value="create"/>
+                        <div class="row right-align">
+                            <div class="col s12">
+                                <a v-show="edition_mode" v-on:click="clean" class="btn-small lighten-2 {{main_cancel_color}}">cancel</a>
+                                <input type="submit" class="btn-small {{main_submit_color}}" value="save"/>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </li>
             <li>
-                <div class="collapsible-header valign-wrapper blue-grey white-text">
+                <div class="collapsible-header valign-wrapper {{main_color}} white-text">
                     <span class="card-header truncate">Number card</span>
                     <i class="material-icons">keyboard_arrow_down</i>
                 </div>
                 <div class="collapsible-body">
                     <!-- Tool to create card (numbers) -->
-                    <form id="number_card_builder" v-on:submit.prevent.stop="create">
-                        {% csrf_token %}
+                    <form id="number_card_builder" v-on:submit.prevent.stop="update_create">
                         <label for="number-card-builder-title">Title</label>
-                        <input v-model="card.title" name="title" id="number-card-builder-title" required>
+                        <input v-model="card.title" id="number-card-builder-title" required>
                         <div class="row">
                             <div class="col s4">
                                 <label for="number-card-builder-from">From</label>
-                                <input id="number-card-builder-from" name="from_val" v-model="card.from_val" type="number" class="validate" required>
+                                <input id="number-card-builder-from" v-model="card.from_val" type="number" class="validate" required>
                             </div>
                             <div class="col s4">
                                 <label for="number-card-builder-to">To</label>
-                                <input v-bind:disabled="card.endless" id="number-card-builder-to" name="to_val" v-model="card.to_val" type="number" class="validate">
+                                <input v-bind:disabled="card.endless" id="number-card-builder-to" v-model="card.to_val" type="number" class="validate">
                             </div>
                             <div class="col s4">
                                 <label for="number-card-builder-step">Step</label>
-                                <input id="number-card-builder-step" name="step_val" v-model="card.step_val" type="number" class="validate" required>
+                                <input id="number-card-builder-step" v-model="card.step_val" type="number" class="validate" required>
                             </div>
                         </div>
-                        {%verbatim%}
-                            <p v-show="expected" class="wide left truncate">{{expected}}</p>
+                {%verbatim%}<p v-show="expected" class="wide left truncate">{{expected}}</p>{%endverbatim%}
                             <p v-show="error" class="truncate left red white-text lighten-3 wide center-align">Unable to create...</p>
-                        {%endverbatim%}
+                        
                         <p>
                             <label>
-                                <input v-model="card.endless" name="endless" type="checkbox" value="1" />
+                                <input v-model="card.endless" type="checkbox" value="1" />
                                 <span>Endless</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="card.repeat" name="repeat" type="checkbox" value="1"/>
+                                <input v-model="card.repeat" type="checkbox" value="1"/>
                                 <span>Repeat values</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="card.random" name="random" type="checkbox" value="1" />
+                                <input v-model="card.random" type="checkbox" value="1" />
                                 <span>Random order</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="card.auto_copy" name="auto_copy" type="checkbox" value="1" />
+                                <input v-model="card.auto_copy" type="checkbox" value="1" />
                                 <span>Auto copy</span>
                             </label>
                         </p>
-                        <div class="color-picker">
+                        <div class="color-picker"> 
                         {% for item in Constants.color_set %}
-                            <input v-model="card.color" name="color" id="number-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="number-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                            <input v-model="card.color" id="number-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="number-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
                         {% endfor %}
                         </div>
-                        <input type="hidden" name="c_id" value="{{c_id}}"/>
-                        <input type="submit" class="btn-small btn-wide" value="create"/>
+                        <div class="row right-align">
+                            <div class="col s12">
+                                <a v-show="edition_mode" v-on:click="clean" class="btn-small lighten-2 {{main_cancel_color}}">cancel</a>
+                                <input type="submit" class="btn-small {{main_submit_color}}" value="save"/>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </li>
             <li>
-                <div class="collapsible-header valign-wrapper blue-grey white-text">
+                <div class="collapsible-header valign-wrapper {{main_color}} white-text">
                     <span class="card-header truncate">Text card</span>
                     <i class="material-icons">keyboard_arrow_down</i>
                 </div>
                 <div class="collapsible-body">
                     <!-- Tool to create card (text) -->
-                    <form v-on:submit.prevent.stop="create" id="text_card_builder">
+                    <form v-on:submit.prevent.stop="update_create" id="text_card_builder">
                         {% csrf_token %}
                         <label for="text-card-builder-title">Title</label>
-                        <input v-model="card.title" name="title" id="text-card-builder-title" required>                    
+                        <input v-model="card.title" id="text-card-builder-title" required>                    
                         <label for="text-card-builder-delimiter">Delimiter</label>
-                        <input v-model="card.delimiter" name="delimiter" id="text-card-builder-delimiter" required>
+                        <input v-model="card.delimiter" id="text-card-builder-delimiter" required>
                         <label for="text-card-builder-textarea">Content</label>
-                        <textarea v-model="card.content" name="content" id="text-card-builder-textarea" required></textarea>
-                        {%verbatim%}
-                        <p v-show="expected" class="wide left truncate">{{expected}}</p>
-                        {%endverbatim%}
+                        <textarea v-model="card.content" id="text-card-builder-textarea" required></textarea>
+            {%verbatim%}<p v-show="expected" class="wide left truncate">{{expected}}</p>{%endverbatim%}
                         <p>
                             <label>
-                                <input v-model="card.remove_whitespace" name="remove_whitespace" type="checkbox" value="1" />
+                                <input v-model="card.remove_whitespace" type="checkbox" value="1" />
                                 <span>Remove whitespace</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="card.repeat" name="repeat" type="checkbox" value="1" />
+                                <input v-model="card.repeat" type="checkbox" value="1" />
                                 <span>Repeat values</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="card.random" name="random" type="checkbox" value="1" />
+                                <input v-model="card.random" type="checkbox" value="1" />
                                 <span>Random order</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input v-model="card.auto_copy" name="auto_copy" type="checkbox" value="1" />
+                                <input v-model="card.auto_copy" type="checkbox" value="1" />
                                 <span>Auto copy</span>
                             </label>
                         </p>
                         <div class="color-picker">
                         {% for item in Constants.color_set %}
-                            <input v-model="card.color" name="color" id="text-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="text-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
+                            <input v-model="card.color" id="text-card-builder-{{forloop.counter}}" type="radio" value="{{item.0}}"/><label for="text-card-builder-{{forloop.counter}}" class="{{item.0}} lighten-3"></label>
                         {% endfor %}
                         </div>
-                        <input type="hidden" name="c_id" value="{{c_id}}"/>
-                        <input type="submit" class="btn-small btn-wide" value="create"/>
+                        <div class="row right-align">
+                            <div class="col s12">
+                                <a v-show="edition_mode" v-on:click="clean" class="btn-small lighten-2 {{main_cancel_color}}">cancel</a>
+                                <input type="submit" class="btn-small {{main_submit_color}}" value="save"/>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </li>
         </ul>
     </div>
     <!-- card holder - center -->
-    <div class="col s12 l7 scroll-section">
-        <div id="card_holder" class="grid row">
-            <div class="grid-item col s12 m6 l4" v-for="card in cards">
+    <div class="col s12 m8 l8 scroll-section">
+        <div id="card_holder" class="grid row" :key="componentKey" >
+            <div class="grid-item col s12 m6 l3" v-for="card in cards">
                 <regular_card
                     v-if="card.card_type === 'regular' "
                     v-bind:key="card.creation_date"
@@ -209,9 +216,9 @@
 {% endblock %}
 
 {% block inject %}
+<script type="text/javascript" src="{% static 'common/js/masonry.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'common/js/vue.js' %}"></script>
 <script>{% include "copy_board/js/common.js" %} </script>
 <script> {% include "copy_board/js/components.js" %} </script>
-<script type="text/javascript" src="{% static 'common/js/masonry.min.js' %}"></script>
-<script> {% include "copy_board/js/init.js" %} </script>
+<script> {% include "copy_board/js/application.js" %} </script>
 {% endblock %}
