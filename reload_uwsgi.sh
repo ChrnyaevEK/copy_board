@@ -1,2 +1,2 @@
 #!/bin/bash
-kill -HUP `cat /tmp/uwsgi.pid`
+uwsgi --reload /tmp/uwsgi.pid
