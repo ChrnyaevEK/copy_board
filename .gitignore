@@ -1,5 +1,2 @@
-./venv/*
-./venv
-./db.sqlite3
-/copy_board/migrations/*
-/.idea/*
+copy_board/migrations/
+.idea/debug.log
