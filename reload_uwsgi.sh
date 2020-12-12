@@ -1,2 +1,2 @@
 #!/bin/bash
-uwsgi --reload /tmp/toptools.pid
+kill -HUP `cat /tmp/toptools.pid`

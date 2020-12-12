@@ -2,3 +2,4 @@
 ./venv
 ./db.sqlite3
 /copy_board/migrations/*
+/.idea/*
