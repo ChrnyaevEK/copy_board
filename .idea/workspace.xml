@@ -10,34 +10,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f1e04f3-7c73-480a-801e-dd72635cc52b" name="Project" comment="uwsgi">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/egor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/copy_board/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/copy_board/templatetags/common.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plugins/python_plugin.so" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/common/css/materialize.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/toptools_uwsgi.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uwsgi_params" afterDir="false" />
+    <list default="true" id="0f1e04f3-7c73-480a-801e-dd72635cc52b" name="Project" comment="edition, todo -collections">
+      <change afterPath="$PROJECT_DIR$/reload_uwsgi.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/toptools.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/toptools.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copy_board/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/copy_board/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copy_board/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/copy_board/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copy_board/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/copy_board/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/common/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/common/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/common/js/vue.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/common/js/vue.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sync.sh" beforeDir="false" afterPath="$PROJECT_DIR$/sync.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/copy_board/html/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/html/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/copy_board/html/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/html/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/copy_board/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/copy_board/html/workspace.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/html/workspace.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/copy_board/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/js/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/copy_board/js/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copy_board/js/components.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/copy_board/js/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_confirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_confirm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toptools/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/toptools/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/guardian/img/icon-no.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/guardian/img/icon-yes.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sync.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +55,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/registration" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -217,7 +197,21 @@
       <option name="project" value="LOCAL" />
       <updated>1597430330348</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="edition, todo -collections">
+      <created>1597604084463</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1597604084463</updated>
+    </task>
+    <task id="LOCAL-00015" summary="edition, todo -collections">
+      <created>1597604144800</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1597604144800</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,7 +241,8 @@
     <MESSAGE value="?????????????????????///" />
     <MESSAGE value="fin" />
     <MESSAGE value="uwsgi" />
-    <option name="LAST_COMMIT_MESSAGE" value="uwsgi" />
+    <MESSAGE value="edition, todo -collections" />
+    <option name="LAST_COMMIT_MESSAGE" value="edition, todo -collections" />
   </component>
   <component name="WindowStateProjectService">
     <state x="649" y="252" width="1084" height="828" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597500195736">
@@ -270,22 +265,26 @@
       <screen x="58" y="0" width="1862" height="1080" />
     </state>
     <state x="182" y="97" width="1536" height="901" key="DiffContextDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1596989233205" />
-    <state width="651" height="620" key="GridCell.Tab.0.bottom" timestamp="1597602047737">
+    <state x="738" y="301" width="424" height="491" key="FileChooserDialogImpl" timestamp="1599465354029">
       <screen x="58" y="0" width="1862" height="1080" />
     </state>
-    <state width="651" height="620" key="GridCell.Tab.0.bottom/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597602047737" />
-    <state width="651" height="620" key="GridCell.Tab.0.center" timestamp="1597602047737">
+    <state x="738" y="301" width="424" height="491" key="FileChooserDialogImpl/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1599465354029" />
+    <state width="651" height="620" key="GridCell.Tab.0.bottom" timestamp="1597604190246">
       <screen x="58" y="0" width="1862" height="1080" />
     </state>
-    <state width="651" height="620" key="GridCell.Tab.0.center/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597602047737" />
-    <state width="651" height="620" key="GridCell.Tab.0.left" timestamp="1597602047737">
+    <state width="651" height="620" key="GridCell.Tab.0.bottom/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597604190246" />
+    <state width="651" height="620" key="GridCell.Tab.0.center" timestamp="1597604190246">
       <screen x="58" y="0" width="1862" height="1080" />
     </state>
-    <state width="651" height="620" key="GridCell.Tab.0.left/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597602047737" />
-    <state width="651" height="620" key="GridCell.Tab.0.right" timestamp="1597602047737">
+    <state width="651" height="620" key="GridCell.Tab.0.center/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597604190246" />
+    <state width="651" height="620" key="GridCell.Tab.0.left" timestamp="1597604190246">
       <screen x="58" y="0" width="1862" height="1080" />
     </state>
-    <state width="651" height="620" key="GridCell.Tab.0.right/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597602047737" />
+    <state width="651" height="620" key="GridCell.Tab.0.left/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597604190246" />
+    <state width="651" height="620" key="GridCell.Tab.0.right" timestamp="1597604190246">
+      <screen x="58" y="0" width="1862" height="1080" />
+    </state>
+    <state width="651" height="620" key="GridCell.Tab.0.right/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597604190246" />
     <state x="472" y="175" width="977" height="737" key="SettingsEditor" timestamp="1597491432161">
       <screen x="58" y="0" width="1862" height="1080" />
     </state>
@@ -298,11 +297,11 @@
       <screen x="58" y="0" width="1862" height="1080" />
     </state>
     <state x="793" y="413" width="324" height="268" key="VCS.EditChangelistDialog/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1596988814774" />
-    <state x="512" y="1356" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1597430343008">
-      <screen x="0" y="1080" width="1920" height="1080" />
+    <state x="555" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1597604173904">
+      <screen x="58" y="0" width="1862" height="1080" />
     </state>
     <state x="512" y="1356" key="Vcs.Push.Dialog.v2/0.1080.1920.1080/58.0.1862.1080@0.1080.1920.1080" timestamp="1596296752205" />
-    <state x="555" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1596989234114" />
+    <state x="555" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/0.1080.1920.1080/58.0.1862.1080@58.0.1862.1080" timestamp="1597604173904" />
     <state x="512" y="1356" key="Vcs.Push.Dialog.v2/0.1080.1920.1080/58.867.1862.213@0.1080.1920.1080" timestamp="1597430343008" />
     <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1596988905042">
       <screen x="58" y="0" width="1862" height="1080" />
