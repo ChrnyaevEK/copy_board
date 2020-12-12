@@ -1,2 +1,2 @@
 #!/bin/bash
-kill -HUP `cat /tmp/toptools.pid`
+kill -HUP `cat /tmp/uwsgi.pid`
