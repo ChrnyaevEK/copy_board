@@ -1,2 +1,2 @@
 #!/bin/bash
-uwsgi toptools.ini
+uwsgi --ini toptools.ini
